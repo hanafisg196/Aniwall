@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui.theme
+package com.anisuki.animewallpapers.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

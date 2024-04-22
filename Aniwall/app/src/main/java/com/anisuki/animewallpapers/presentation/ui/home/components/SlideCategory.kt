@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui.home.components
+package com.anisuki.animewallpapers.presentation.ui.home.components
 
 
 import androidx.compose.foundation.background
@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
-import com.anisuki.animewallpapers.ui.fonts.Fonts
-import com.anisuki.animewallpapers.ui.home.catItems
+import com.anisuki.animewallpapers.presentation.ui.fonts.Fonts
+import com.anisuki.animewallpapers.presentation.ui.home.catItems
 
 
 @Composable

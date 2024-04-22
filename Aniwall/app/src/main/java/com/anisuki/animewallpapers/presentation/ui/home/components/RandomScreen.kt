@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui.home.components
+package com.anisuki.animewallpapers.presentation.ui.home.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +17,8 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,25 +27,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
-import com.anisuki.animewallpapers.ui.fonts.Fonts
-import com.anisuki.animewallpapers.ui.home.pages
+import com.anisuki.animewallpapers.presentation.ui.fonts.Fonts
+import com.anisuki.animewallpapers.presentation.ui.home.RandomListViewModel
+import com.anisuki.animewallpapers.presentation.ui.home.pages
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun WallpaperSlide() {
+fun RandomScreen(
+    viewModel: RandomListViewModel= hiltViewModel()
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-        
+
     ) {
+        val state = viewModel.state.value
         val pagerState = rememberPagerState(initialPage = 0) {
-            pages.size
+            state.random.size
         }
         HorizontalPager(
             state = pagerState,
@@ -53,7 +61,7 @@ fun WallpaperSlide() {
                 .height(500.dp)
                 .align(Alignment.CenterHorizontally)
         ) { index ->
-            val wallpaper = pages[index]
+            val wallpaper = state.random[index]
             Card(
                 shape = RoundedCornerShape(15.dp),
                 modifier = Modifier
@@ -66,7 +74,7 @@ fun WallpaperSlide() {
                     val context = LocalContext.current
                     AsyncImage(
                         model = ImageRequest.Builder(context)
-                            .data(wallpaper.image)
+                            .data(wallpaper.thumbnail)
                             .crossfade(true)
                             .scale(Scale.FILL)
                             .build(),
@@ -84,7 +92,7 @@ fun WallpaperSlide() {
 
                     ) {
                         Text(
-                            text = wallpaper.user,
+                            text = wallpaper.title,
                             color = Color.White,
                             fontFamily = Fonts.fontFamily,
                             fontWeight = FontWeight.SemiBold,
@@ -92,7 +100,7 @@ fun WallpaperSlide() {
                         )
 
                         Text(
-                            text = wallpaper.description,
+                            text = wallpaper.title,
                             color = Color.White,
                             fontFamily = Fonts.fontFamily,
                             fontWeight = FontWeight.Light,
@@ -104,6 +112,20 @@ fun WallpaperSlide() {
 
                 }
 
+            }
+            if(state.error.isNotBlank()) {
+                Text(
+                    text = state.error,
+                    color = Color.Black,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
+            if(state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
             }
 
 

@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui.home.components
+package com.anisuki.animewallpapers.presentation.ui.home.components
 
 import androidx.compose.runtime.Composable
 

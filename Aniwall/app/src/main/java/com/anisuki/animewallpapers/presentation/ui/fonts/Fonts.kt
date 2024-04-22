@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui.fonts
+package com.anisuki.animewallpapers.presentation.ui.fonts
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily

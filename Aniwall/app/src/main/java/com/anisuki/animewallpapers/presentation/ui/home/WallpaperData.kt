@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui.home
+package com.anisuki.animewallpapers.presentation.ui.home
 
 data class WallpaperPage(
     val user: String,

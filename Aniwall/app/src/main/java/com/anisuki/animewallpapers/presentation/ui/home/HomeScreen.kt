@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui.home
+package com.anisuki.animewallpapers.presentation.ui.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -29,9 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.anisuki.animewallpapers.R
-import com.anisuki.animewallpapers.ui.home.components.SlideCategory
-import com.anisuki.animewallpapers.ui.home.components.WallpaperSlide
-import com.anisuki.animewallpapers.ui.fonts.Fonts
+import com.anisuki.animewallpapers.presentation.ui.home.components.SlideCategory
+
+import com.anisuki.animewallpapers.presentation.ui.fonts.Fonts
+import com.anisuki.animewallpapers.presentation.ui.home.components.RandomScreen
 
 @Preview(showSystemUi = true)
 @Composable
@@ -47,7 +48,7 @@ fun HomeScreen()
             TopBar(name = "Walfy")
             Spacer(modifier = Modifier.height(6.dp))
              SlideCategory()
-             WallpaperSlide()
+              RandomScreen()
 
 
     }

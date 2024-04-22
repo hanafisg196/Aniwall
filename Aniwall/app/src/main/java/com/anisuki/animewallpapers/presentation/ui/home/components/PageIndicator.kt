@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui.home.components
+package com.anisuki.animewallpapers.presentation.ui.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
