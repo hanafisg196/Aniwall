@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "Sphere">]>
+
+
+<resources>
+    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+
+
+    <string name="app_name">&appname;</string>
+    <string name="pro" translatable="false">PRO</string>
+    <string name="pro__" translatable="false">PRO?</string>
+
+
+    <string name="something_went_wrong">Somthing went wrong</string>
+    <string name="featured_items">Featured items</string>
+    <string name="download_now">Download now</string>
+    <string name="live">Live</string>
+    <string name="all">All</string>
+    <string name="simple">Simple</string>
+    <string name="wallpaper">Wallpaper</string>
+    <string name="no_data_found">No Data Found</string>
+    <string name="no_favourites">No Favourites</string>
+    <string name="search_here">Search here</string>
+    <string name="no_data_for">No data for</string>
+    <string name="select">Select</string>
+    <string name="locked">Locked</string>
+    <string name="premium">Premium</string>
+    <string name="all_wallpaper">All Wallpaper</string>
+    <string name="notification">Notification</string>
+    <string name="rate_us">Rate us</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_amp_condition">Terms &amp; Condition</string>
+    <string name="restore_purchases">Restore Purchases</string>
+    <string name="restore">Restore</string>
+    <string name="enjoy_all_premium_features_for_a_full_year_and_best_price">Enjoy all premium features for a full year and best price</string>
+    <string name="why_go_with">Why go with</string>
+    <string name="become_a">Become a</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="delete_my_account">Delete my account</string>
+    <string name="access_to_premium_content_ad_free_experience_for_month">Access to premium content &amp; ad-free experience for month</string>
+    <string name="subscribe_to">Subscribe to</string>
+    <string name="subscribe_to_pro_version_and_enjoy_nexclusive_benefits_listed_below">Subscribe to PRO version and enjoy exclusive benefits listed below</string>
+    <string name="monthly">Monthly</string>
+    <string name="yearly">Yearly</string>
+    <string name="policy_text">After 3 day free trial, this subscription automatically renews as per the plan. Subscription will automatically renew unless cancelled within 24 hours before the end of the current period. You can manage and cancel your subscription  anytime from your google play account settings.</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="fully_ad_free_experience">Fully Ad free experience</string>
+    <string name="access_to_all_the_premium_tracks">Access to all the premium tracks</string>
+    <string name="technical_support">Technical support</string>
+    <string name="terms_of_use">Terms Of Use</string>
+    <string name="download">Download</string>
+    <string name="preview">Preview</string>
+    <string name="saved_to_gallery">Saved to Gallery</string>
+    <string name="there_is_no_subscriptions">Nothing to restore</string>
+    <string name="subscriptions_restored_successfully">Subscriptions Restored successfully</string>
+    <string name="enjoy_access_to_all_premium_wallpapers_with_ad_free_experience">Enjoy access to all premium Wallpapers with ad-free experience.</string>
+
+
+</resources>
