@@ -1,0 +1,85 @@
+package com.anisuki.animewallpapers.ui.home.components
+
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.anisuki.animewallpapers.ui.home.SlideViewModel
+import com.anisuki.animewallpapers.ui.Screen
+import com.anisuki.animewallpapers.ui.shimmer.SlideShimmer
+import kotlinx.coroutines.delay
+
+
+@Composable
+
+fun SlideScreen(
+    navController: NavController,
+    slideViewModel: SlideViewModel = hiltViewModel()
+) {
+    val state by slideViewModel.state.collectAsState()
+
+    LazyRow {
+        items(state.size) { index ->
+            val slideItem = state[index]
+
+            Box(
+                modifier = Modifier
+                    .padding(start = 15.dp, top = 2.dp, bottom = 15.dp)
+                    .clickable {
+                      navController.navigate(route = Screen.TestScreen.route)
+                    }
+                    .background(color = Color.Transparent, shape = RoundedCornerShape(10.dp))
+                    .clip(RoundedCornerShape(10.dp))
+                    .width(200.dp)
+                    .height(90.dp)
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+
+//                    var isLoading by remember {
+//                        mutableStateOf(true)
+//
+//                    }
+//                    LaunchedEffect(key1 = true) {
+//                            delay(1000)
+//                        isLoading = false
+//                    }
+//                    SlideShimmer(isLoading = isLoading) {
+//
+//                    }
+                    SlideItem(slide = slideItem)
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
