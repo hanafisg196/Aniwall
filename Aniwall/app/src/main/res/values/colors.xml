@@ -10,4 +10,10 @@
 
     <color name="women">#f4f0ed</color>
     <color name="men">#edeef5</color>
+    <color name="grayButton">#eeeeee</color>
+    <color name="whiteTrans">#ebebea</color>
+    <color name="blueBird">#488cff</color>
+    <color name="pinkCustom"> #ff4081</color>
+
+
 </resources>

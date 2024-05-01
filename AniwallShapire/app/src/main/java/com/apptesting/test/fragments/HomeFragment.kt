@@ -18,6 +18,7 @@ import com.apptesting.test.adapter.HomeCatAdapter
 import com.apptesting.test.databinding.FragmentHomeBinding
 import com.apptesting.test.model.AllData
 import com.apptesting.test.utils.Const
+import com.apptesting.test.utils.Const.QUERY_PAGE_SIZE
 import com.apptesting.test.utils.Global
 import com.apptesting.test.viewmodel.HomeViewModel
 import com.apptesting.test.viewmodel.MainViewModel
@@ -54,12 +55,32 @@ class HomeFragment : BaseFragment(), Runnable {
 
 
     var scrolledByUser = false
+    var isLastPage = false
+    var isLoading = false
+
     private fun initListener() {
 
 
         binding.rvFeatured.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+
+                val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+                val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
+                val isAtNotBeginning = firstVisibleItemPosition >=0
+                val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
+                val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isAtNotBeginning &&
+                        isTotalMoreThanVisible && scrolledByUser
+                if (shouldPaginate)
+                {
+                   scrolledByUser = false
+                }
+
 
 
             }
