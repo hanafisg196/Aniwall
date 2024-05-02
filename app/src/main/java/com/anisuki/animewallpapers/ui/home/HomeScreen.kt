@@ -29,36 +29,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.anisuki.animewallpapers.R
-import com.anisuki.animewallpapers.model.ButtonMenuContent
+import com.anisuki.animewallpapers.model.BottomMenus
 import com.anisuki.animewallpapers.ui.fonts.Fonts
 import com.anisuki.animewallpapers.ui.home.components.ButtonMenu
 import com.anisuki.animewallpapers.ui.home.components.RandomScreen
 import com.anisuki.animewallpapers.ui.home.components.SlideScreen
+import com.anisuki.animewallpapers.ui.navgraph.Screen
 
 
 @Composable
-fun HomeScreen(navController:NavHostController)
-{
-    Column (
+fun HomeScreen(navController:NavHostController) {
+    Column(
         modifier = Modifier
             .fillMaxSize()
 
     )
     {
-             Spacer(modifier = Modifier.height(4.dp))
-             TopBar(name = "Aniwall")
-             Spacer(modifier = Modifier.height(6.dp))
-             SlideScreen(navController)
-             RandomScreen(navController)
-             Spacer(modifier = Modifier.height(13.dp))
-            ButtonMenu(items =  listOf(
-            ButtonMenuContent(R.drawable.category),
-            ButtonMenuContent(R.drawable.compass),
-            ButtonMenuContent(R.drawable.search),
-            ButtonMenuContent(R.drawable.heart),
-
+        Spacer(modifier = Modifier.height(4.dp))
+        TopBar(name = "Aniwall")
+        Spacer(modifier = Modifier.height(6.dp))
+        SlideScreen(navController)
+        RandomScreen(navController)
+        Spacer(modifier = Modifier.height(13.dp))
+        val items = listOf(
+            BottomMenus(R.drawable.category),
+            BottomMenus(R.drawable.compass),
+            BottomMenus(R.drawable.search),
+            BottomMenus(R.drawable.heart)
         )
-            )
+        ButtonMenu(items = items) { clickedItem ->
+                when(clickedItem.iconId){
+                    R.drawable.category -> {
+
+                    }
+                    R.drawable.compass -> {
+                        navController.navigate(Screen.WallpapersScreen.route)
+                    }
+                    R.drawable.search -> {
+
+                    }
+                    R.drawable.heart -> {
+
+                    }
+                }
+        }
     }
 }
 

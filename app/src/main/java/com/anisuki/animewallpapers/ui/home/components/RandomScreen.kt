@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.anisuki.animewallpapers.ui.Screen
+import com.anisuki.animewallpapers.ui.navgraph.Screen
 import com.anisuki.animewallpapers.ui.home.RandomViewModel
 
 

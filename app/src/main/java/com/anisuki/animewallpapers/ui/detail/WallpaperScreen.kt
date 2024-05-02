@@ -29,8 +29,8 @@ fun WallpaperScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         wallpaperState?.let { wallpaper ->
-           val test = wallpaper.type
-            if (test.contains(".mp4"))
+           val videoUrl = wallpaper.type
+            if (videoUrl.contains(".mp4"))
             {
                 VideoDetailItem(wallpaper)
             }else {

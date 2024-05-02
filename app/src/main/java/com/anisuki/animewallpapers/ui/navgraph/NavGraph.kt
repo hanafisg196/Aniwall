@@ -1,4 +1,4 @@
-package com.anisuki.animewallpapers.ui
+package com.anisuki.animewallpapers.ui.navgraph
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.anisuki.animewallpapers.ui.detail.WallpaperScreen
 import com.anisuki.animewallpapers.ui.home.HomeScreen
 import com.anisuki.animewallpapers.ui.home.components.RandomScreen
+import com.anisuki.animewallpapers.ui.wallpapers.WallpapersScreen
 
 
 @Composable
@@ -33,6 +34,12 @@ fun SetNav(navController: NavHostController)
             navBackStackEntry ->
             val wallpaperId = navBackStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
             WallpaperScreen(wallpaperId = wallpaperId)
+        }
+
+        composable(
+            route = Screen.WallpapersScreen.route
+        ){
+           WallpapersScreen()
         }
 
 

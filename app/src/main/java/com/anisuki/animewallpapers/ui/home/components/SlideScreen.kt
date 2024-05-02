@@ -13,12 +13,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,9 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anisuki.animewallpapers.ui.home.SlideViewModel
-import com.anisuki.animewallpapers.ui.Screen
-import com.anisuki.animewallpapers.ui.shimmer.SlideShimmer
-import kotlinx.coroutines.delay
+import com.anisuki.animewallpapers.ui.navgraph.Screen
 
 
 @Composable
@@ -48,7 +42,7 @@ fun SlideScreen(
                 modifier = Modifier
                     .padding(start = 15.dp, top = 2.dp, bottom = 15.dp)
                     .clickable {
-                      navController.navigate(route = Screen.TestScreen.route)
+//                      navController.navigate(route = Screen.TestScreen.route)
                     }
                     .background(color = Color.Transparent, shape = RoundedCornerShape(10.dp))
                     .clip(RoundedCornerShape(10.dp))

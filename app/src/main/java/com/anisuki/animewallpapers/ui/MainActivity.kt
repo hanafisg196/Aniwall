@@ -7,9 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.anisuki.animewallpapers.ui.detail.WallpaperScreen
+import com.anisuki.animewallpapers.ui.navgraph.SetNav
 import com.anisuki.animewallpapers.ui.theme.AniwallTheme
-import com.anisuki.animewallpapers.ui.wallpapers.WallpapersScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,9 +21,9 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             AniwallTheme {
-//               navController = rememberNavController()
-//                SetNav(navController)
-               WallpapersScreen()
+               navController = rememberNavController()
+                SetNav(navController)
+
 
             }
         }

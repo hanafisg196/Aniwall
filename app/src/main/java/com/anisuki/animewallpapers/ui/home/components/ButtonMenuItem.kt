@@ -15,12 +15,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.anisuki.animewallpapers.model.ButtonMenuContent
+import com.anisuki.animewallpapers.model.BottomMenus
 
 @Composable
 fun ButtonMenuItem(
-    item:ButtonMenuContent,
-    onItemClick: () -> Unit
+    item:BottomMenus,
+    onItemClick: (BottomMenus) -> Unit
 )
 {
     Column (
@@ -28,7 +28,7 @@ fun ButtonMenuItem(
         verticalArrangement = Arrangement.Center,
         modifier =
         Modifier.clickable {
-            onItemClick.invoke()
+           onItemClick(item)
         }
     ) {
         Box(
