@@ -2,6 +2,10 @@ package com.anisuki.animewallpapers.di
 
 import com.anisuki.animewallpapers.common.Constants.BASE_URL
 import com.anisuki.animewallpapers.data.ApiService
+import com.anisuki.animewallpapers.repository.PopularRepo
+import com.anisuki.animewallpapers.repository.WallpapersRepo
+import com.anisuki.animewallpapers.repository.impl.PopularRepoImpl
+import com.anisuki.animewallpapers.repository.impl.WallpapersRepoImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,4 +33,10 @@ object AppModule {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
     }
+
+    @Provides
+    fun provideWallpapersRepository(api: ApiService): WallpapersRepo = WallpapersRepoImpl(api)
+
+    @Provides
+    fun providePopularRepository(api: ApiService): PopularRepo = PopularRepoImpl(api)
 }

@@ -3,12 +3,18 @@ package com.anisuki.animewallpapers.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
+import android.Manifest
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.navigation.compose.rememberNavController
-import com.anisuki.animewallpapers.ui.navgraph.SetNav
+import com.anisuki.animewallpapers.presentation.navgraph.SetNav
 import com.anisuki.animewallpapers.ui.theme.AniwallTheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -16,11 +22,24 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
  private lateinit var navController : NavHostController
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         installSplashScreen()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT
+            )
+
+        )
+        super.onCreate(savedInstanceState)
+
+
         setContent {
+
             AniwallTheme {
+
                navController = rememberNavController()
                 SetNav(navController)
 

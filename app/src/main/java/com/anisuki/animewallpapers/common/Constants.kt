@@ -8,5 +8,6 @@ object Constants {
     private const val BASE = "https://aniwall.kyoani-publisher.xyz/"
     const val BASE_URL = BASE + "api/"
     const val ITEM_URL = BASE + "storage/"
+    const val ITEM_PAGE = 5
 
 }

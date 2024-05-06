@@ -72,10 +72,12 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-
     implementation ("androidx.compose.ui:ui-util-android:1.6.6")
-    //navcompose
+
+
+    //Navigation Compose
     implementation ("androidx.navigation:navigation-compose:2.7.7")
+
     //Splash Api
     implementation ("androidx.core:core-splashscreen:1.0.1")
     //Coil
@@ -83,27 +85,22 @@ dependencies {
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.15.1")
     // Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     //Datastore
-    implementation ("androidx.datastore:datastore-preferences:1.1.0")
+    implementation ("androidx.datastore:datastore-preferences:1.1.1")
     //exoplayer
     implementation ("androidx.media3:media3-exoplayer:1.3.1")
     implementation ("androidx.media3:media3-ui:1.3.1")
-
-    // Room
-    implementation( "androidx.room:room-ktx:2.6.1")
-    kapt ("androidx.room:room-compiler:2.6.1")
-    implementation ("androidx.room:room-paging:2.6.1")
-
-    // Paging
-    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
-    implementation ("androidx.paging:paging-compose:3.2.1")
-
-
-
+    // Paging 3.0
+    implementation ("androidx.paging:paging-compose:1.0.0-alpha16")
+    //Shape
+    implementation ("androidx.graphics:graphics-shapes:1.0.0-beta01")
+    //Permissions
+    implementation ("com.google.accompanist:accompanist-permissions:0.24.9-beta")
 
 }
 kapt {
