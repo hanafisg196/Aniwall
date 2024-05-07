@@ -1,10 +1,12 @@
 package com.anisuki.animewallpapers.presentation.detail.components
 
+import android.annotation.SuppressLint
+import android.app.DownloadManager
 import android.app.ProgressDialog
-import android.app.WallpaperManager
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.widget.Toast
+import android.net.Uri
+import android.os.Handler
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,18 +38,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.anisuki.animewallpapers.R
+import com.anisuki.animewallpapers.common.Constants.ITEM_URL
 import com.anisuki.animewallpapers.model.Wallpaper
+import com.anisuki.animewallpapers.services.VideoWallpaperService
+import com.anisuki.animewallpapers.services.downloadDataLiveWallpaper
 import com.anisuki.animewallpapers.ui.fonts.Fonts
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.URL
+import com.pixplicity.easyprefs.library.Prefs
+import java.io.File
+import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheet(wallpaper: Wallpaper)
 {
+    val context = LocalContext.current
+    val dataUrl = ITEM_URL + wallpaper.type
+
 
         var showDialog by remember {
             mutableStateOf(false)
@@ -102,11 +109,17 @@ fun BottomSheet(wallpaper: Wallpaper)
                                 .clip(RoundedCornerShape(30.dp))
                                 .background(colorResource(id = R.color.blueBird))
                                 .clickable {
-
-
-                                           showDialog = true
-
-                                },
+                                    if (dataUrl.contains(".mp4")) {
+                                        val fileName = "live_wallpaper.mp4"
+                                        downloadDataLiveWallpaper(context, dataUrl, fileName) { filePath ->
+                                            Prefs.putString("video_file", filePath)
+                                            VideoWallpaperService.start(context,filePath)
+                                        }
+                                    } else {
+                                        showDialog = true
+                                    }
+                                }
+                            ,
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
@@ -138,7 +151,10 @@ fun BottomSheet(wallpaper: Wallpaper)
                             modifier = Modifier
                                 .size(50.dp)
                                 .clip(RoundedCornerShape(30.dp))
-                                .background(colorResource(id = R.color.pinkCustom)),
+                                .background(colorResource(id = R.color.pinkCustom))
+                                .clickable {
+                                
+                                },
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
@@ -177,7 +193,6 @@ fun BottomSheet(wallpaper: Wallpaper)
     }
 
 }
-
 
 
 

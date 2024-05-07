@@ -1,3 +1,6 @@
+import java.util.Properties
+
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -22,7 +25,13 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+//        val properties = Properties()
+//        properties.load(project.rootProject.file("local.properties").inputStream())
+//        buildConfigField ("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
+//        buildConfigField ("String","APP_ID","\"${properties.getProperty("APP_ID")}\"")
+
     }
+
 
     buildTypes {
         release {
@@ -101,6 +110,10 @@ dependencies {
     implementation ("androidx.graphics:graphics-shapes:1.0.0-beta01")
     //Permissions
     implementation ("com.google.accompanist:accompanist-permissions:0.24.9-beta")
+
+        implementation ("com.pixplicity.easyprefs:EasyPrefs:1.10.0")
+
+
 
 }
 kapt {

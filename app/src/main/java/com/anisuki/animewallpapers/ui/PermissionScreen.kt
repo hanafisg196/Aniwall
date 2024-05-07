@@ -12,8 +12,9 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 fun PermissionScreen(navController: NavHostController) {
     RequestPermissions(
         permissions = listOf(
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+
             Manifest.permission.POST_NOTIFICATIONS
+
         ),
         deniedMessage = "Give this app permission to proceed. If it doesn't work, you'll have to do it manually from the settings.",
         rationaleMessage = "To use this app's functionalities, you need to give us the permission.",

@@ -1,24 +1,28 @@
 package com.anisuki.animewallpapers.services
 
+
 import android.app.WallpaperManager
-import android.content.*
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
-import java.io.File
+import com.pixplicity.easyprefs.library.Prefs
 import java.io.IOException
 
-
-class VideoWallpaperService: WallpaperService() {
+class VideoWallpaperService : WallpaperService() {
     internal inner class VideoEngine : Engine() {
         private var mediaPlayer: MediaPlayer? = null
+
         override fun onCreate(surfaceHolder: SurfaceHolder) {
             super.onCreate(surfaceHolder)
         }
 
         override fun onSurfaceCreated(holder: SurfaceHolder) {
             super.onSurfaceCreated(holder)
-            val videoFilePath = File(filesDir , "VIDEO/benkkstudio.mp4").absolutePath
+            val videoFilePath = Prefs.getString("video_file", "")
+
             mediaPlayer = MediaPlayer().apply {
                 setSurface(holder.surface)
                 setDataSource(videoFilePath)
@@ -32,22 +36,18 @@ class VideoWallpaperService: WallpaperService() {
 
         override fun onVisibilityChanged(visible: Boolean) {
             if (visible) {
-                mediaPlayer!!.start()
+                mediaPlayer?.start()
             } else {
-                mediaPlayer!!.pause()
+                mediaPlayer?.pause()
             }
         }
 
         override fun onSurfaceDestroyed(holder: SurfaceHolder) {
             super.onSurfaceDestroyed(holder)
-            if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
-            mediaPlayer?.release()
-            mediaPlayer = null
-        }
-
-        override fun onDestroy() {
-            super.onDestroy()
-            mediaPlayer?.release()
+            mediaPlayer?.apply {
+                if (isPlaying) stop()
+                release()
+            }
             mediaPlayer = null
         }
     }
@@ -57,7 +57,8 @@ class VideoWallpaperService: WallpaperService() {
     }
 
     companion object {
-        fun start(context: Context) {
+        fun start(context: Context, videoFilePath: String) {
+            Prefs.putString("video_file", videoFilePath)
             Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
                 putExtra(
                     WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
@@ -74,3 +75,4 @@ class VideoWallpaperService: WallpaperService() {
         }
     }
 }
+
