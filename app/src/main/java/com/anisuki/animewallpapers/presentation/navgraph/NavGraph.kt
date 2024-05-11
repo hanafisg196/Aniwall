@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.anisuki.animewallpapers.presentation.categories.CategoriesScreen
+import com.anisuki.animewallpapers.presentation.categories.WallpapersByCatScreen
 import com.anisuki.animewallpapers.presentation.detail.WallpaperScreen
 import com.anisuki.animewallpapers.presentation.home.HomeScreen
 import com.anisuki.animewallpapers.presentation.home.components.RandomScreen
@@ -47,7 +49,19 @@ fun SetNav(navController: NavHostController)
            WallpapersScreen(navController = navController)
         }
 
+        composable(
+            route = Screen.CategoriesScreen.route
+        ){
+            CategoriesScreen(navController = navController)
+        }
 
+        composable(
+            route = Screen.WallpapersByCatScreen.route + "/{id}"
+        ) {
+                navBackStackEntry ->
+            val categoryId = navBackStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
+            WallpapersByCatScreen( navController = navController)
+        }
 
     }
 }

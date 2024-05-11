@@ -25,11 +25,18 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-//        val properties = Properties()
-//        properties.load(project.rootProject.file("local.properties").inputStream())
-//        buildConfigField ("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
-//        buildConfigField ("String","APP_ID","\"${properties.getProperty("APP_ID")}\"")
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
 
+        buildConfigField ("String","BASE_URL","\"${properties.getProperty("BASE_URL")}\"")
+        buildConfigField ("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
+        buildConfigField ("String","APP_ID","\"${properties.getProperty("APP_ID")}\"")
+
+    }
+    android {
+        buildFeatures {
+            buildConfig = true
+        }
     }
 
 

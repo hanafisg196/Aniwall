@@ -1,7 +1,6 @@
-package com.anisuki.animewallpapers.presentation.wallpapers.components
+package com.anisuki.animewallpapers.presentation.categories.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,94 +8,27 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.paging.LoadState
-import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.anisuki.animewallpapers.common.Constants
-import com.anisuki.animewallpapers.model.Popular
+import com.anisuki.animewallpapers.model.Wallpapers
 import com.anisuki.animewallpapers.presentation.home.components.VideoTypeText
-import com.anisuki.animewallpapers.presentation.navgraph.Screen
-import com.anisuki.animewallpapers.presentation.wallpapers.PopularViewModel
 
 
 @Composable
-fun PopularSection(
-    viewModel: PopularViewModel,
-    navController: NavController
-)
-{
-    val popularList = viewModel.popularPager.collectAsLazyPagingItems()
-
-
-    LazyVerticalGrid(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        columns = GridCells.Fixed(2),
-        modifier = Modifier
-            .scale(1.01f)
-            .padding(horizontal = 16.dp)
-    ) {
-        items(popularList.itemCount) { index ->
-            val item = popularList[index]
-            item?.let {
-                PopularItem(popular = it){
-                    navController.navigate(Screen.WallpaperScreen.route + "/${item.id}")
-                }
-            }
-        }
-        when(popularList.loadState.append)
-        {
-            is LoadState.NotLoading -> Unit
-            LoadState.Loading -> {
-                item {
-                    LoadingItem()
-                }
-            }
-
-            is LoadState.Error ->
-                item {
-                    // TODO
-                }
-        }
-
-        when(popularList.loadState.refresh)
-        {
-            is LoadState.NotLoading -> Unit
-            LoadState.Loading -> {
-                item {
-                    LoadRefreshItem()
-                }
-            }
-
-            is LoadState.Error ->
-                item {
-                    // TODO
-                }
-        }
-    }
-
-}
-
-
-
-@Composable
-fun PopularItem(
-    popular: Popular,
-    onItemClick: (Popular)-> Unit
+fun WallpapersByCatItem(
+    wallpapers: Wallpapers,
+    onItemClick: (Wallpapers) -> Unit
 )
 {
 
@@ -110,14 +42,14 @@ fun PopularItem(
             .height(300.dp)
             .padding(vertical = 8.dp)
             .clickable {
-                onItemClick(popular)
+                onItemClick(wallpapers)
             },
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
             val context = LocalContext.current
-            val imageUrl = popular.thumbnail
+            val imageUrl = wallpapers.thumbnail
             Box(modifier = Modifier.fillMaxSize()) {
                 AsyncImage(
                     model = ImageRequest.Builder(context)
@@ -136,12 +68,11 @@ fun PopularItem(
                         .align(Alignment.TopStart)
                 ) {
 
-                    VideoTypeText(videoUrl = popular.type)
+//                    VideoTypeText(videoUrl = wallpapers.type)
 
                 }
             }
         }
     }
-
 
 }

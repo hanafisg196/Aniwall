@@ -1,12 +1,5 @@
 package com.anisuki.animewallpapers.presentation.detail.components
 
-import android.annotation.SuppressLint
-import android.app.DownloadManager
-import android.app.ProgressDialog
-import android.content.Context
-import android.net.Uri
-import android.os.Handler
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -44,8 +37,7 @@ import com.anisuki.animewallpapers.services.VideoWallpaperService
 import com.anisuki.animewallpapers.services.downloadDataLiveWallpaper
 import com.anisuki.animewallpapers.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
-import java.io.File
-import java.util.UUID
+import downloadWallpaper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -153,7 +145,8 @@ fun BottomSheet(wallpaper: Wallpaper)
                                 .clip(RoundedCornerShape(30.dp))
                                 .background(colorResource(id = R.color.pinkCustom))
                                 .clickable {
-                                
+                                    val filName = wallpaper.type
+                                    downloadWallpaper(context,dataUrl,filName)
                                 },
                             contentAlignment = Alignment.Center
                         ) {

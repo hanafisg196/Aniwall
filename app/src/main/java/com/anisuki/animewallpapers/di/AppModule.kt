@@ -2,9 +2,13 @@ package com.anisuki.animewallpapers.di
 
 import com.anisuki.animewallpapers.common.Constants.BASE_URL
 import com.anisuki.animewallpapers.data.ApiService
+import com.anisuki.animewallpapers.repository.CategoriesRepo
 import com.anisuki.animewallpapers.repository.PopularRepo
+import com.anisuki.animewallpapers.repository.WallpapersByCatRepo
 import com.anisuki.animewallpapers.repository.WallpapersRepo
+import com.anisuki.animewallpapers.repository.impl.CategoriesRepoImpl
 import com.anisuki.animewallpapers.repository.impl.PopularRepoImpl
+import com.anisuki.animewallpapers.repository.impl.WallpapersByCatRepoImpl
 import com.anisuki.animewallpapers.repository.impl.WallpapersRepoImpl
 import dagger.Module
 import dagger.Provides
@@ -39,4 +43,11 @@ object AppModule {
 
     @Provides
     fun providePopularRepository(api: ApiService): PopularRepo = PopularRepoImpl(api)
+    @Provides
+    fun provideCategoriesRepository(api: ApiService): CategoriesRepo = CategoriesRepoImpl(api)
+
+    @Provides
+    fun provideWallpapersByCat(api: ApiService): WallpapersByCatRepo = WallpapersByCatRepoImpl(api)
+
+
 }

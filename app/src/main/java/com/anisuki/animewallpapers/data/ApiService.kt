@@ -2,10 +2,12 @@ package com.anisuki.animewallpapers.data
 
 import com.anisuki.animewallpapers.common.Constants.API_KEY
 import com.anisuki.animewallpapers.common.Constants.APP_ID
+import com.anisuki.animewallpapers.data.dto.CategoriesResponse
 import com.anisuki.animewallpapers.data.dto.PopularResponse
 import com.anisuki.animewallpapers.data.dto.RandomResponse
 import com.anisuki.animewallpapers.data.dto.SlideResponse
 import com.anisuki.animewallpapers.data.dto.WallpaperResponse
+import com.anisuki.animewallpapers.data.dto.WallpapersByCatResponse
 import com.anisuki.animewallpapers.data.dto.WallpapersResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -53,6 +55,27 @@ interface ApiService {
         @Query("page") page: Int ,
         @Query("perPage") perPage: Int
     ):PopularResponse
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @GET("wallpaper/categories")
+    suspend fun getCategories(
+        @Query("page") page: Int ,
+        @Query("perPage") perPage: Int
+    ):CategoriesResponse
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @GET("wallpaper/wallpapersByCat/{id}")
+    suspend fun getWallpapersByCat(
+        @Path("id") id: Int,
+        @Query("page") page: Int ,
+        @Query("perPage") perPage: Int
+    ):WallpapersByCatResponse
+
+
 
 
 }

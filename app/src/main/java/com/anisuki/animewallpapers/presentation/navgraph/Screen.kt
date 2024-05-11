@@ -8,6 +8,8 @@ sealed class Screen (val route: String)  {
      object RandomScreen :  Screen(route = "random")
      object WallpaperScreen : Screen(route = "wallpaper/{id}")
      object WallpapersScreen :  Screen(route = "wallpapers")
+     object CategoriesScreen :  Screen(route = "categories")
+     object WallpapersByCatScreen :  Screen(route = "categories/{id}")
 
 
 }
