@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    namespace = "com.anisuki.animewallpapers"
+    namespace = "com.anime.live_wallpapershd"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.anisuki.animewallpapers"
+        applicationId = "com.anime.live_wallpapershd"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
