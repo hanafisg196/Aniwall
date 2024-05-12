@@ -47,7 +47,7 @@ import com.anisuki.animewallpapers.ui.fonts.Fonts
         Column (
             modifier = Modifier
                 .padding(8.dp)
-                .align(Alignment.BottomStart)
+                .align(Alignment.BottomCenter)
 
         )
         {
@@ -56,7 +56,7 @@ import com.anisuki.animewallpapers.ui.fonts.Fonts
                 color = Color.White,
                 fontFamily = Fonts.fontFamily,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 12.sp
+                fontSize = 18.sp
             )
         }
     }

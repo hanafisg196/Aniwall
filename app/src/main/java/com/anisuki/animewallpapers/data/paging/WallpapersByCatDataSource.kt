@@ -4,30 +4,29 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.anisuki.animewallpapers.common.Constants
-import com.anisuki.animewallpapers.common.Constants.CAT_ID
 import com.anisuki.animewallpapers.model.Wallpapers
 import com.anisuki.animewallpapers.repository.WallpapersByCatRepo
 
 class WallpapersByCatDataSource (
 
-    private val repository : WallpapersByCatRepo
-
+    private val repository : WallpapersByCatRepo,
+    private val id : Int
 
 ):PagingSource<Int, Wallpapers>() {
+
     override fun getRefreshKey(state: PagingState<Int, Wallpapers>): Int? {
         return state.anchorPosition?.let { position ->
             val page = state.closestPageToPosition(position)
             page?.prevKey?.plus(1)?: page?.nextKey?.minus(1)
         }
     }
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Wallpapers> {
 
         return try {
 
             val page = params.key ?:1
 
-            val response = repository.getWallpapersByCat(CAT_ID,page, Constants.ITEM_PAGE)
+            val response = repository.getWallpapersByCat(id,page, Constants.ITEM_PAGE)
 
             Log.d("WallpapersByCatDataSource", "Data: ${response.data}")
             LoadResult.Page(
@@ -40,4 +39,8 @@ class WallpapersByCatDataSource (
             LoadResult.Error(e)
         }
     }
+
+
+
+
 }

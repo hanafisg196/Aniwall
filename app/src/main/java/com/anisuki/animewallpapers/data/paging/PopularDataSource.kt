@@ -1,5 +1,6 @@
 package com.anisuki.animewallpapers.data.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.anisuki.animewallpapers.common.Constants
@@ -20,6 +21,7 @@ class PopularDataSource (
         return try {
             val page = params.key ?:1
             val response = repository.getPopular(page, Constants.ITEM_PAGE)
+            Log.d("PopularWallpaper", "Data: ${response.data}")
             LoadResult.Page(
                 data = response.data,
                 prevKey = if (page == 1) null else page - 1,

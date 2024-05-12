@@ -25,19 +25,16 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.anisuki.animewallpapers.R
 import com.anisuki.animewallpapers.model.BottomMenus
-import com.anisuki.animewallpapers.ui.fonts.Fonts
 import com.anisuki.animewallpapers.presentation.home.components.ButtonMenu
 import com.anisuki.animewallpapers.presentation.home.components.RandomScreen
 import com.anisuki.animewallpapers.presentation.home.components.SlideScreen
 import com.anisuki.animewallpapers.presentation.navgraph.Screen
-
-
+import com.anisuki.animewallpapers.ui.fonts.Fonts
 
 @Composable
 fun HomeScreen(navController:NavHostController) {

@@ -42,7 +42,9 @@ fun WallpapersByCatScreen(
             navController = navController
         )
         Spacer(modifier = Modifier.height(15.dp))
-        WallpapersByCatList(navController = navController, viewModel = viewmodel)
+        WallpapersByCatList(
+            viewModel = viewmodel, navController = navController
+        )
 
 
     }

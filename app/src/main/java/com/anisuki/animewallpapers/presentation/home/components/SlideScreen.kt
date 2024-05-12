@@ -45,8 +45,8 @@ fun SlideScreen(
                         color = Color.Transparent,
                         shape = RoundedCornerShape(8.dp))
                     .clip(RoundedCornerShape(8.dp))
-                    .width(170.dp)
-                    .height(70.dp)
+                    .width(200.dp)
+                    .height(100.dp)
             ) {
                 Column(
                     verticalArrangement = Arrangement.Center,
