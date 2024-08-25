@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "681915820319-g0pnrh00fob9pc1lqrpi890k0g71qlvk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anime.live_wallpapershd",
+            "certificate_hash": "2e0edc553eafead349e88dd612ab079597c22e05"
+          }
+        },
+        {
           "client_id": "681915820319-jjbpsd4918ek9nchnreq6k38k2tfba19.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
