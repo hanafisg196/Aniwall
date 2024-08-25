@@ -178,7 +178,7 @@ fun GoogleSignIn(
         val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
         val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
-            .setServerClientId(R.string.WEB_CLIENT_ID.toString())
+            .setServerClientId("")
             .setNonce(hashedNonce)
             .build()
 
