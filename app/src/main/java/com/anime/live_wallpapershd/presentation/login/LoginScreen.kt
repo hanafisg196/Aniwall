@@ -38,7 +38,6 @@ import androidx.credentials.exceptions.GetCredentialException
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anime.live_wallpapershd.R
-import com.anime.live_wallpapershd.common.Constants.WEB_CLIENT_ID
 import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
 import com.anime.live_wallpapershd.ui.fonts.Fonts
@@ -179,7 +178,7 @@ fun GoogleSignIn(
         val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
         val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
-            .setServerClientId(WEB_CLIENT_ID)
+            .setServerClientId(R.string.WEB_CLIENT_ID.toString())
             .setNonce(hashedNonce)
             .build()
 

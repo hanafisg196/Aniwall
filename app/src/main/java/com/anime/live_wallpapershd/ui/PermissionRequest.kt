@@ -7,7 +7,8 @@ import com.google.accompanist.permissions.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
-import com.anime.live_wallpapershd.presentation.navgraph.Screen
+import com.anime.live_wallpapershd.navgraph.Screen
+
 
 @ExperimentalPermissionsApi
 @Composable

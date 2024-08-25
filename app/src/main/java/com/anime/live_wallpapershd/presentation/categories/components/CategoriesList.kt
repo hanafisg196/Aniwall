@@ -8,10 +8,11 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
-import com.anime.live_wallpapershd.presentation.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
+
 
 @Composable
 fun CategoriesList(

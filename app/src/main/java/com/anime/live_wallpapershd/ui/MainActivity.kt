@@ -11,7 +11,8 @@ import androidx.navigation.NavHostController
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.navigation.compose.rememberNavController
-import com.anime.live_wallpapershd.presentation.navgraph.SetNav
+import com.anime.live_wallpapershd.navgraph.SetNav
+
 import com.anime.live_wallpapershd.ui.theme.AniwallTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.AndroidEntryPoint

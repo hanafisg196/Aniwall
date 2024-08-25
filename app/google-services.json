@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_number": "681915820319",
+    "project_id": "animwall-c2259",
+    "storage_bucket": "animwall-c2259.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681915820319:android:ea5cbb95fd2d84628f682a",
+        "android_client_info": {
+          "package_name": "com.anime.live_wallpapershd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681915820319-jjbpsd4918ek9nchnreq6k38k2tfba19.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anime.live_wallpapershd",
+            "certificate_hash": "e70031c0a9d687eb30279a61354b379a3c67a0e0"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWvk9MukUaQC9amxEwSSkD4pLZGrJ694I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681915820319-173krvommadf9h4d3aveloi66fpemnvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

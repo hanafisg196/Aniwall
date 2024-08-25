@@ -1,7 +1,9 @@
 package com.anime.live_wallpapershd.presentation.home
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +19,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,11 +36,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.model.BottomMenus
+import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.dialogs.DialogLogin
 import com.anime.live_wallpapershd.presentation.home.components.ButtonMenu
 import com.anime.live_wallpapershd.presentation.home.components.RandomScreen
 import com.anime.live_wallpapershd.presentation.home.components.SlideScreen
-import com.anime.live_wallpapershd.presentation.navgraph.Screen
 import com.anime.live_wallpapershd.ui.fonts.Fonts
+
 
 @Composable
 fun HomeScreen(navController:NavHostController) {
@@ -45,7 +53,7 @@ fun HomeScreen(navController:NavHostController) {
     )
     {
         Spacer(modifier = Modifier.height(35.dp))
-        TopBar(name = "Aniwall")
+        TopBar(navController,name = "Aniwall")
         Spacer(modifier = Modifier.height(6.dp))
         SlideScreen()
         RandomScreen(navController)
@@ -77,10 +85,23 @@ fun HomeScreen(navController:NavHostController) {
 
 @Composable
 fun TopBar(
+    navController:NavHostController,
     name: String,
     modifier: Modifier = Modifier
+
 )
 {
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+    if (showDialog){
+        DialogLogin(
+            onClick = {
+                navController.navigate(Screen.LoginScreen.route)
+            },
+            onDismiss = {showDialog = false}
+        )
+    }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -105,6 +126,9 @@ fun TopBar(
             image = painterResource(id = R.drawable.profile),
             modifier = Modifier
                 .size(40.dp)
+                .clickable {
+                showDialog = true
+                }
         )
 
         Spacer(modifier = Modifier

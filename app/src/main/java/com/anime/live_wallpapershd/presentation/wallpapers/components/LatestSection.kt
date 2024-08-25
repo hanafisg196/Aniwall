@@ -29,8 +29,8 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.anime.live_wallpapershd.common.Constants
 import com.anime.live_wallpapershd.model.Wallpapers
+import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.home.components.VideoTypeText
-import com.anime.live_wallpapershd.presentation.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.wallpapers.WallpapersViewModel
 
 
