@@ -9,9 +9,9 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class SingInRepo @Inject constructor(
-    private val api : ApiService
+    private val api: ApiService
 ) {
-    fun pushToken(idToken: String): Response<GoogleSignInResponse> {
+    suspend fun pushToken(idToken: String): Response<GoogleSignInResponse> {
         val signInRequest = SingInRequest(idToken)
         return api.googleSignIn(signInRequest)
     }

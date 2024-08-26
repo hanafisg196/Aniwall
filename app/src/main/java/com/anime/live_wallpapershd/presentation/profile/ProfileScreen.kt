@@ -1,6 +1,5 @@
 package com.anime.live_wallpapershd.presentation.profile
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,7 +28,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.model.User
 import com.anime.live_wallpapershd.navgraph.Screen

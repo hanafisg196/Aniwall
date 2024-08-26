@@ -12,7 +12,6 @@ import com.anime.live_wallpapershd.data.dto.UserProfileResponse
 import com.anime.live_wallpapershd.data.dto.WallpaperResponse
 import com.anime.live_wallpapershd.data.dto.WallpapersByCatResponse
 import com.anime.live_wallpapershd.data.dto.WallpapersResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -88,9 +87,10 @@ interface ApiService {
         "AppId:${APP_ID}"
     )
     @POST("wallpaper/googlesignin")
-    fun googleSignIn(
+    suspend fun googleSignIn(
         @Body request: SingInRequest
     ): Response<GoogleSignInResponse>
+
 
     @Headers(
         "ApiKey:${API_KEY}",

@@ -188,68 +188,36 @@ fun GoogleSignIn(
             .build()
         isLoggingIn = true
         coroutineScope.launch {
-
-
-//            try {
-//                val result = credentialManager.getCredential(
-//                    request = request,
-//                    context = context,
-//                )
-//                val credential = result.credential
-//                val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-//                val googleIdToken = googleIdTokenCredential.idToken
-//
-//                Log.i("GoogleSignIn", googleIdToken)
-//
-//                    signInViewModel.signInWithGoogle(googleIdToken, onSuccess = { token ->
-//                        Prefs.putString("google_id_token", googleIdToken)
-//                        Prefs.putString("token_auth", token)
-//                        Toast.makeText(context, "You Are Signed In", Toast.LENGTH_SHORT).show()
-//                        navController.navigate(Screen.HomeScreen.route){
-//                            popUpTo(0)
-//                        }
-//
-//
-//                    }, onError = { error ->
-//                        Log.e("GoogleSignIn", "Sign in failed", error)
-//                        Toast.makeText(context, "Failed to sign in", Toast.LENGTH_SHORT).show()
-//                    })
-//            } catch (e: GetCredentialException) {
-//                Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
-//            } catch (e: GoogleIdTokenParsingException) {
-//                Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
-//            }
-
-
-
-
             try {
-                val result = credentialManager.getCredential(request = request, context = context)
+                val result = credentialManager.getCredential(
+                    request = request,
+                    context = context,
+                )
                 val credential = result.credential
                 val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
                 val googleIdToken = googleIdTokenCredential.idToken
 
-                Log.i("GoogleSignIn", "Token retrieved successfully: $googleIdToken")
+                Log.i("GoogleSignIn", googleIdToken)
 
-                signInViewModel.signInWithGoogle(googleIdToken, onSuccess = { token ->
-                    Log.i("GoogleSignIn", "Sign in success, token: $token")
-                    Prefs.putString("google_id_token", googleIdToken)
-                    Prefs.putString("token_auth", token)
-                    Toast.makeText(context, "You Are Signed In", Toast.LENGTH_SHORT).show()
-                    navController.navigate(Screen.HomeScreen.route) {
-                        popUpTo(0)
-                    }
-                }, onError = { error ->
-                    Log.e("GoogleSignIn", "Sign in failed", error)
-                    Toast.makeText(context, "Failed to sign in", Toast.LENGTH_SHORT).show()
-                })
+                    signInViewModel.signInWithGoogle(googleIdToken, onSuccess = { token ->
+                        Prefs.putString("google_id_token", googleIdToken)
+                        Prefs.putString("token_auth", token)
+                        Toast.makeText(context, "You Are Signed In", Toast.LENGTH_SHORT).show()
+                        navController.navigate(Screen.HomeScreen.route){
+                            popUpTo(0)
+                        }
+
+
+                    }, onError = { error ->
+                        Log.e("GoogleSignIn", "Sign in failed", error)
+                        Toast.makeText(context, "Failed to sign in", Toast.LENGTH_SHORT).show()
+                    })
             } catch (e: GetCredentialException) {
-                Log.e("GoogleSignIn", "GetCredentialException: ${e.message}", e)
                 Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
             } catch (e: GoogleIdTokenParsingException) {
-                Log.e("GoogleSignIn", "GoogleIdTokenParsingException: ${e.message}", e)
                 Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
             }
+
 
         }
 

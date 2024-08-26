@@ -42,6 +42,7 @@ import com.anime.live_wallpapershd.presentation.home.components.ButtonMenu
 import com.anime.live_wallpapershd.presentation.home.components.RandomScreen
 import com.anime.live_wallpapershd.presentation.home.components.SlideScreen
 import com.anime.live_wallpapershd.ui.fonts.Fonts
+import com.pixplicity.easyprefs.library.Prefs
 
 
 @Composable
@@ -91,6 +92,7 @@ fun TopBar(
 
 )
 {
+    val token = Prefs.getString("token_auth")
     var showDialog by remember {
         mutableStateOf(false)
     }
@@ -127,7 +129,12 @@ fun TopBar(
             modifier = Modifier
                 .size(40.dp)
                 .clickable {
-                showDialog = true
+                    if (!token.isNullOrEmpty()) {
+                        navController.navigate(Screen.ProfileScreen.route)
+                    } else {
+                        showDialog = true
+                    }
+
                 }
         )
 
