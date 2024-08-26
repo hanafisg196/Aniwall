@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "681915820319-8fj5m1c9e1k8e66v60i976o3nct191rj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anime.live_wallpapershd",
+            "certificate_hash": "3f5b56b4e66fd32c50aaeca56b9d40aafef17c12"
+          }
+        },
+        {
           "client_id": "681915820319-g0pnrh00fob9pc1lqrpi890k0g71qlvk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -39,7 +47,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "681915820319-173krvommadf9h4d3aveloi66fpemnvo.apps.googleusercontent.com",
+              "client_id": "681915820319-aqk4b9l023409r76f8mknnd2ge3lj0r8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
