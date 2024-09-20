@@ -1,6 +1,5 @@
 package com.anime.live_wallpapershd.services
 
-
 import android.app.WallpaperManager
 import android.content.ComponentName
 import android.content.Context
@@ -22,15 +21,20 @@ class VideoWallpaperService : WallpaperService() {
         override fun onSurfaceCreated(holder: SurfaceHolder) {
             super.onSurfaceCreated(holder)
             val videoFilePath = Prefs.getString("video_file", "")
+            if (videoFilePath.isNotEmpty()) {
+                initializeMediaPlayer(holder, videoFilePath)
+            }
+        }
 
+        private fun initializeMediaPlayer(holder: SurfaceHolder, videoFilePath: String) {
             mediaPlayer = MediaPlayer().apply {
                 setSurface(holder.surface)
                 setDataSource(videoFilePath)
                 isLooping = true
                 setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
-                prepare()
+                prepareAsync() // Use prepareAsync to prevent blocking
+                setOnPreparedListener { start() }
                 setVolume(0f, 0f)
-                start()
             }
         }
 
@@ -44,10 +48,7 @@ class VideoWallpaperService : WallpaperService() {
 
         override fun onSurfaceDestroyed(holder: SurfaceHolder) {
             super.onSurfaceDestroyed(holder)
-            mediaPlayer?.apply {
-                if (isPlaying) stop()
-                release()
-            }
+            mediaPlayer?.release()
             mediaPlayer = null
         }
     }
@@ -75,4 +76,3 @@ class VideoWallpaperService : WallpaperService() {
         }
     }
 }
-

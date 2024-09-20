@@ -7,3 +7,6 @@ data class User(
     val avatar: String,
     val token: String
 )
+data class Posts(
+    val posts: Int,
+)

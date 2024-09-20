@@ -37,7 +37,7 @@ import com.anime.live_wallpapershd.services.VideoWallpaperService
 import com.anime.live_wallpapershd.services.downloadDataLiveWallpaper
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
-import downloadWallpaper
+import com.anime.live_wallpapershd.services.downloadWallpaper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -102,7 +102,7 @@ fun BottomSheet(wallpaper: Wallpaper)
                                 .background(colorResource(id = R.color.blueBird))
                                 .clickable {
                                     if (dataUrl.contains(".mp4")) {
-                                        val fileName = "live_wallpaper.mp4"
+                                        val fileName = "set_live_wallpaper.mp4"
                                         downloadDataLiveWallpaper(context, dataUrl, fileName) { filePath ->
                                             Prefs.putString("video_file", filePath)
                                             VideoWallpaperService.start(context,filePath)

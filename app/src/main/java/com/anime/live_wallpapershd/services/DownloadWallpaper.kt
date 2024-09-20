@@ -1,22 +1,33 @@
+package com.anime.live_wallpapershd.services
+
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DownloadManager
-import android.app.ProgressDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
+import com.anime.live_wallpapershd.R
 
-
-@SuppressLint("Range")
+@SuppressLint("Range", "SetTextI18n", "ShowToast")
 fun downloadWallpaper(context: Context, downloadUrl: String, fileName: String) {
+    val text = "Wallpaper Download Success"
+    val duration = Toast.LENGTH_SHORT
+    val dialogView = View.inflate(context, R.layout.progress_dialog_layout, null)
+    val progressBar = dialogView.findViewById<ProgressBar>(R.id.progressBar)
+    val progressText = dialogView.findViewById<TextView>(R.id.progressText)
 
-    val progressDialog = ProgressDialog(context)
-    progressDialog.setMessage("Downloading File...")
-    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
-    progressDialog.isIndeterminate = false
-    progressDialog.setCancelable(false)
-    progressDialog.max = 100
-    progressDialog.show()
+    val alertDialog = AlertDialog.Builder(context)
+        .setView(dialogView)
+        .setCancelable(false)
+        .create()
 
+    alertDialog.show()
 
     val request = DownloadManager.Request(Uri.parse(downloadUrl))
         .setTitle(fileName)
@@ -24,12 +35,12 @@ fun downloadWallpaper(context: Context, downloadUrl: String, fileName: String) {
         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
 
-
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
     val downloadId = downloadManager.enqueue(request)
 
-
     val query = DownloadManager.Query().setFilterById(downloadId)
+    val handler = Handler(Looper.getMainLooper())
+
     Thread {
         var downloading = true
         while (downloading) {
@@ -42,16 +53,30 @@ fun downloadWallpaper(context: Context, downloadUrl: String, fileName: String) {
 
                 when (status) {
                     DownloadManager.STATUS_SUCCESSFUL -> {
+
+
                         downloading = false
-                        progressDialog.dismiss()
+                        handler.post {
+                            alertDialog.dismiss()
+                            Toast.makeText(context, text, duration).show()
+
+                        }
 
                     }
                     DownloadManager.STATUS_FAILED -> {
+
+
                         downloading = false
-                        progressDialog.dismiss()
-                        // Handle failure
+                        handler.post {
+                            alertDialog.dismiss()
+                        }
                     }
-                    else -> progressDialog.progress = progress
+                    else -> {
+                        handler.post {
+                            progressBar.progress = progress
+                            progressText.text = "$progress%"
+                        }
+                    }
                 }
             }
             cursor.close()

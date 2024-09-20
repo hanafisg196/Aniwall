@@ -2,6 +2,7 @@ package com.anime.live_wallpapershd.presentation.home.components
 
 
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,7 +48,7 @@ fun RandomItem(
     ) {
         val context = LocalContext.current
         val imageUrl = random.thumbnail
-//        Log.d("wallpaper", "Trying to load thumbnail from URL: $imageUrl")
+        Log.d("wallpaper", "Trying to load thumbnail from URL: $imageUrl")
         AsyncImage(
             model = ImageRequest.Builder(context)
                 .data(ITEM_URL + imageUrl)

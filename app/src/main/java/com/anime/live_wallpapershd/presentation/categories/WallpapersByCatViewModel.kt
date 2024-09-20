@@ -25,5 +25,6 @@ class WallpapersByCatViewModel @Inject constructor(
         PagingConfig(pageSize = Constants.ITEM_PAGE)
     ){
         WallpapersByCatDataSource(repository,catId)
-    }.flow.cachedIn(viewModelScope)
+    }
+    .flow.cachedIn(viewModelScope)
 }
