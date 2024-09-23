@@ -64,7 +64,6 @@ fun VideoDetailItem(
             player.prepare()
             player.playWhenReady = playWhenReady
             player.repeatMode = Player.REPEAT_MODE_ONE
-
             onDispose {
                 player.release()
             }

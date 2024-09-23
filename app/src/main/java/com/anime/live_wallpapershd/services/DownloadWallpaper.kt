@@ -53,19 +53,14 @@ fun downloadWallpaper(context: Context, downloadUrl: String, fileName: String) {
 
                 when (status) {
                     DownloadManager.STATUS_SUCCESSFUL -> {
-
-
                         downloading = false
                         handler.post {
                             alertDialog.dismiss()
                             Toast.makeText(context, text, duration).show()
-
                         }
 
                     }
                     DownloadManager.STATUS_FAILED -> {
-
-
                         downloading = false
                         handler.post {
                             alertDialog.dismiss()

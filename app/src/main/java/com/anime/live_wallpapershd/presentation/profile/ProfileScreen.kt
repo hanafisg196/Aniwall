@@ -194,7 +194,7 @@ fun ProfileSection(
                 horizontalArrangement = Arrangement.SpaceAround,
                 modifier = Modifier
             ){
-                ProfileStat(name ="Posts", number ="0")
+                ProfileStat(name ="Posts", total = user.posts.toString())
             }
         }
         Spacer(modifier = Modifier.size(10.dp))
@@ -210,7 +210,7 @@ fun ProfileSection(
 @Composable
 fun ProfileStat(
     name: String,
-    number: String
+    total: String
 )
 {
     Column (
@@ -219,7 +219,7 @@ fun ProfileStat(
         modifier = Modifier
     ) {
         Text(
-            text = number,
+            text = total,
             fontFamily = Fonts.fontFamily,
             fontWeight = FontWeight.SemiBold,
             fontSize = 20.sp,

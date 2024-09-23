@@ -5,8 +5,7 @@ data class User(
     val email: String,
     val name: String,
     val avatar: String,
-    val token: String
+    val token: String,
+    val posts:Int
 )
-data class Posts(
-    val posts: Int,
-)
+

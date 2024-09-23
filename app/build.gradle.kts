@@ -111,12 +111,12 @@ dependencies {
     //Datastore
     implementation ("androidx.datastore:datastore-preferences:1.1.1")
     //exoplayer
-    implementation ("androidx.media3:media3-exoplayer:1.3.1")
-    implementation ("androidx.media3:media3-ui:1.3.1")
+    implementation ("androidx.media3:media3-exoplayer:1.4.1")
+    implementation ("androidx.media3:media3-ui:1.4.1")
     // Paging 3.0
     implementation ("androidx.paging:paging-compose:1.0.0-alpha16")
     //Shape
-    implementation ("androidx.graphics:graphics-shapes:1.0.0-beta01")
+    implementation ("androidx.graphics:graphics-shapes:1.0.1")
     //Permissions
     implementation ("com.google.accompanist:accompanist-permissions:0.24.9-beta")
     //Pref Mananger
@@ -124,7 +124,7 @@ dependencies {
     //One Tap SignIn
     implementation("androidx.credentials:credentials:1.2.2")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-    implementation ("androidx.credentials:credentials-play-services-auth:1.2.1")
+    implementation ("androidx.credentials:credentials-play-services-auth:1.2.2")
 
 
 }

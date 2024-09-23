@@ -48,7 +48,7 @@ fun RandomItem(
     ) {
         val context = LocalContext.current
         val imageUrl = random.thumbnail
-        Log.d("wallpaper", "Trying to load thumbnail from URL: $imageUrl")
+//        Log.d("wallpaper", "Trying to load thumbnail from URL: $imageUrl")
         AsyncImage(
             model = ImageRequest.Builder(context)
                 .data(ITEM_URL + imageUrl)
