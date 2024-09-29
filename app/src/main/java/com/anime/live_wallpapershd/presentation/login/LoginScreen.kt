@@ -199,9 +199,10 @@ fun GoogleSignIn(
 
                 Log.i("GoogleSignIn", googleIdToken)
 
-                    signInViewModel.signInWithGoogle(googleIdToken, onSuccess = { token ->
+                    signInViewModel.signInWithGoogle(googleIdToken, onSuccess = { token,userId ->
                         Prefs.putString("google_id_token", googleIdToken)
                         Prefs.putString("token_auth", token)
+                        Prefs.putInt("user_id", userId)
                         Toast.makeText(context, "You Are Signed In", Toast.LENGTH_SHORT).show()
                         navController.navigate(Screen.HomeScreen.route){
                             popUpTo(0)

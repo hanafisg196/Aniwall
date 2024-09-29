@@ -13,6 +13,7 @@ import com.anime.live_wallpapershd.presentation.home.HomeScreen
 import com.anime.live_wallpapershd.presentation.home.components.RandomScreen
 import com.anime.live_wallpapershd.presentation.login.LoginScreen
 import com.anime.live_wallpapershd.presentation.profile.ProfileScreen
+import com.anime.live_wallpapershd.presentation.wallpapers.FavoriteScreen
 import com.anime.live_wallpapershd.presentation.wallpapers.WallpapersScreen
 import com.anime.live_wallpapershd.ui.PermissionScreen
 
@@ -79,6 +80,12 @@ fun SetNav(navController: NavHostController)
             route = Screen.LoginScreen.route
         ){
             LoginScreen(navController)
+        }
+
+        composable(
+            route = Screen.FavoriteScreen.route
+        ){
+            FavoriteScreen(navController = navController)
         }
 
     }

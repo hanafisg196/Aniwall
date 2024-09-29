@@ -34,6 +34,7 @@ import com.anime.live_wallpapershd.presentation.categories.WallpapersByCatViewMo
 import com.anime.live_wallpapershd.presentation.home.components.VideoTypeText
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
+import com.anime.live_wallpapershd.presentation.wallpapers.components.WallpaperListItem
 
 
 @Composable
@@ -53,7 +54,7 @@ fun WallpapersByCatList(
         items(wallpapersByCat.itemCount) { index ->
             val item = wallpapersByCat[index]
             item?.let {
-                ItemsWallpapersByCat(wallpapers = it) {
+                WallpaperListItem(wallpapers = it) {
                     navController.navigate(Screen.WallpaperScreen.route + "/${item.id}")
                 }
             }
@@ -89,57 +90,5 @@ fun WallpapersByCatList(
                 }
         }
 
-    }
-}
-
-@Composable
-fun  ItemsWallpapersByCat(
-   wallpapers: Wallpapers,
-   onclickItem : (Wallpapers) -> Unit
-
-) {
-    Card(
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
-        shape = RoundedCornerShape(15.dp),
-        modifier = Modifier
-            .width(150.dp)
-            .height(300.dp)
-            .padding(vertical = 8.dp)
-            .clickable {
-                onclickItem(wallpapers)
-            }
-
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            val context = LocalContext.current
-            val imgUrl = wallpapers.thumbnail
-            Box(modifier = Modifier.fillMaxSize()) {
-                AsyncImage(
-                    model = ImageRequest.Builder(context)
-                        .data(Constants.ITEM_URL + imgUrl)
-                        .crossfade(true)
-                        .scale(Scale.FILL)
-                        .build(),
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.FillBounds,
-                )
-
-                Column (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .align(Alignment.TopStart)
-                ) {
-
-                    VideoTypeText(videoUrl = wallpapers.type)
-
-                }
-            }
-        }
     }
 }

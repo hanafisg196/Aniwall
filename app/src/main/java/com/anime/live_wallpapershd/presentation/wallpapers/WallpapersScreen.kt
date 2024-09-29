@@ -42,10 +42,8 @@ fun WallpapersScreen(
             )
         Spacer(modifier = Modifier.height(10.dp))
         when (selectedTabIndex) {
-
             0 -> LatestSection(viewModel = viewModelLatest,navController)
             1 -> PopularSection(viewModel = viewModelPopular,navController)
-
         }
 
     }

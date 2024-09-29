@@ -1,5 +1,6 @@
 package com.anime.live_wallpapershd.presentation.detail.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +15,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
@@ -31,14 +39,41 @@ import coil.size.Size
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.common.Constants.ITEM_URL
 import com.anime.live_wallpapershd.model.Wallpaper
+import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.detail.FavoriteViewModel
+import com.anime.live_wallpapershd.presentation.dialogs.DialogLogin
+import com.pixplicity.easyprefs.library.Prefs
 
 @Composable
 fun WallpaperDetailItem(
     wallpaper: Wallpaper,
-    navController: NavController
+    navController: NavController,
+    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
+
 )
 {
-
+    val token = Prefs.getString("token_auth")
+    val isFavorite by favoriteViewModel.checkFavorite.collectAsState()
+    val context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        if (!token.isNullOrEmpty()) {
+            favoriteViewModel.checkFavorite(token, wallpaper.id)
+        }
+    }
+    val color = if (isFavorite) {
+        Color.Red
+    } else {
+        Color.Gray
+    }
+    if (showDialog){
+        DialogLogin(
+            onClick = {
+                navController.navigate(Screen.LoginScreen.route)
+            },
+            onDismiss = {showDialog = false}
+        )
+    }
     Box(
         modifier = Modifier
     ) {
@@ -51,7 +86,7 @@ fun WallpaperDetailItem(
                 .scale(Scale.FILL)
                 .build(),
 
-        )
+            )
 
         if (painter.state is AsyncImagePainter.State.Loading) {
             CircularProgressIndicator(
@@ -62,6 +97,7 @@ fun WallpaperDetailItem(
             )
         }
 
+
         Image(
             painter = painter,
             contentDescription = "wallpaper",
@@ -70,7 +106,7 @@ fun WallpaperDetailItem(
         )
 
 
-            Row (
+        Row (
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 40.dp, start = 25.dp, end = 25.dp)
@@ -102,6 +138,21 @@ fun WallpaperDetailItem(
                 .size(40.dp)
                 .clip(RoundedCornerShape(20.dp))
                 .background(Color.White)
+                .clickable {
+                    if (token.isNullOrEmpty()) {
+                        showDialog = true
+                    } else {
+                        if (isFavorite) {
+                            favoriteViewModel.removeFavorite(token, wallpaper.id)
+                            Toast.makeText(context, "Wallpaper removed from favorites", Toast.LENGTH_SHORT).show()
+                        } else {
+                            favoriteViewModel.addFavorite(token, wallpaper.id)
+                            Toast.makeText(context, "Wallpaper add to favorites", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+
+                }
 
             ){
                 Icon(
@@ -111,12 +162,14 @@ fun WallpaperDetailItem(
                     Modifier
                         .size(20.dp)
                         .align(Alignment.Center),
-                    Color.Gray,
+                    tint = color
                 )
             }
 
         }
+
         BottomSheet(wallpaper)
     }
+
 
 }

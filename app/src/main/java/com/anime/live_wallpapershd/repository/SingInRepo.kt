@@ -2,7 +2,7 @@ package com.anime.live_wallpapershd.repository
 
 import com.anime.live_wallpapershd.data.ApiService
 import com.anime.live_wallpapershd.data.dto.GoogleSignInResponse
-import com.anime.live_wallpapershd.data.dto.SingInRequest
+import com.anime.live_wallpapershd.data.dto.request.SingInRequest
 
 import com.pixplicity.easyprefs.library.Prefs
 import retrofit2.Response

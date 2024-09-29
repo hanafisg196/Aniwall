@@ -1,6 +1,5 @@
 package com.anime.live_wallpapershd.presentation.home.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -23,11 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anime.live_wallpapershd.navgraph.Screen
-
 import com.anime.live_wallpapershd.presentation.home.RandomViewModel
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RandomScreen(
     navController: NavController,

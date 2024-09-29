@@ -1,4 +1,4 @@
-package com.anime.live_wallpapershd.presentation.categories
+package com.anime.live_wallpapershd.presentation.wallpapers
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,35 +21,36 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anime.live_wallpapershd.R
-import com.anime.live_wallpapershd.presentation.categories.components.CategoriesList
+import com.anime.live_wallpapershd.presentation.wallpapers.components.FavoriteSection
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 
-
 @Composable
-fun CategoriesScreen(
-    viewmodel: CategoriesVieModel = hiltViewModel(),
+fun FavoriteScreen(
+    viewModelFavorites: FavoritesViewModel = hiltViewModel(),
     navController: NavController
+){
 
+    Column (
+        modifier = Modifier
+            .fillMaxSize()
     ) {
-Column (
-    modifier = Modifier
-        .fillMaxSize()
-) {
-    Spacer(modifier = Modifier.height(35.dp))
-    CategoriesTopBar(
-        name = "Favorite Wallpaper",
-        navController = navController
-    )
-    Spacer(modifier = Modifier.height(15.dp))
-    CategoriesList(viewmodel = viewmodel,navController = navController)
+        Spacer(modifier = Modifier.height(35.dp))
+        FavoriteTopBar(
+            name = "Favorites",
+            navController = navController
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        FavoriteSection(
+            viewModel = viewModelFavorites,
+            navController = navController
+        )
 
-}
-
+    }
 }
 
 
 @Composable
-fun  CategoriesTopBar(
+fun  FavoriteTopBar(
     name: String,
     modifier: Modifier = Modifier,
     navController: NavController
@@ -59,7 +60,7 @@ fun  CategoriesTopBar(
         verticalAlignment = Alignment.CenterVertically,
 
         modifier = modifier
-                .fillMaxWidth()
+            .fillMaxWidth()
 
     ) { IconButton(
         onClick = {
@@ -80,7 +81,7 @@ fun  CategoriesTopBar(
             fontWeight = FontWeight.Light,
             fontSize = 25.sp,
             modifier = Modifier.padding(start = 30.dp)
-            )
+        )
 
     }
 

@@ -3,15 +3,19 @@ package com.anime.live_wallpapershd.data
 import com.anime.live_wallpapershd.common.Constants.API_KEY
 import com.anime.live_wallpapershd.common.Constants.APP_ID
 import com.anime.live_wallpapershd.data.dto.CategoriesResponse
+import com.anime.live_wallpapershd.data.dto.CheckFavoriteResponse
+import com.anime.live_wallpapershd.data.dto.FavoriteResponse
+import com.anime.live_wallpapershd.data.dto.FavoriteWallpapersResponse
 import com.anime.live_wallpapershd.data.dto.GoogleSignInResponse
 import com.anime.live_wallpapershd.data.dto.PopularResponse
 import com.anime.live_wallpapershd.data.dto.RandomResponse
-import com.anime.live_wallpapershd.data.dto.SingInRequest
+import com.anime.live_wallpapershd.data.dto.request.SingInRequest
 import com.anime.live_wallpapershd.data.dto.SlideResponse
 import com.anime.live_wallpapershd.data.dto.UserProfileResponse
 import com.anime.live_wallpapershd.data.dto.WallpaperResponse
 import com.anime.live_wallpapershd.data.dto.WallpapersByCatResponse
 import com.anime.live_wallpapershd.data.dto.WallpapersResponse
+import com.anime.live_wallpapershd.data.dto.request.FavoriteRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -96,10 +100,54 @@ interface ApiService {
         "ApiKey:${API_KEY}",
         "AppId:${APP_ID}"
     )
-    @GET("wallpaper/userprofile")
+    @GET("wallpaper/user/profile")
     suspend fun getUserProfile(
         @Header("Authorization") authHeader: String
     ):UserProfileResponse
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @POST("wallpaper/user/savefavorite")
+    suspend fun addFavorite(
+        @Header("Authorization") authHeader: String,
+        @Body request: FavoriteRequest
+    ): Response<FavoriteResponse>
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @POST("wallpaper/user/removefavorite")
+    suspend fun removeFavorite(
+        @Header("Authorization") authHeader: String,
+        @Body request: FavoriteRequest
+    ): Response<FavoriteResponse>
+
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @GET("wallpaper/user/favorites/check/{wallpaperId}")
+    suspend fun checkFavorite(
+        @Header("Authorization") authHeader: String,
+        @Path("wallpaperId") wallpaperId: Int,
+    ): CheckFavoriteResponse
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @GET("wallpaper/user/favorites/{userId}")
+    suspend fun favoriteWallpapers(
+        @Header("Authorization") authHeader: String,
+        @Path("userId") userId: Int,
+        @Query("page") page: Int ,
+        @Query("perPage") perPage: Int
+    ):FavoriteWallpapersResponse
+
 
 
 }

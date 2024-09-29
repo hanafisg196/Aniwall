@@ -10,6 +10,7 @@ sealed class Screen (val route: String)  {
      object WallpapersByCatScreen :  Screen(route = "categories/{id}")
      object ProfileScreen :  Screen(route = "profile")
      object LoginScreen :  Screen(route = "login")
+     object FavoriteScreen :  Screen(route = "favorite")
 
 
 }

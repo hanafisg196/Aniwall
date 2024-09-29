@@ -31,7 +31,7 @@ fun CategoriesList(
                     categories = it,
                     onItemClick = {
                         navController.navigate(Screen.WallpapersByCatScreen.route + "/${item.id}")
-                        Log.d("Categories to wallpapers","Item id: ${item.id}")
+                        Log.d("Categories to wallpapers", "Item id: ${item.id}")
                     }
 
                 )

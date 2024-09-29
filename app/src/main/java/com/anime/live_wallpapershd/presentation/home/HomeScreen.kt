@@ -1,6 +1,7 @@
 package com.anime.live_wallpapershd.presentation.home
 
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -47,6 +48,18 @@ import com.pixplicity.easyprefs.library.Prefs
 
 @Composable
 fun HomeScreen(navController:NavHostController) {
+    val token = Prefs.getString("token_auth")
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+    if (showDialog){
+        DialogLogin(
+            onClick = {
+                navController.navigate(Screen.LoginScreen.route)
+            },
+            onDismiss = {showDialog = false}
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -78,6 +91,13 @@ fun HomeScreen(navController:NavHostController) {
                     }
                     R.drawable.heart -> {
 
+                        if (token.isNullOrEmpty())
+                        {
+                            showDialog = true
+                        } else {
+                            navController.navigate(Screen.FavoriteScreen.route)
+                        }
+
                     }
                 }
         }
@@ -93,6 +113,7 @@ fun TopBar(
 )
 {
     val token = Prefs.getString("token_auth")
+    Log.d("token ", token)
     var showDialog by remember {
         mutableStateOf(false)
     }

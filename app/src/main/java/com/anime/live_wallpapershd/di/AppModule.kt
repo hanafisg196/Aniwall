@@ -3,10 +3,12 @@ package com.anime.live_wallpapershd.di
 import com.anime.live_wallpapershd.common.Constants.BASE_URL
 import com.anime.live_wallpapershd.data.ApiService
 import com.anime.live_wallpapershd.repository.CategoriesRepo
+import com.anime.live_wallpapershd.repository.FavoriteRepo
 import com.anime.live_wallpapershd.repository.PopularRepo
 import com.anime.live_wallpapershd.repository.WallpapersByCatRepo
 import com.anime.live_wallpapershd.repository.WallpapersRepo
 import com.anime.live_wallpapershd.repository.impl.CategoriesRepoImpl
+import com.anime.live_wallpapershd.repository.impl.FavoriteRepoImpl
 import com.anime.live_wallpapershd.repository.impl.PopularRepoImpl
 import com.anime.live_wallpapershd.repository.impl.WallpapersByCatRepoImpl
 import com.anime.live_wallpapershd.repository.impl.WallpapersRepoImpl
@@ -40,14 +42,14 @@ object AppModule {
 
     @Provides
     fun provideWallpapersRepository(api: ApiService): WallpapersRepo = WallpapersRepoImpl(api)
-
     @Provides
     fun providePopularRepository(api: ApiService): PopularRepo = PopularRepoImpl(api)
     @Provides
     fun provideCategoriesRepository(api: ApiService): CategoriesRepo = CategoriesRepoImpl(api)
-
     @Provides
     fun provideWallpapersByCat(api: ApiService): WallpapersByCatRepo = WallpapersByCatRepoImpl(api)
+    @Provides
+    fun provideFavorites(api: ApiService): FavoriteRepo = FavoriteRepoImpl(api)
 
 
 }

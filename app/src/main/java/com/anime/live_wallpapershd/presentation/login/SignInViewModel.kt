@@ -18,19 +18,28 @@ class SignInViewModel @Inject constructor(
     private val signInRepo: SingInRepo
 ) : ViewModel() {
 
-    fun signInWithGoogle(idToken: String, onSuccess: (String) -> Unit, onError: (Throwable) -> Unit) {
+    fun signInWithGoogle(idToken: String, onSuccess: (String, Int) -> Unit, onError: (Throwable) -> Unit) {
         viewModelScope.launch {
             try {
                 val response: Response<GoogleSignInResponse> = signInRepo.pushToken(idToken)
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        val token = it.user.token
-                        Log.i("GoogleSignIn", "Token push successful")
+                    response.body()?.let { signInResponse ->
+                        val token = signInResponse.user.token
+                        val userId = signInResponse.user.id
+
+                        Log.i("GoogleSignIn", "Token push successful: $token")
+                        Log.i("GoogleSignIn", "User ID push successful: $userId")
+
                         withContext(Dispatchers.Main) {
-                            onSuccess(token)
+                            onSuccess(token, userId) // Pass both token and userId
+                        }
+                    } ?: run {
+                        val error = Exception("Response body is null")
+                        Log.e("GoogleSignIn", "Sign-in failed: $error")
+                        withContext(Dispatchers.Main) {
+                            onError(error)
                         }
                     }
-
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("GoogleSignIn", "Sign-in failed: $errorBody")
@@ -45,8 +54,8 @@ class SignInViewModel @Inject constructor(
                 }
             }
         }
-
     }
+
     fun logout(onSuccess: () -> Unit, onError: (Throwable) -> Unit) {
         viewModelScope.launch {
             try {

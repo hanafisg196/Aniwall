@@ -12,7 +12,6 @@ class WallpapersRepoImpl @Inject constructor(
     override suspend fun getWallpapers(page: Int, perPage: Int): WallpapersResponse {
 //        delay(3000)
         return api.getLatest(page, perPage)
-
     }
 
 }
