@@ -11,17 +11,22 @@ import com.anime.live_wallpapershd.data.dto.PopularResponse
 import com.anime.live_wallpapershd.data.dto.RandomResponse
 import com.anime.live_wallpapershd.data.dto.request.SingInRequest
 import com.anime.live_wallpapershd.data.dto.SlideResponse
+import com.anime.live_wallpapershd.data.dto.UploadWallpaperResponse
 import com.anime.live_wallpapershd.data.dto.UserProfileResponse
 import com.anime.live_wallpapershd.data.dto.WallpaperResponse
 import com.anime.live_wallpapershd.data.dto.WallpapersByCatResponse
 import com.anime.live_wallpapershd.data.dto.WallpapersResponse
 import com.anime.live_wallpapershd.data.dto.request.FavoriteRequest
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -109,6 +114,20 @@ interface ApiService {
         "ApiKey:${API_KEY}",
         "AppId:${APP_ID}"
     )
+    @Multipart
+    @POST("wallpaper/user/upload")
+    suspend fun uploadWallpaper(
+        @Header("Authorization") authHeader: String,
+        @Part("title") title: RequestBody,
+        @Part("cat_id") catId: RequestBody,
+        @Part type: MultipartBody.Part
+    ): Response<UploadWallpaperResponse>
+
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
     @POST("wallpaper/user/savefavorite")
     suspend fun addFavorite(
         @Header("Authorization") authHeader: String,
@@ -119,6 +138,7 @@ interface ApiService {
         "ApiKey:${API_KEY}",
         "AppId:${APP_ID}"
     )
+
     @POST("wallpaper/user/removefavorite")
     suspend fun removeFavorite(
         @Header("Authorization") authHeader: String,

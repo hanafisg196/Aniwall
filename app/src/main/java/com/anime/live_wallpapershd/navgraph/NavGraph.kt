@@ -13,6 +13,8 @@ import com.anime.live_wallpapershd.presentation.home.HomeScreen
 import com.anime.live_wallpapershd.presentation.home.components.RandomScreen
 import com.anime.live_wallpapershd.presentation.login.LoginScreen
 import com.anime.live_wallpapershd.presentation.profile.ProfileScreen
+import com.anime.live_wallpapershd.presentation.profile.UploadImageScreen
+import com.anime.live_wallpapershd.presentation.profile.UploadVideoScreen
 import com.anime.live_wallpapershd.presentation.wallpapers.FavoriteScreen
 import com.anime.live_wallpapershd.presentation.wallpapers.WallpapersScreen
 import com.anime.live_wallpapershd.ui.PermissionScreen
@@ -73,19 +75,30 @@ fun SetNav(navController: NavHostController)
         composable(
             route = Screen.ProfileScreen.route
         ){
-            ProfileScreen(navController)
+            ProfileScreen(navController = navController)
         }
 
         composable(
             route = Screen.LoginScreen.route
         ){
-            LoginScreen(navController)
+            LoginScreen(navController = navController)
         }
 
         composable(
             route = Screen.FavoriteScreen.route
         ){
             FavoriteScreen(navController = navController)
+        }
+        composable(
+            route = Screen.UploadImageScreen.route
+        ){
+            UploadImageScreen(navController = navController)
+        }
+
+        composable(
+            route = Screen.UploadVideoScreen.route
+        ){
+            UploadVideoScreen(navController = navController)
         }
 
     }

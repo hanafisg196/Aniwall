@@ -1,8 +1,6 @@
 
 package com.anime.live_wallpapershd.presentation.detail
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anime.live_wallpapershd.data.dto.FavoriteResponse
@@ -21,8 +19,6 @@ class FavoriteViewModel @Inject constructor(
 
     private val _checkFavorite = MutableStateFlow(false)
     val checkFavorite: StateFlow<Boolean> get() = _checkFavorite
-
-
 
     fun addFavorite(token: String, wallpaperId: Int) {
         viewModelScope.launch {

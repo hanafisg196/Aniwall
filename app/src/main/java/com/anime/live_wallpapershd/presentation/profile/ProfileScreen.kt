@@ -26,6 +26,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -46,6 +49,7 @@ import coil.size.Scale
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.model.User
 import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.dialogs.DialogUpload
 import com.anime.live_wallpapershd.presentation.home.RoundImage
 import com.anime.live_wallpapershd.presentation.login.SignInViewModel
 import com.anime.live_wallpapershd.ui.fonts.Fonts
@@ -61,11 +65,13 @@ fun ProfileScreen(
 
     val userState by viewModel.state.collectAsState()
     val token = Prefs.getString("token_auth")
+
     val data = listOf("https://mfiles.alphacoders.com/101/thumb-350-1012618.png", "https://mfiles.alphacoders.com/101/thumb-350-1012618.png", "https://mfiles.alphacoders.com/101/thumb-350-1012618.png", "https://mfiles.alphacoders.com/101/thumb-350-1012618.png", "https://mfiles.alphacoders.com/101/thumb-350-1012618.png", "https://mfiles.alphacoders.com/101/thumb-350-1012618.png")
     LaunchedEffect(token) {
         viewModel.getCurrentUser(token)
 
     }
+
 
     Column(modifier = Modifier.fillMaxWidth())
     {
@@ -98,7 +104,18 @@ fun TopBarProfile(
     singInViewModel: SignInViewModel = hiltViewModel()
 )
 {
+    var uploadDialog by remember {
+        mutableStateOf(false)
+    }
     val context = LocalContext.current
+    if (uploadDialog){
+        DialogUpload(
+            navController = navController,
+            onDismiss = {
+            uploadDialog = false }
+        )
+    }
+
     Row (
         verticalAlignment = Alignment.CenterVertically,
 
@@ -131,7 +148,7 @@ fun TopBarProfile(
         )
         IconButton(
             onClick = {
-                // Todo:
+                uploadDialog = true
             },
             modifier = Modifier.padding(start = 100.dp)
         ) {

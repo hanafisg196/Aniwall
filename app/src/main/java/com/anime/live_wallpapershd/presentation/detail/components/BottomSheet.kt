@@ -33,11 +33,12 @@ import androidx.compose.ui.unit.sp
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.common.Constants.ITEM_URL
 import com.anime.live_wallpapershd.model.Wallpaper
+import com.anime.live_wallpapershd.presentation.dialogs.DialogSet
 import com.anime.live_wallpapershd.services.VideoWallpaperService
 import com.anime.live_wallpapershd.services.downloadDataLiveWallpaper
+import com.anime.live_wallpapershd.services.downloadWallpaper
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
-import com.anime.live_wallpapershd.services.downloadWallpaper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +53,7 @@ fun BottomSheet(wallpaper: Wallpaper)
         }
     if (showDialog)
     {
-        DialogSheet (onDismiss = {
+        DialogSet (onDismiss = {
             showDialog = false
         }, wallpaper = wallpaper)
     }

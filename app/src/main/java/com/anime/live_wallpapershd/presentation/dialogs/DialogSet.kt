@@ -1,4 +1,4 @@
-package com.anime.live_wallpapershd.presentation.detail.components
+package com.anime.live_wallpapershd.presentation.dialogs
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +27,7 @@ import com.anime.live_wallpapershd.services.lockWallpaperSet
 
 
 @Composable
-fun DialogSheet(
+fun DialogSet(
     wallpaper: Wallpaper,
     onDismiss: () -> Unit
 )
