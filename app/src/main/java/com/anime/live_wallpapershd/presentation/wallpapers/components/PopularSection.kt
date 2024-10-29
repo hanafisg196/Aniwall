@@ -30,7 +30,7 @@ import coil.size.Scale
 import com.anime.live_wallpapershd.common.Constants
 import com.anime.live_wallpapershd.model.Popular
 import com.anime.live_wallpapershd.navgraph.Screen
-import com.anime.live_wallpapershd.presentation.home.components.VideoTypeText
+import com.anime.live_wallpapershd.presentation.status.VideoStatus
 import com.anime.live_wallpapershd.presentation.wallpapers.PopularViewModel
 
 
@@ -136,7 +136,7 @@ fun PopularItem(
                         .align(Alignment.TopStart)
                 ) {
 
-                    VideoTypeText(videoUrl = popular.type)
+                    VideoStatus(videoUrl = popular.type)
 
                 }
             }

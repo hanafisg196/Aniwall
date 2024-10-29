@@ -9,9 +9,13 @@ class WallpapersRepoImpl @Inject constructor(
     private val api: ApiService
 ):WallpapersRepo {
 
-    override suspend fun getWallpapers(page: Int, perPage: Int): WallpapersResponse {
-//        delay(3000)
+    override suspend fun getWallpapers(page: Int, perPage: Int)
+    : WallpapersResponse {
         return api.getLatest(page, perPage)
+    }
+    override suspend fun getWallpapersByUser(token: String, userId: Int, page: Int, perPage: Int)
+    : WallpapersResponse {
+        return api.getWallpaperByUser(token, userId, page, perPage)
     }
 
 }

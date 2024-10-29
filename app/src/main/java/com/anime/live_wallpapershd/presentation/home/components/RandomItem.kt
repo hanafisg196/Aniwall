@@ -2,19 +2,12 @@ package com.anime.live_wallpapershd.presentation.home.components
 
 
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,6 +23,7 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.anime.live_wallpapershd.common.Constants.ITEM_URL
 import com.anime.live_wallpapershd.model.Random
+import com.anime.live_wallpapershd.presentation.status.VideoStatus
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 
 
@@ -68,7 +62,7 @@ fun RandomItem(
                 .align(Alignment.TopStart)
         ) {
 
-            VideoTypeText(videoUrl = random.type)
+            VideoStatus(videoUrl = random.type)
 
         }
         Column (
@@ -90,37 +84,4 @@ fun RandomItem(
 
 }
 
-@Composable
-fun VideoTypeText(videoUrl: String) {
-    val text = if (videoUrl.contains(".mp4")) {
-        "Live"
-    } else {
-        null 
-    }
 
-    if (text != null) {
-        Card(
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier
-                .width(60.dp)
-                .size(30.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            )
-
-        )
-        {
-
-            Text(
-                text = text,
-                color = Color.White,
-                fontFamily = Fonts.fontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 14.sp,
-               modifier = Modifier.align(Alignment.CenterHorizontally)
-
-                )
-        }
-
-    }
-}

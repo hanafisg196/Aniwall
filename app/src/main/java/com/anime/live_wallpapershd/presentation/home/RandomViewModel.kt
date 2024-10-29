@@ -26,6 +26,3 @@ class RandomViewModel @Inject constructor(
     }
 
 }
-
-
-

@@ -1,8 +1,11 @@
 package com.anime.live_wallpapershd.presentation.wallpapers.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,7 +25,8 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.anime.live_wallpapershd.common.Constants
 import com.anime.live_wallpapershd.model.Wallpapers
-import com.anime.live_wallpapershd.presentation.home.components.VideoTypeText
+import com.anime.live_wallpapershd.presentation.status.ReviewStatus
+import com.anime.live_wallpapershd.presentation.status.VideoStatus
 
 @Composable
 fun WallpaperListItem(
@@ -65,7 +69,15 @@ fun WallpaperListItem(
                         .align(Alignment.TopStart)
                 ) {
 
-                    VideoTypeText(videoUrl = wallpapers.type)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(30.dp)
+                    ) {
+                        VideoStatus(videoUrl = wallpapers.type)
+                        ReviewStatus(review = wallpapers.review)
+                    }
+
+
 
                 }
             }

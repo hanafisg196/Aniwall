@@ -1,6 +1,7 @@
 package com.anime.live_wallpapershd.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.google.accompanist.permissions.*
@@ -37,8 +38,6 @@ fun RequestPermissions(
 }
 
 
-
-
 @ExperimentalPermissionsApi
 @Composable
 private fun HandleRequests(
@@ -47,15 +46,18 @@ private fun HandleRequests(
     navController: NavHostController
 ) {
     var shouldShowRationale by remember { mutableStateOf(false) }
-    val result = multiplePermissionsState.permissions.all {
+    val permissionGranted = multiplePermissionsState.permissions.all {
         shouldShowRationale = it.status.shouldShowRationale
         it.status == PermissionStatus.Granted
     }
-    if (result) {
-        navController.navigate(Screen.HomeScreen.route)
-    } else {
+    LaunchedEffect(permissionGranted) {
+        if (permissionGranted) {
+            navController.navigate(Screen.HomeScreen.route) {
+                popUpTo(Screen.PermissionScreen.route) { inclusive = true }
+            }
+        }
+    }
+    if (!permissionGranted) {
         deniedContent(shouldShowRationale)
     }
 }
-
-

@@ -1,0 +1,41 @@
+package com.anime.live_wallpapershd.data.paging
+
+import android.util.Log
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import com.anime.live_wallpapershd.common.Constants
+import com.anime.live_wallpapershd.model.Wallpapers
+import com.anime.live_wallpapershd.repository.WallpapersRepo
+import com.pixplicity.easyprefs.library.Prefs
+
+class WallpaperByUserDataSource (
+    private  val repository: WallpapersRepo,
+): PagingSource<Int, Wallpapers>() {
+    override fun getRefreshKey(state: PagingState<Int, Wallpapers>): Int? {
+        return  state.anchorPosition?.let {
+            val page = state.closestPageToPosition(it)
+            page?.prevKey?.plus(1)?: page?.nextKey?.minus(1)
+        }
+    }
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Wallpapers> {
+        return try {
+            val token = Prefs.getString("token_auth")
+            val userId = Prefs.getInt("user_id")
+            val page = params.key ?:1
+            val response = repository.getWallpapersByUser(token,userId,page, Constants.ITEM_PAGE)
+            Log.d("wallpapersByUser", "Data: ${response.data}")
+            LoadResult.Page(
+                data = response.data,
+                prevKey = if (page == 1) null else page - 1,
+                nextKey = if (response.data.isNotEmpty()) page + 1 else null
+            )
+        }catch (e: Exception){
+//            Log.e("wallpapersByUser", "Error saat memuat data wallpapers: ${e.message}", e)
+            LoadResult.Error(e)
+
+        }
+
+    }
+
+}

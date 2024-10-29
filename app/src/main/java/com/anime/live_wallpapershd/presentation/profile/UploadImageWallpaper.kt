@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -20,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -33,8 +36,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
 import com.anime.live_wallpapershd.presentation.profile.upload.PickImage
 import com.anime.live_wallpapershd.presentation.profile.upload.SlideCategoryItem
 import com.anime.live_wallpapershd.presentation.profile.upload.TitleWallpaper
@@ -46,36 +52,92 @@ import com.pixplicity.easyprefs.library.Prefs
 @Composable
 fun UploadImageScreen(
     viewModel: UploadWallpaperViewModel = hiltViewModel(),
+    viewModelCat: CategoriesVieModel = hiltViewModel(),
     navController: NavController
 ){
+    val categoriesList = viewModelCat.categoriesPager.collectAsLazyPagingItems()
     val scrollState = rememberScrollState()
     val context = LocalContext.current
     val isUploading by viewModel.isUploading.collectAsState()
+    val errorTitle by viewModel.errorTitle.collectAsState()
+    val errorCat by viewModel.errorCat.collectAsState()
+    val errorType by viewModel.errorType.collectAsState()
     val token = Prefs.getString("token_auth")
     var title by remember { mutableStateOf("") }
+    var catId by remember { mutableIntStateOf(0) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
+
+
     Column (
-        modifier = Modifier.fillMaxSize()
-                     .padding(start = 30.dp , end = 30.dp)
+        modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(scrollState)
     ) {
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(25.dp))
         UploadImageTopBar(name = "Upload Image" )
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(25.dp))
         TitleWallpaper(
             titleText = title,
             onTitleChange = { title = it }
         )
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+        errorTitle?.let {
+            Text(
+                text = it,
+                modifier = Modifier.padding(start = 30.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(25.dp))
         PickImage(
             imageUri = imageUri,
             onImageSelected = {
                 imageUri = it
             }
         )
-        Spacer(modifier = Modifier.height(35.dp))
-        SlideCategoryItem(name = "Jujutsu Kaisen", isChecked = false,onCheckedChange = {})
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+        errorCat?.let {
+            Text(
+                text = it,
+                modifier = Modifier.padding(start = 30.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(25.dp))
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp)
+                                
+        ) {
+            items(categoriesList) { item ->
+                item?.let { category ->
+                    //if you want multiple select
+                    //val isChecked = checkedStates[category.id] ?: false
+                    val isChecked = (catId == category.id)
+                    SlideCategoryItem(
+                        name = category.name,
+                        isChecked = isChecked,
+                        onCheckedChange = { newCheckedState ->
+                        //    checkedStates[category.id] = newCheckedState
+                            if (newCheckedState) {
+                                catId = category.id
+                            } else if (catId == category.id) {
+                                catId = 0
+                            }
+                        }
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        errorCat?.let {
+            Text(
+                text = it,
+                modifier = Modifier.padding(start = 30.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(25.dp))
         if (isUploading) {
             CircularProgressIndicator(
                 modifier = Modifier.
@@ -90,7 +152,7 @@ fun UploadImageScreen(
                         viewModel.uploadWallpaper(
                             token ?: "",
                             title,
-                            1,
+                            catId,
                             imagePart
                         ){
                             navController.navigate(Screen.ProfileScreen.route)
@@ -104,7 +166,9 @@ fun UploadImageScreen(
                 modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 Text(text = "Upload Wallpaper")
             }
+            Spacer(modifier = Modifier.height(15.dp))
         }
+
 
     }
 

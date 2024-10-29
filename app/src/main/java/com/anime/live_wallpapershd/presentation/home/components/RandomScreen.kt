@@ -1,5 +1,6 @@
 package com.anime.live_wallpapershd.presentation.home.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -42,7 +43,7 @@ fun RandomScreen(
                     wallpapers.size
                 }
                 HorizontalPager(
-                    
+
                     state = pagerState,
                     contentPadding = PaddingValues(horizontal = 20.dp),
                     modifier = Modifier

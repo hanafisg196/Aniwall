@@ -30,7 +30,8 @@ import coil.request.ImageRequest
 @Composable
 fun PickImage(
     imageUri: Uri?,
-    onImageSelected: (Uri?) -> Unit
+    onImageSelected: (Uri?) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) {
@@ -41,7 +42,9 @@ fun PickImage(
         modifier = Modifier
             .fillMaxWidth()
             .width(300.dp)
+            .padding(start = 30.dp, end = 30.dp)
             .background(Color.LightGray, shape = RoundedCornerShape(16.dp)),
+
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {

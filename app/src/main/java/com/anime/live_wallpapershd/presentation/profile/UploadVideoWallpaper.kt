@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -18,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,9 +34,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
 import com.anime.live_wallpapershd.presentation.profile.upload.PickVideo
+import com.anime.live_wallpapershd.presentation.profile.upload.SlideCategoryItem
 import com.anime.live_wallpapershd.presentation.profile.upload.TitleWallpaper
 import com.anime.live_wallpapershd.services.createMultipartBodyImage
 import com.anime.live_wallpapershd.services.createMultipartBodyVideo
@@ -44,20 +51,23 @@ import com.pixplicity.easyprefs.library.Prefs
 @Composable
 fun UploadVideoScreen(
     viewModel: UploadWallpaperViewModel = hiltViewModel(),
+    viewModelCat: CategoriesVieModel = hiltViewModel(),
     navController: NavController
 ){
-    val context = LocalContext.current
+    val categoriesList = viewModelCat.categoriesPager.collectAsLazyPagingItems()
     val isUploading by viewModel.isUploading.collectAsState()
+    val context = LocalContext.current
     val token = Prefs.getString("token_auth")
     var videoUri by remember { mutableStateOf<Uri?>(null) }
     var title by remember { mutableStateOf("") }
+    var catId by remember { mutableIntStateOf(0) }
     Column (
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(25.dp))
         UploadVideoTopBar(name = "Upload Video" )
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(25.dp))
         TitleWallpaper(
             titleText = title,
             onTitleChange = { title = it }
@@ -67,7 +77,35 @@ fun UploadVideoScreen(
             videoUri = videoUri ,
             onVideoSelected = {videoUri = it}
         )
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(25.dp))
+        LazyRow(
+            modifier = Modifier.fillMaxWidth()
+                .padding(start = 10.dp , end = 10.dp)
+
+        ) {
+            items(categoriesList) { item ->
+                item?.let { category ->
+                    //if you want multiple select
+                    //val isChecked = checkedStates[category.id] ?: false
+                    val isChecked = (catId == category.id)
+                    SlideCategoryItem(
+                        name = category.name,
+                        isChecked = isChecked,
+                        onCheckedChange = { newCheckedState ->
+                            //    checkedStates[category.id] = newCheckedState
+                            if (newCheckedState) {
+                                catId = category.id
+                            } else if (catId == category.id) {
+                                catId = 0
+                            }
+                        }
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(25.dp))
         if (isUploading){
             CircularProgressIndicator(
                 modifier = Modifier.
@@ -82,7 +120,7 @@ fun UploadVideoScreen(
                         viewModel.uploadWallpaper(
                             token ?: "",
                             title,
-                            1,
+                            catId,
                             videoPart
                         ){
                             navController.navigate(Screen.ProfileScreen.route)

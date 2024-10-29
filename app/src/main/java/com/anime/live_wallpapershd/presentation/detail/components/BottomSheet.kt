@@ -5,7 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -34,6 +36,7 @@ import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.common.Constants.ITEM_URL
 import com.anime.live_wallpapershd.model.Wallpaper
 import com.anime.live_wallpapershd.presentation.dialogs.DialogSet
+import com.anime.live_wallpapershd.presentation.home.RoundImage
 import com.anime.live_wallpapershd.services.VideoWallpaperService
 import com.anime.live_wallpapershd.services.downloadDataLiveWallpaper
 import com.anime.live_wallpapershd.services.downloadWallpaper
@@ -60,33 +63,43 @@ fun BottomSheet(wallpaper: Wallpaper)
 
 
     BottomSheetScaffold(
-        sheetPeekHeight = 120.dp,
+        sheetPeekHeight = 125.dp,
         sheetContent = {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 2.dp, start = 15.dp, end = 15.dp)
+                    .padding(start = 15.dp, end = 15.dp)
 
             ) {
-                Text(
-                    text = "#Tag" ,
-                    color = Color.Gray,
-                    fontFamily = Fonts.fontFamily,
-                    fontSize = 14.sp
-                )
+
+                Row{
+                    RoundImage(
+                        image = painterResource(id = R.drawable.profile),
+                        modifier = Modifier.size(60.dp)
+                    )
+                    Text(
+                        text = "Username",
+                        color = Color.Black,
+                        fontFamily = Fonts.fontFamily,
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(start = 10.dp, top = 15.dp)
+                    )
+                }
+
+
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = wallpaper.title,
                     color = Color.Black,
                     fontFamily = Fonts.fontFamily,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp
-                )
+                    fontSize = 20.sp )
             }
+
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 30.dp, start = 20.dp, end = 20.dp)
+                    .padding(top = 20.dp)
             ) {
                 Box(
                     modifier = Modifier
@@ -96,6 +109,7 @@ fun BottomSheet(wallpaper: Wallpaper)
 
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
                         Box(
                             modifier = Modifier
                                 .size(50.dp)
@@ -104,9 +118,13 @@ fun BottomSheet(wallpaper: Wallpaper)
                                 .clickable {
                                     if (dataUrl.contains(".mp4")) {
                                         val fileName = "set_live_wallpaper.mp4"
-                                        downloadDataLiveWallpaper(context, dataUrl, fileName) { filePath ->
+                                        downloadDataLiveWallpaper(
+                                            context,
+                                            dataUrl,
+                                            fileName
+                                        ) { filePath ->
                                             Prefs.putString("video_file", filePath)
-                                            VideoWallpaperService.start(context,filePath)
+                                            VideoWallpaperService.start(context, filePath)
                                         }
                                     } else {
                                         showDialog = true
@@ -147,7 +165,7 @@ fun BottomSheet(wallpaper: Wallpaper)
                                 .background(colorResource(id = R.color.pinkCustom))
                                 .clickable {
                                     val filName = wallpaper.type
-                                    downloadWallpaper(context,dataUrl,filName)
+                                    downloadWallpaper(context, dataUrl, filName)
                                 },
                             contentAlignment = Alignment.Center
                         ) {
@@ -177,11 +195,12 @@ fun BottomSheet(wallpaper: Wallpaper)
                     .padding(64.dp),
                  ){
 
+
             }
         } ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding))
         {
-                //
+
         }
 
     }

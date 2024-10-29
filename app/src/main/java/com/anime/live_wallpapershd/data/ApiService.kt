@@ -168,6 +168,18 @@ interface ApiService {
         @Query("perPage") perPage: Int
     ):FavoriteWallpapersResponse
 
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @GET("wallpaper/user/listwallpaper/{userId}")
+    suspend fun getWallpaperByUser(
+        @Header("Authorization") authHeader: String,
+        @Path("userId") userId: Int,
+        @Query("page") page: Int ,
+        @Query("perPage") perPage: Int
+    ):WallpapersResponse
+
 
 
 }

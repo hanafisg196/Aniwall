@@ -1,7 +1,7 @@
 package com.anime.live_wallpapershd.presentation.home
 
 
-import android.util.Log
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -46,18 +46,21 @@ import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController:NavHostController) {
     val token = Prefs.getString("token_auth")
     var showDialog by remember {
         mutableStateOf(false)
     }
-    if (showDialog){
+
+
+    if (showDialog) {
         DialogLogin(
             onClick = {
                 navController.navigate(Screen.LoginScreen.route)
             },
-            onDismiss = {showDialog = false}
+            onDismiss = { showDialog = false }
         )
     }
     Column(
@@ -66,8 +69,9 @@ fun HomeScreen(navController:NavHostController) {
 
     )
     {
+
         Spacer(modifier = Modifier.height(35.dp))
-        TopBar(navController,name = "Aniwall")
+        TopBar(navController,name = "Aniwall", token )
         Spacer(modifier = Modifier.height(6.dp))
         SlideScreen()
         RandomScreen(navController)
@@ -79,6 +83,7 @@ fun HomeScreen(navController:NavHostController) {
             BottomMenus(R.drawable.heart)
         )
         ButtonMenu(items = items) { clickedItem ->
+
                 when(clickedItem.iconId){
                     R.drawable.category -> {
                         navController.navigate(Screen.CategoriesScreen.route)
@@ -100,20 +105,23 @@ fun HomeScreen(navController:NavHostController) {
 
                     }
                 }
+           }
         }
     }
-}
+
+
+
 
 @Composable
 fun TopBar(
     navController:NavHostController,
     name: String,
+    token: String,
     modifier: Modifier = Modifier
 
 )
 {
-    val token = Prefs.getString("token_auth")
-    Log.d("token ", token)
+
     var showDialog by remember {
         mutableStateOf(false)
     }
@@ -150,7 +158,7 @@ fun TopBar(
             modifier = Modifier
                 .size(40.dp)
                 .clickable {
-                    if (!token.isNullOrEmpty()) {
+                    if (token.isNotEmpty()) {
                         navController.navigate(Screen.ProfileScreen.route)
                     } else {
                         showDialog = true
@@ -191,3 +199,6 @@ fun RoundImage(
             .clip(CircleShape)
     )
 }
+
+
+
