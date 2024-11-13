@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.model.BottomMenus
 import com.anime.live_wallpapershd.navgraph.Screen
@@ -48,13 +49,13 @@ import com.pixplicity.easyprefs.library.Prefs
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController:NavHostController) {
+fun HomeScreen(
+    navController:NavHostController
+) {
     val token = Prefs.getString("token_auth")
     var showDialog by remember {
         mutableStateOf(false)
     }
-
-
     if (showDialog) {
         DialogLogin(
             onClick = {
@@ -109,9 +110,6 @@ fun HomeScreen(navController:NavHostController) {
         }
     }
 
-
-
-
 @Composable
 fun TopBar(
     navController:NavHostController,
@@ -121,7 +119,7 @@ fun TopBar(
 
 )
 {
-
+    val profilePicture = Prefs.getString("profile_image")
     var showDialog by remember {
         mutableStateOf(false)
     }
@@ -154,16 +152,19 @@ fun TopBar(
             .weight(1f))
 
         RoundImage(
-            image = painterResource(id = R.drawable.profile),
+            image = if (profilePicture.isNotEmpty()){
+                rememberAsyncImagePainter(profilePicture)
+            }else{
+                painterResource(id = R.drawable.profile)
+            },
             modifier = Modifier
-                .size(40.dp)
+                .size(45.dp)
                 .clickable {
                     if (token.isNotEmpty()) {
                         navController.navigate(Screen.ProfileScreen.route)
                     } else {
                         showDialog = true
                     }
-
                 }
         )
 
@@ -175,6 +176,9 @@ fun TopBar(
             contentDescription = "Back",
             tint = Color.Black,
             modifier = Modifier.size(22.dp)
+                .clickable {
+                    //Todo
+                }
         )
     }
 }

@@ -47,7 +47,7 @@ fun PickVideo(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Max Image Size 20 Mb",
+                text = "Max Video Size 20 Mb",
                 color = Color.Black
             )
             Text(

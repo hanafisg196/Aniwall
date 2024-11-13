@@ -37,7 +37,7 @@ Column (
 ) {
     Spacer(modifier = Modifier.height(35.dp))
     CategoriesTopBar(
-        name = "Favorite Wallpaper",
+        name = "Categories",
         navController = navController
     )
     Spacer(modifier = Modifier.height(15.dp))

@@ -74,7 +74,7 @@ fun UploadImageScreen(
             .verticalScroll(scrollState)
     ) {
         Spacer(modifier = Modifier.height(25.dp))
-        UploadImageTopBar(name = "Upload Image" )
+        UploadImageTopBar(name = "Upload Image", navController = navController)
         Spacer(modifier = Modifier.height(25.dp))
         TitleWallpaper(
             titleText = title,
@@ -95,7 +95,7 @@ fun UploadImageScreen(
             }
         )
         Spacer(modifier = Modifier.height(10.dp))
-        errorCat?.let {
+        errorType?.let {
             Text(
                 text = it,
                 modifier = Modifier.padding(start = 30.dp)
@@ -142,6 +142,7 @@ fun UploadImageScreen(
             CircularProgressIndicator(
                 modifier = Modifier.
                 align(Alignment.CenterHorizontally)
+                    .padding(bottom = 15.dp)
             )
         }else{
 
@@ -168,8 +169,6 @@ fun UploadImageScreen(
             }
             Spacer(modifier = Modifier.height(15.dp))
         }
-
-
     }
 
 }
@@ -180,6 +179,7 @@ fun UploadImageScreen(
 fun  UploadImageTopBar(
     name: String,
     modifier: Modifier = Modifier,
+    navController: NavController
 )
 {
     Row (
@@ -190,7 +190,7 @@ fun  UploadImageTopBar(
 
     ) { IconButton(
         onClick = {
-           //Todo
+            navController.navigateUp()
         },
 
     ) {

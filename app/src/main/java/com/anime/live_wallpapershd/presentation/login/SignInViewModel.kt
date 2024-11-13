@@ -26,12 +26,10 @@ class SignInViewModel @Inject constructor(
                     response.body()?.let { signInResponse ->
                         val token = signInResponse.user.token
                         val userId = signInResponse.user.id
-
-                        Log.i("GoogleSignIn", "Token push successful: $token")
-                        Log.i("GoogleSignIn", "User ID push successful: $userId")
-
+//                        Log.i("GoogleSignIn", "Token push successful: $token")
+//                        Log.i("GoogleSignIn", "User ID push successful: $userId")
                         withContext(Dispatchers.Main) {
-                            onSuccess(token, userId) // Pass both token and userId
+                            onSuccess(token, userId)
                         }
                     } ?: run {
                         val error = Exception("Response body is null")

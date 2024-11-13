@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -42,7 +44,6 @@ import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
 import com.anime.live_wallpapershd.presentation.profile.upload.PickVideo
 import com.anime.live_wallpapershd.presentation.profile.upload.SlideCategoryItem
 import com.anime.live_wallpapershd.presentation.profile.upload.TitleWallpaper
-import com.anime.live_wallpapershd.services.createMultipartBodyImage
 import com.anime.live_wallpapershd.services.createMultipartBodyVideo
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
@@ -55,28 +56,45 @@ fun UploadVideoScreen(
     navController: NavController
 ){
     val categoriesList = viewModelCat.categoriesPager.collectAsLazyPagingItems()
+    val scrollState = rememberScrollState()
     val isUploading by viewModel.isUploading.collectAsState()
+    val errorTitle by viewModel.errorTitle.collectAsState()
+    val errorCat by viewModel.errorCat.collectAsState()
+    val errorType by viewModel.errorType.collectAsState()
     val context = LocalContext.current
     val token = Prefs.getString("token_auth")
     var videoUri by remember { mutableStateOf<Uri?>(null) }
     var title by remember { mutableStateOf("") }
     var catId by remember { mutableIntStateOf(0) }
     Column (
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.
+        fillMaxSize().verticalScroll(scrollState)
+
     ) {
         Spacer(modifier = Modifier.height(25.dp))
-        UploadVideoTopBar(name = "Upload Video" )
+        UploadVideoTopBar(name = "Upload Video", navController = navController )
         Spacer(modifier = Modifier.height(25.dp))
         TitleWallpaper(
             titleText = title,
             onTitleChange = { title = it }
         )
+        errorTitle?.let {
+            Text(
+                text = it,
+                modifier = Modifier.padding(start = 30.dp)
+            )
+        }
         Spacer(modifier = Modifier.height(35.dp))
         PickVideo(
             videoUri = videoUri ,
             onVideoSelected = {videoUri = it}
         )
+        errorType?.let {
+            Text(
+                text = it,
+                modifier = Modifier.padding(start = 30.dp)
+            )
+        }
         Spacer(modifier = Modifier.height(25.dp))
         LazyRow(
             modifier = Modifier.fillMaxWidth()
@@ -105,11 +123,19 @@ fun UploadVideoScreen(
                 }
             }
         }
+        errorCat?.let {
+            Text(
+                text = it,
+                modifier = Modifier.padding(start = 30.dp)
+            )
+        }
         Spacer(modifier = Modifier.height(25.dp))
+
         if (isUploading){
             CircularProgressIndicator(
                 modifier = Modifier.
                 align(Alignment.CenterHorizontally)
+                    .padding(bottom = 15.dp)
             )
         }else{
             Button(onClick = {
@@ -131,8 +157,8 @@ fun UploadVideoScreen(
                     }
 
                 }
-            }) {
-                Text(text = "Upload")
+            }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                Text(text = "Upload Wallpaper")
             }
         }
     }
@@ -144,6 +170,7 @@ fun UploadVideoScreen(
 fun  UploadVideoTopBar(
     name: String,
     modifier: Modifier = Modifier,
+    navController: NavController
 )
 {
     Row (
@@ -154,7 +181,7 @@ fun  UploadVideoTopBar(
 
     ) { IconButton(
         onClick = {
-            //Todo
+            navController.navigateUp()
         },
         modifier = Modifier.padding(start = 8.dp)
     ) {

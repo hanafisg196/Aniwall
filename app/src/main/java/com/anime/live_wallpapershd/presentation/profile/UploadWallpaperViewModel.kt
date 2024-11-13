@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anime.live_wallpapershd.data.dto.UploadWallpaperResponse
 import com.anime.live_wallpapershd.repository.UploadWallpaperRepo
+import com.anime.live_wallpapershd.services.validatedHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,18 +24,15 @@ class UploadWallpaperViewModel @Inject constructor(
     val errorTitle = MutableStateFlow<String?>(null)
     val errorCat = MutableStateFlow<String?>(null)
     val errorType = MutableStateFlow<String?>(null)
+    private val errorMessage  = mapOf(
+        "title" to errorTitle,
+        "cat_id" to errorCat,
+        "type" to errorType
+    )
 
-    private fun handleErrorResponse(jsonString: String) {
-        val jsonObject = JSONObject(jsonString)
-        val errors = jsonObject.optJSONObject("errors")
-        val titleError = errors?.optJSONArray("title")
-        val catError = errors?.optJSONArray("category")
-        val typeError = errors?.optJSONArray("type")
-        errorTitle.value = titleError?.optString(0)
-        errorCat.value = catError?.optString(0)
-        errorType.value = typeError?.optString(0)
+    private fun validated(jsonString: String){
+        validatedHandler(jsonString, errorMessage)
     }
-
      fun uploadWallpaper(token: String, title: String, catId: Int,type: MultipartBody.Part,  onSuccess: () -> Unit){
          viewModelScope.launch {
              _isUploading.value = true
@@ -46,11 +44,10 @@ class UploadWallpaperViewModel @Inject constructor(
                  Log.d("Upload", "Successfully upload wallpaper")
                  onSuccess()
              } else {
-//                 Log.e("Upload", "Failed to upload wallpaper: ${response.errorBody()?.string()}")
-//                 errorMessage.value = response.errorBody()?.string()
+                 // Log.e("Upload", "Failed to upload wallpaper: ${response.errorBody()?.string()}")
                  val errorBody = response.errorBody()?.string()
                  if (errorBody != null) {
-                     handleErrorResponse(errorBody)
+                    validated(errorBody)
                  }
 
              }
