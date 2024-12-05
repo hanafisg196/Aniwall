@@ -74,7 +74,7 @@ fun EmailField(
             textAlign = TextAlign.Left
         ),
         label = {
-            Text(text = "Title")
+            Text(text = "Email")
         },
         placeholder = {
             Text(text = "Your Email")
