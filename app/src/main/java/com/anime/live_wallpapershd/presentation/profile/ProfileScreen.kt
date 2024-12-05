@@ -42,6 +42,8 @@ import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.dialogs.DialogUpload
 import com.anime.live_wallpapershd.presentation.home.RoundImage
 import com.anime.live_wallpapershd.presentation.login.SignInViewModel
+import com.anime.live_wallpapershd.presentation.profile.component.ProfileDisplay
+import com.anime.live_wallpapershd.presentation.profile.component.ProfileStat
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.WallpaperListItem
@@ -56,11 +58,9 @@ fun ProfileScreen(
     viewModelWallpapers : WallpapersByUserViewModel = hiltViewModel()
 )
 {
-
     val userState by viewModel.state.collectAsState()
     val wallpapersByUser = viewModelWallpapers.wallpapersByUserPager.collectAsLazyPagingItems()
     val token = Prefs.getString("token_auth")
-
     LaunchedEffect(token) {
         viewModel.getCurrentUser(token)
 
@@ -252,54 +252,6 @@ fun ProfileSection(
 
 
 
-@Composable
-fun ProfileStat(
-    name: String,
-    total: String
-)
-{
-    Column (
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-    ) {
-        Text(
-            text = total,
-            fontFamily = Fonts.fontFamily,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 20.sp,
-        )
-        Text(
-            text = name,
-            fontFamily = Fonts.fontFamily,
-            fontWeight = FontWeight.Light,
-            fontSize = 18.sp,
-
-        )
-
-    }
-}
-
-@Composable
-fun ProfileDisplay(
-    name: String
-)
-{
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 30.dp)
-    ) {
-        Text(
-            text = name,
-            fontFamily = Fonts.fontFamily,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 20.sp,
-
-        )
-    }
-
-}
 
 
 

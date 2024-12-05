@@ -24,7 +24,6 @@ fun WallpaperScreen(
 
     LaunchedEffect(wallpaperId) {
         wallpaperViewModel.getWallpaper(wallpaperId)
-
     }
 
     Column(
@@ -40,8 +39,6 @@ fun WallpaperScreen(
             }else {
                 WallpaperDetailItem(wallpaper,navController)
             }
-
-
         }
     }
 

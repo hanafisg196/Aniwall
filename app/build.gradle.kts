@@ -74,28 +74,30 @@ android {
 dependencies {
 
     implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
-    implementation("androidx.activity:activity-compose:1.9.2")
-    implementation(platform("androidx.compose:compose-bom:2024.09.02"))
-    implementation("com.google.firebase:firebase-analytics:22.1.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation(platform("androidx.compose:compose-bom:2024.11.00"))
+    implementation("com.google.firebase:firebase-analytics:22.1.2")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("com.google.firebase:firebase-messaging-ktx:24.1.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.02"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.11.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    implementation ("androidx.compose.ui:ui-util-android:1.7.2")
-
+    implementation ("androidx.compose.ui:ui-util-android:1.7.5")
+//    implementation ("com.google.firebase:firebase-messaging-directboot:20.2.0")
 
     //Navigation Compose
-    implementation ("androidx.navigation:navigation-compose:2.8.1")
+    implementation ("androidx.navigation:navigation-compose:2.8.4")
     //Splash Api
     implementation ("androidx.core:core-splashscreen:1.0.1")
     //Coil
@@ -114,17 +116,18 @@ dependencies {
     implementation ("androidx.media3:media3-exoplayer:1.4.1")
     implementation ("androidx.media3:media3-ui:1.4.1")
     // Paging 3.0
-    implementation ("androidx.paging:paging-compose:1.0.0-alpha16")
+    implementation ("androidx.paging:paging-compose:3.3.4")
     //Shape
     implementation ("androidx.graphics:graphics-shapes:1.0.1")
     //Permissions
     implementation ("com.google.accompanist:accompanist-permissions:0.24.9-beta")
     //Pref Manager
     implementation ("com.pixplicity.easyprefs:EasyPrefs:1.10.0")
+
     //One Tap SignIn
-    implementation("androidx.credentials:credentials:1.2.2")
+    implementation("androidx.credentials:credentials:1.3.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-    implementation ("androidx.credentials:credentials-play-services-auth:1.2.2")
+    implementation ("androidx.credentials:credentials-play-services-auth:1.3.0")
 
 
 }

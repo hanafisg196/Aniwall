@@ -15,10 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WallpapersByCatViewModel @Inject constructor(
-
     private val repository : WallpapersByCatRepo,
-
-
 ):ViewModel() {
     var catId: Int = ID
     val wallpapersByCatPager = Pager(

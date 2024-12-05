@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -35,6 +36,8 @@ import androidx.navigation.NavController
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.common.Constants.ITEM_URL
 import com.anime.live_wallpapershd.model.Wallpaper
+import com.anime.live_wallpapershd.navgraph.Screen
+import com.pixplicity.easyprefs.library.Prefs
 
 @Composable
 fun VideoDetailItem(
@@ -48,6 +51,7 @@ fun VideoDetailItem(
     Modifier.fillMaxSize()
     ) {
         var isFavorite by remember { mutableStateOf(false) }
+        val token  = Prefs.getString("token_auth")
         var active by remember { mutableStateOf(Color.Gray) }
         val context = LocalContext.current
         val dataUrl = wallpaper.type
@@ -133,10 +137,31 @@ fun VideoDetailItem(
                         .align(Alignment.Center),
                    tint = active,
                 )
+
+            }
+            Spacer(modifier = Modifier.width(20.dp))
+            Box(modifier = Modifier
+                .size(40.dp)
+                .clip(RoundedCornerShape(20.dp))
+                .background(Color.White)
+                .clickable {
+                       navController.navigate(Screen.ReportWallpaperScreen.route)
+                }
+
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.flag),
+                    contentDescription = null,
+                    modifier =
+                    Modifier
+                        .size(20.dp)
+                        .align(Alignment.Center),
+                        Color.Gray
+                )
             }
 
         }
-        BottomSheet(wallpaper)
+        BottomSheet(wallpaper,token, wallpaper.user_id, navController)
     }
 
 }

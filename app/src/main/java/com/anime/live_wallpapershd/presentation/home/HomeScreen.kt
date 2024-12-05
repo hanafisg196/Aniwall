@@ -152,7 +152,7 @@ fun TopBar(
             .weight(1f))
 
         RoundImage(
-            image = if (profilePicture.isNotEmpty()){
+            image = if (token.isNotEmpty()){
                 rememberAsyncImagePainter(profilePicture)
             }else{
                 painterResource(id = R.drawable.profile)

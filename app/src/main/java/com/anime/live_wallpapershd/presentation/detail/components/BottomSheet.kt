@@ -32,9 +32,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.common.Constants.ITEM_URL
 import com.anime.live_wallpapershd.model.Wallpaper
+import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.dialogs.DialogSet
 import com.anime.live_wallpapershd.presentation.home.RoundImage
 import com.anime.live_wallpapershd.services.VideoWallpaperService
@@ -45,11 +48,16 @@ import com.pixplicity.easyprefs.library.Prefs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheet(wallpaper: Wallpaper)
+fun BottomSheet(
+    wallpaper: Wallpaper,
+    token:String,
+    ownerId:Int,
+    navController: NavController
+)
 {
     val context = LocalContext.current
     val dataUrl = ITEM_URL + wallpaper.type
-
+    Prefs.getString("profile_image")
 
         var showDialog by remember {
             mutableStateOf(false)
@@ -69,16 +77,18 @@ fun BottomSheet(wallpaper: Wallpaper)
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 15.dp, end = 15.dp)
-
             ) {
-
                 Row{
                     RoundImage(
-                        image = painterResource(id = R.drawable.profile),
-                        modifier = Modifier.size(60.dp)
+                        rememberAsyncImagePainter(wallpaper.users.avatar),
+                        modifier = Modifier
+                            .size(60.dp)
+                            .clickable {
+                                navController.navigate(Screen.WallpaperUserDetail.route + "/${ownerId}")
+                            }
                     )
                     Text(
-                        text = "Username",
+                        text = wallpaper.users.name,
                         color = Color.Black,
                         fontFamily = Fonts.fontFamily,
                         fontSize = 18.sp,
@@ -86,15 +96,13 @@ fun BottomSheet(wallpaper: Wallpaper)
                     )
                 }
 
-
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = wallpaper.title,
                     color = Color.Black,
                     fontFamily = Fonts.fontFamily,
-                    fontSize = 20.sp )
+                    fontSize = 16.sp )
             }
-
 
             Row(
                 modifier = Modifier
@@ -103,16 +111,16 @@ fun BottomSheet(wallpaper: Wallpaper)
             ) {
                 Box(
                     modifier = Modifier
-                        .width(100.dp)
-                        .padding(end = 16.dp),
+                        .width(130.dp)
+                        .padding(start = 16.dp),
                     contentAlignment = Alignment.Center
 
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-
                         Box(
                             modifier = Modifier
-                                .size(50.dp)
+                                .height(50.dp)
+                                .width(50.dp)
                                 .clip(RoundedCornerShape(30.dp))
                                 .background(colorResource(id = R.color.blueBird))
                                 .clickable {
@@ -141,13 +149,12 @@ fun BottomSheet(wallpaper: Wallpaper)
                             )
                         }
                         Text(
-                            text = "Apply",
+                            text = "Set Wallpaper",
                             color = Color.Gray,
                             fontFamily = Fonts.fontFamily,
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 12.sp,
                             textAlign = TextAlign.Center
-
                         )
                     }
                 }
@@ -185,17 +192,69 @@ fun BottomSheet(wallpaper: Wallpaper)
                         )
                     }
                 }
+                Box(
+                    modifier = Modifier
+                        .width(100.dp)
+                        .padding(start = 16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(RoundedCornerShape(30.dp))
+                                .background(colorResource(id = R.color.blueBird))
+                                .clickable {
+                                    val filName = wallpaper.type
+                                    downloadWallpaper(context, dataUrl, filName)
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.share),
+                                contentDescription = null,
+                                modifier = Modifier.size(30.dp),
+                                tint = Color.White
+                            )
+                        }
+                        Text(
+                            text = "Share",
+                            color = Color.Gray,
+                            fontFamily = Fonts.fontFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
             }
-
-
+//            Spacer(modifier = Modifier.height(100.dp))
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(top = 20.dp, start = 20.dp)
+//            ) {
+//
+//
+//            }
              Row(
-
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(64.dp),
                  ){
-
-
+                 Box(
+                     modifier = Modifier
+                         .width(5.dp)
+                         .height(30.dp)
+                         .background(colorResource(id = R.color.blueBird))
+                 )
+                 Spacer(modifier = Modifier.width(8.dp))
+                 Text(
+                     text = "Sousou no Frieren - Beyond Journey's End",
+                     color = Color.Gray,
+                     fontFamily = Fonts.fontFamily,
+                     fontWeight = FontWeight.SemiBold,
+                     fontSize = 14.sp
+                 )
             }
         } ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding))

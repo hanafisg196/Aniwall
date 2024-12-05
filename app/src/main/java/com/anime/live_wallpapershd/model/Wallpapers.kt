@@ -6,6 +6,7 @@ data class Wallpapers(
     val title: String,
     val type: String,
     val view: Int,
-    val review: Int
+    val review: Int,
+    val users: User
 )
 

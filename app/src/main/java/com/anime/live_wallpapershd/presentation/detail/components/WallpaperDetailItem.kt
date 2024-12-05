@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -150,8 +151,6 @@ fun WallpaperDetailItem(
                             Toast.makeText(context, "Wallpaper add to favorites", Toast.LENGTH_SHORT).show()
                         }
                     }
-
-
                 }
 
             ){
@@ -165,10 +164,30 @@ fun WallpaperDetailItem(
                     tint = color
                 )
             }
+            Spacer(modifier = Modifier.width(20.dp))
+            Box(modifier = Modifier
+                .size(40.dp)
+                .clip(RoundedCornerShape(20.dp))
+                .background(Color.White)
+                .clickable {
+                    navController.navigate(Screen.ReportWallpaperScreen.route)
+                }
+
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.flag),
+                    contentDescription = null,
+                    modifier =
+                    Modifier
+                        .size(20.dp)
+                        .align(Alignment.Center),
+                    Color.Gray
+                )
+            }
 
         }
 
-        BottomSheet(wallpaper)
+        BottomSheet(wallpaper,token, wallpaper.user_id, navController)
     }
 
 

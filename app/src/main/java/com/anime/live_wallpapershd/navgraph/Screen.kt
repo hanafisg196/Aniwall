@@ -13,4 +13,6 @@ sealed class Screen (val route: String)  {
       object FavoriteScreen :  Screen(route = "favorite")
       object UploadVideoScreen :  Screen(route = "upload_video")
       object UploadImageScreen :  Screen(route = "upload_image")
+      object WallpaperUserDetail :  Screen(route = "wallpaper_user_detail/{id}")
+      object ReportWallpaperScreen :  Screen(route = "report_wallpaper")
 }

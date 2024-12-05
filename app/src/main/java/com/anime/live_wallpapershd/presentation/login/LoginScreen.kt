@@ -197,19 +197,18 @@ fun GoogleSignIn(
                 val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
                 val googleIdToken = googleIdTokenCredential.idToken
                 val profileImage = googleIdTokenCredential.profilePictureUri.toString()
-
+                val userName = googleIdTokenCredential.displayName.toString()
                 Log.i("GoogleSignIn", googleIdToken)
-
                     signInViewModel.signInWithGoogle(googleIdToken, onSuccess = { token,userId ->
                         Prefs.putString("google_id_token", googleIdToken)
                         Prefs.putString("token_auth", token)
                         Prefs.putInt("user_id", userId)
                         Prefs.putString("profile_image", profileImage)
+                        Prefs.putString("profile_name", userName)
                         Toast.makeText(context, "You Are Signed In", Toast.LENGTH_SHORT).show()
                         navController.navigate(Screen.HomeScreen.route){
                             popUpTo(0)
                         }
-
                     }, onError = { error ->
                         Log.e("GoogleSignIn", "Sign in failed", error)
                         Toast.makeText(context, "Failed to sign in", Toast.LENGTH_SHORT).show()

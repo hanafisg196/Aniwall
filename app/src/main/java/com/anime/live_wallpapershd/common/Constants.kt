@@ -12,6 +12,8 @@ object Constants {
     const val ITEM_URL = BASE + "storage/"
     const val ITEM_PAGE = 5
     const val ID = 0
+    const val OWNER_ID = 0
+
 
 
 }

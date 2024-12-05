@@ -26,7 +26,7 @@ class FavoriteRepoImpl @Inject constructor(
     }
     override suspend fun favoriteWallpapers(token: String,userId:Int, page:Int, perPage:Int):FavoriteWallpapersResponse
     {
-            return  apiService.favoriteWallpapers(token,userId,page,perPage)
+        return  apiService.favoriteWallpapers(token,userId,page,perPage)
     }
 
 

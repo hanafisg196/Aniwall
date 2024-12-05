@@ -12,5 +12,6 @@ data class Wallpaper(
     val title: String,
     val type: String,
     val user_id: Int,
-    val view: Int
+    val view: Int,
+    val users: User
 )

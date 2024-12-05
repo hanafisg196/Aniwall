@@ -24,5 +24,6 @@ class WallpaperViewModel @Inject constructor(
         }
     }
 
+
 }
 

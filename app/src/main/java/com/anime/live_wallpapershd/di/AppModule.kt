@@ -4,12 +4,14 @@ import com.anime.live_wallpapershd.common.Constants.BASE_URL
 import com.anime.live_wallpapershd.data.ApiService
 import com.anime.live_wallpapershd.repository.CategoriesRepo
 import com.anime.live_wallpapershd.repository.FavoriteRepo
+import com.anime.live_wallpapershd.repository.NotificationRepo
 import com.anime.live_wallpapershd.repository.PopularRepo
 import com.anime.live_wallpapershd.repository.UploadWallpaperRepo
 import com.anime.live_wallpapershd.repository.WallpapersByCatRepo
 import com.anime.live_wallpapershd.repository.WallpapersRepo
 import com.anime.live_wallpapershd.repository.impl.CategoriesRepoImpl
 import com.anime.live_wallpapershd.repository.impl.FavoriteRepoImpl
+import com.anime.live_wallpapershd.repository.impl.NotificationRepoImpl
 import com.anime.live_wallpapershd.repository.impl.PopularRepoImpl
 import com.anime.live_wallpapershd.repository.impl.UploadWallpaperRepoImpl
 import com.anime.live_wallpapershd.repository.impl.WallpapersByCatRepoImpl
@@ -54,6 +56,6 @@ object AppModule {
     fun provideFavorites(api: ApiService): FavoriteRepo = FavoriteRepoImpl(api)
     @Provides
     fun provideUploadWallpaper(api: ApiService): UploadWallpaperRepo = UploadWallpaperRepoImpl(api)
-
-
+    @Provides
+    fun provideNotification(api: ApiService): NotificationRepo = NotificationRepoImpl(api)
 }

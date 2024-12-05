@@ -1,13 +1,13 @@
 package com.anime.live_wallpapershd.presentation.categories.components
 
 import android.util.Log
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
@@ -22,18 +22,21 @@ fun CategoriesList(
 {
     val categoriesList = viewmodel.categoriesPager.collectAsLazyPagingItems()
 
-    LazyColumn (
-        modifier = Modifier
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
     ) {
-        items(categoriesList){ item ->
-            item?.let {
+        items(
+            count = categoriesList.itemCount,
+            key = { index -> categoriesList[index]?.id!! }
+        ) { index ->
+            val item = categoriesList[index]
+            if (item != null) {
                 CategoriesItem(
-                    categories = it,
+                    categories = item,
                     onItemClick = {
                         navController.navigate(Screen.WallpapersByCatScreen.route + "/${item.id}")
                         Log.d("Categories to wallpapers", "Item id: ${item.id}")
                     }
-
                 )
             }
         }

@@ -37,7 +37,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
@@ -108,7 +107,11 @@ fun UploadImageScreen(
                 .padding(start = 10.dp, end = 10.dp)
                                 
         ) {
-            items(categoriesList) { item ->
+            items(
+                count = categoriesList.itemCount,
+                key = { index -> categoriesList[index]?.id!! }
+            ) { index ->
+                val item = categoriesList[index]
                 item?.let { category ->
                     //if you want multiple select
                     //val isChecked = checkedStates[category.id] ?: false
