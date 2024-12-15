@@ -41,7 +41,6 @@ fun WallpaperUserDetailScreen(
     val ownerState by viewModelWallpapers.ownerState.collectAsState()
     LaunchedEffect(Unit) {
         viewModelWallpapers.getWallpaperOwner()
-
     }
     Column(modifier = Modifier.fillMaxWidth())
     {
@@ -49,7 +48,7 @@ fun WallpaperUserDetailScreen(
         TopBar(navController)
         Spacer(modifier = Modifier.height(10.dp))
         ownerState?.let { owner ->
-            ProfileSection(user = owner, total = wallpapersByUser.itemCount.toString())
+            ProfileSection(navController = navController,user = owner, total = wallpapersByUser.itemCount.toString())
         }
         Spacer(modifier = Modifier.height(10.dp))
         LazyVerticalGrid(
@@ -107,9 +106,10 @@ fun TopBar(
 ){
     Row (
         verticalAlignment = Alignment.CenterVertically,
-
+        horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 8.dp)
 
     ){
         IconButton(
@@ -126,6 +126,7 @@ fun TopBar(
                 contentDescription = "Back"
             )
         }
+
     }
 
 }

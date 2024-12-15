@@ -145,7 +145,7 @@ fun VideoDetailItem(
                 .clip(RoundedCornerShape(20.dp))
                 .background(Color.White)
                 .clickable {
-                       navController.navigate(Screen.ReportWallpaperScreen.route)
+                       navController.navigate(Screen.ReportWallpaperScreen.route + "/${wallpaper.id}")
                 }
 
             ) {

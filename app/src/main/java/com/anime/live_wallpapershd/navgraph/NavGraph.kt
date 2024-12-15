@@ -19,6 +19,7 @@ import com.anime.live_wallpapershd.presentation.login.LoginScreen
 import com.anime.live_wallpapershd.presentation.profile.ProfileScreen
 import com.anime.live_wallpapershd.presentation.profile.UploadImageScreen
 import com.anime.live_wallpapershd.presentation.profile.UploadVideoScreen
+import com.anime.live_wallpapershd.presentation.report.ReportUserScreen
 import com.anime.live_wallpapershd.presentation.report.ReportWallpaperScreen
 import com.anime.live_wallpapershd.presentation.wallpapers.FavoriteScreen
 import com.anime.live_wallpapershd.presentation.wallpapers.WallpapersScreen
@@ -26,25 +27,25 @@ import com.anime.live_wallpapershd.ui.PermissionScreen
 
 
 @Composable
-fun SetNav(navController: NavHostController)
-{
-    NavHost(navController = navController,
+fun SetNav(navController: NavHostController) {
+    NavHost(
+        navController = navController,
         startDestination = Screen.PermissionScreen.route
     ) {
         composable(
             route = Screen.PermissionScreen.route
-        ){
+        ) {
             PermissionScreen(navController)
         }
         composable(
             route = Screen.HomeScreen.route
-        ){
+        ) {
             HomeScreen(navController)
         }
 
         composable(
             route = Screen.RandomScreen.route
-        ){
+        ) {
             RandomScreen(navController)
         }
         composable(
@@ -53,78 +54,84 @@ fun SetNav(navController: NavHostController)
                 uriPattern = "kyoani-publisher.xyz/wallpaper/{id}"
                 action = Intent.ACTION_VIEW
             })
-        ) {
-            navBackStackEntry ->
+        ) { navBackStackEntry ->
             val wallpaperId = navBackStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
             WallpaperScreen(wallpaperId = wallpaperId, navController = navController)
         }
 
         composable(
             route = Screen.WallpapersScreen.route
-        ){
-           WallpapersScreen(navController = navController)
+        ) {
+            WallpapersScreen(navController = navController)
         }
 
         composable(
             route = Screen.CategoriesScreen.route
-        ){
+        ) {
             CategoriesScreen(navController = navController)
         }
 
         composable(
             route = Screen.WallpapersByCatScreen.route + "/{id}"
-        ) {
-                navBackStackEntry ->
+        ) { navBackStackEntry ->
             val categoryId = navBackStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
             val viewModel: WallpapersByCatViewModel = hiltViewModel()
             viewModel.catId = categoryId
-            WallpapersByCatScreen( navController = navController)
+            WallpapersByCatScreen(navController = navController)
         }
 
         composable(
             route = Screen.ProfileScreen.route
-        ){
+        ) {
             ProfileScreen(navController = navController)
         }
 
         composable(
             route = Screen.LoginScreen.route
-        ){
+        ) {
             LoginScreen(navController = navController)
         }
 
         composable(
             route = Screen.FavoriteScreen.route
-        ){
+        ) {
             FavoriteScreen(navController = navController)
         }
         composable(
             route = Screen.UploadImageScreen.route
-        ){
+        ) {
             UploadImageScreen(navController = navController)
         }
 
         composable(
             route = Screen.UploadVideoScreen.route
-        ){
+        ) {
             UploadVideoScreen(navController = navController)
         }
         composable(
             route = Screen.WallpaperUserDetail.route + "/{id}"
-        ){
-            navBackStackEntry ->
+        ) { navBackStackEntry ->
             val ownerId = navBackStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
-            val viewModel : WallpapersUserDetailViewModel = hiltViewModel()
+            val viewModel: WallpapersUserDetailViewModel = hiltViewModel()
             viewModel.ownerId = ownerId
             WallpaperUserDetailScreen(navController = navController)
         }
 
         composable(
-            route = Screen.ReportWallpaperScreen.route
-
-        ){
-            ReportWallpaperScreen(navController = navController)
+            route = Screen.ReportWallpaperScreen.route + "/{id}"
+        ) { navBackStackEntry ->
+            val wallpaperId = navBackStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
+            ReportWallpaperScreen(wallpaperId, navController = navController)
         }
 
+        composable(
+            route = Screen.ReportUserScreen.route + "/{id}"
+        ) { navBackStackEntry ->
+            val userId = navBackStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
+            val viewModel: WallpapersUserDetailViewModel = hiltViewModel()
+            viewModel.ownerId = userId
+            ReportUserScreen( navController = navController)
+
+        }
     }
 }
