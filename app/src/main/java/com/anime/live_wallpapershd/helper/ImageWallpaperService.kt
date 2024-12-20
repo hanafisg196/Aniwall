@@ -1,4 +1,4 @@
-package com.anime.live_wallpapershd.services
+package com.anime.live_wallpapershd.helper
 
 import android.app.ProgressDialog
 import android.app.WallpaperManager

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anime.live_wallpapershd.data.dto.UploadWallpaperResponse
 import com.anime.live_wallpapershd.repository.UploadWallpaperRepo
-import com.anime.live_wallpapershd.services.validatedHandler
+import com.anime.live_wallpapershd.helper.validatedHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,5 +1,6 @@
 package com.anime.live_wallpapershd.presentation.categories
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anime.live_wallpapershd.R
+import com.anime.live_wallpapershd.presentation.ads.BannerAd
 import com.anime.live_wallpapershd.presentation.categories.components.WallpapersByCatList
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 
@@ -32,22 +34,26 @@ fun WallpapersByCatScreen(
 )
 
 {
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Spacer(modifier = Modifier.height(35.dp))
-        WallpapersByCatTopBar(
-            name = "List Wallpapers",
-            navController = navController
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        WallpapersByCatList(
-            viewModel = viewmodel, navController = navController
-        )
+    Box (modifier = Modifier.fillMaxSize()){
+        Column (
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Spacer(modifier = Modifier.height(35.dp))
+            WallpapersByCatTopBar(
+                name = "List Wallpapers",
+                navController = navController
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            WallpapersByCatList(
+                viewModel = viewmodel, navController = navController
+            )
 
-
+        }
+        BannerAd(modifier = Modifier.align(Alignment.BottomCenter)
+            .padding(bottom = 10.dp))
     }
+
 }
 
 @Composable

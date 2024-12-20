@@ -1,4 +1,4 @@
-package com.anime.live_wallpapershd.services
+package com.anime.live_wallpapershd.helper
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog

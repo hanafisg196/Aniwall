@@ -1,4 +1,4 @@
-package com.anime.live_wallpapershd.services
+package com.anime.live_wallpapershd.helper
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.json.JSONObject

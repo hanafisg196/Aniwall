@@ -21,9 +21,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.anime.live_wallpapershd.common.Constants
 import com.anime.live_wallpapershd.model.Wallpaper
-import com.anime.live_wallpapershd.services.bothWallpaperSet
-import com.anime.live_wallpapershd.services.homeWallpaperSet
-import com.anime.live_wallpapershd.services.lockWallpaperSet
+import com.anime.live_wallpapershd.helper.bothWallpaperSet
+import com.anime.live_wallpapershd.helper.homeWallpaperSet
+import com.anime.live_wallpapershd.helper.lockWallpaperSet
 
 
 @Composable

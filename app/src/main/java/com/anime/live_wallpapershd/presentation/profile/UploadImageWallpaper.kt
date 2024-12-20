@@ -43,7 +43,7 @@ import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
 import com.anime.live_wallpapershd.presentation.profile.upload.PickImage
 import com.anime.live_wallpapershd.presentation.profile.upload.SlideCategoryItem
 import com.anime.live_wallpapershd.presentation.profile.upload.TitleWallpaper
-import com.anime.live_wallpapershd.services.createMultipartBodyImage
+import com.anime.live_wallpapershd.helper.createMultipartBodyImage
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
 
@@ -175,8 +175,6 @@ fun UploadImageScreen(
     }
 
 }
-
-
 
 @Composable
 fun  UploadImageTopBar(

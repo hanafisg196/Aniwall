@@ -40,9 +40,9 @@ import com.anime.live_wallpapershd.model.Wallpaper
 import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.dialogs.DialogSet
 import com.anime.live_wallpapershd.presentation.home.RoundImage
-import com.anime.live_wallpapershd.services.VideoWallpaperService
-import com.anime.live_wallpapershd.services.downloadDataLiveWallpaper
-import com.anime.live_wallpapershd.services.downloadWallpaper
+import com.anime.live_wallpapershd.helper.VideoWallpaperService
+import com.anime.live_wallpapershd.helper.downloadDataLiveWallpaper
+import com.anime.live_wallpapershd.helper.downloadWallpaper
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
 

@@ -43,7 +43,7 @@ import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
 import com.anime.live_wallpapershd.presentation.profile.upload.PickVideo
 import com.anime.live_wallpapershd.presentation.profile.upload.SlideCategoryItem
 import com.anime.live_wallpapershd.presentation.profile.upload.TitleWallpaper
-import com.anime.live_wallpapershd.services.createMultipartBodyVideo
+import com.anime.live_wallpapershd.helper.createMultipartBodyVideo
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
 

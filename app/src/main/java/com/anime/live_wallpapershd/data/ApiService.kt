@@ -7,6 +7,7 @@ import com.anime.live_wallpapershd.data.dto.CheckFavoriteResponse
 import com.anime.live_wallpapershd.data.dto.FavoriteResponse
 import com.anime.live_wallpapershd.data.dto.FavoriteWallpapersResponse
 import com.anime.live_wallpapershd.data.dto.GoogleSignInResponse
+import com.anime.live_wallpapershd.data.dto.MessageResponse
 import com.anime.live_wallpapershd.data.dto.NotificationTokenResponse
 import com.anime.live_wallpapershd.data.dto.PopularResponse
 import com.anime.live_wallpapershd.data.dto.RandomResponse
@@ -209,5 +210,42 @@ interface ApiService {
     suspend fun sendToken(
         @Body request: NotificationTokenRequest
     ): Response<NotificationTokenResponse>
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @Multipart
+    @POST("wallpaper/report/{wallpaperId}")
+    suspend fun sendReportWallpaper(
+     @Path("wallpaperId") wallpaperId: Int,
+     @Part("reporter_email") email: RequestBody,
+     @Part("description") description: RequestBody,
+    ):Response<MessageResponse>
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @Multipart
+    @POST("user/report/{userId}")
+    suspend fun sendReportUser(
+        @Path("userId") userId: Int,
+        @Part("reporter_email") email: RequestBody,
+        @Part("description") description: RequestBody,
+    ):Response<MessageResponse>
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+
+    @GET("ads")
+    suspend fun getAds(
+        @Header("Authorization") authHeader: String,
+        @Path("userId") userId: Int,
+        @Query("page") page: Int ,
+        @Query("perPage") perPage: Int
+    ):FavoriteWallpapersResponse
 
 }
