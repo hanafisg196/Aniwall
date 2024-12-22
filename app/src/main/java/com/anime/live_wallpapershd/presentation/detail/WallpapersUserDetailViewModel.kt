@@ -6,7 +6,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.anime.live_wallpapershd.common.Constants
-import com.anime.live_wallpapershd.common.Constants.ID
 import com.anime.live_wallpapershd.common.Constants.OWNER_ID
 import com.anime.live_wallpapershd.data.paging.WallpapersUserDetailDataSource
 import com.anime.live_wallpapershd.model.User

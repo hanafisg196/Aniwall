@@ -24,13 +24,13 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.anime.live_wallpapershd.common.Constants
-import com.anime.live_wallpapershd.model.Categories
+import com.anime.live_wallpapershd.model.Category
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 
 @Composable
 fun CategoriesItem(
-    categories: Categories,
-    onItemClick: (Categories) -> Unit
+    categories: Category,
+    onItemClick: (Category) -> Unit
 ) {
 
     Column (

@@ -42,7 +42,7 @@ import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.dialogs.DialogLogin
 import com.anime.live_wallpapershd.presentation.home.components.ButtonMenu
 import com.anime.live_wallpapershd.presentation.home.components.RandomScreen
-import com.anime.live_wallpapershd.presentation.home.components.SlideScreen
+import com.anime.live_wallpapershd.presentation.slide.SlideScreen
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
 
@@ -74,8 +74,8 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(35.dp))
         TopBar(navController,name = "Aniwall", token )
         Spacer(modifier = Modifier.height(6.dp))
-        SlideScreen()
-        RandomScreen(navController)
+        SlideScreen(navController = navController)
+        RandomScreen(navController = navController)
         Spacer(modifier = Modifier.height(13.dp))
         val items = listOf(
             BottomMenus(R.drawable.category),
@@ -171,15 +171,15 @@ fun TopBar(
         Spacer(modifier = Modifier
             .width(15.dp))
 
-        Icon(
-            painter = painterResource(id = R.drawable.menu_bar),
-            contentDescription = "Back",
-            tint = Color.Black,
-            modifier = Modifier.size(22.dp)
-                .clickable {
-                    //Todo
-                }
-        )
+//        Icon(
+//            painter = painterResource(id = R.drawable.search),
+//            contentDescription = "Back",
+//            tint = Color.Black,
+//            modifier = Modifier.size(22.dp)
+//                .clickable {
+//                    //Todo
+//                }
+//        )
     }
 }
 

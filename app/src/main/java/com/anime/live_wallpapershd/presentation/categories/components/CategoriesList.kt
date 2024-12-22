@@ -25,7 +25,7 @@ fun CategoriesList(
 )
 {
     val categoriesList = viewmodel.categoriesPager.collectAsLazyPagingItems()
-    val context = LocalContext.current
+//    val context = LocalContext.current
     LazyColumn(
         modifier = Modifier.fillMaxSize()
             .padding(bottom = 70.dp)

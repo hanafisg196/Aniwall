@@ -114,9 +114,7 @@ fun TopBar(
     ){
         IconButton(
             onClick = {
-                navController.navigate(Screen.HomeScreen.route){
-                    popUpTo(0)
-                }
+              navController.navigateUp()
             },
             modifier = Modifier.padding(start = 8.dp)
         ) {

@@ -1,6 +1,6 @@
 package com.anime.live_wallpapershd.model
 
-data class Categories(
+data class Category(
     val created_at: String,
     val id: Int,
     val image: String,

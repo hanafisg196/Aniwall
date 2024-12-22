@@ -1,4 +1,4 @@
-package com.anime.live_wallpapershd.presentation.home
+package com.anime.live_wallpapershd.presentation.slide
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

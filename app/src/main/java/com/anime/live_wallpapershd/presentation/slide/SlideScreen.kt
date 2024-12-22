@@ -1,4 +1,4 @@
-package com.anime.live_wallpapershd.presentation.home.components
+package com.anime.live_wallpapershd.presentation.slide
 
 
 import androidx.compose.foundation.background
@@ -21,12 +21,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.anime.live_wallpapershd.presentation.home.SlideViewModel
+import androidx.navigation.NavController
+import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.slide.component.SlideItem
 
 
 @Composable
 
 fun SlideScreen(
+    navController: NavController,
     slideViewModel: SlideViewModel = hiltViewModel()
 ) {
     val state by slideViewModel.state.collectAsState()
@@ -39,7 +42,7 @@ fun SlideScreen(
                 modifier = Modifier
                     .padding(start = 15.dp, top = 2.dp, bottom = 15.dp)
                     .clickable {
-//                      navController.navigate(route = Screen.TestScreen.route)
+                      navController.navigate(route = Screen.SlideWallpapersScreen.route + "/${slideItem.id}")
                     }
                     .background(
                         color = Color.Transparent,

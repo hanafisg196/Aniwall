@@ -1,4 +1,4 @@
-package com.anime.live_wallpapershd.presentation.home.components
+package com.anime.live_wallpapershd.presentation.slide.component
 
 
 

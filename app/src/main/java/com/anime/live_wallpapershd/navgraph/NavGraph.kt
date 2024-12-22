@@ -21,6 +21,8 @@ import com.anime.live_wallpapershd.presentation.profile.UploadImageScreen
 import com.anime.live_wallpapershd.presentation.profile.UploadVideoScreen
 import com.anime.live_wallpapershd.presentation.report.ReportUserScreen
 import com.anime.live_wallpapershd.presentation.report.ReportWallpaperScreen
+import com.anime.live_wallpapershd.presentation.slide.SlideWallpapersScreen
+import com.anime.live_wallpapershd.presentation.slide.SlideWallpapersViewModel
 import com.anime.live_wallpapershd.presentation.wallpapers.FavoriteScreen
 import com.anime.live_wallpapershd.presentation.wallpapers.WallpapersScreen
 import com.anime.live_wallpapershd.ui.PermissionScreen
@@ -132,6 +134,14 @@ fun SetNav(navController: NavHostController) {
             viewModel.ownerId = userId
             ReportUserScreen( navController = navController)
 
+        }
+        composable(
+            route = Screen.SlideWallpapersScreen.route + "/{id}"
+        ) { navBackStackEntry ->
+            val slideId = navBackStackEntry.arguments?.getString("id")?.toIntOrNull() ?: -1
+            val viewModel : SlideWallpapersViewModel = hiltViewModel()
+            viewModel.slideId = slideId
+            SlideWallpapersScreen(navController = navController)
         }
     }
 }

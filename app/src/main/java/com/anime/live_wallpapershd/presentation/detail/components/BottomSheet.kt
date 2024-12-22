@@ -249,7 +249,7 @@ fun BottomSheet(
                  )
                  Spacer(modifier = Modifier.width(8.dp))
                  Text(
-                     text = "Sousou no Frieren - Beyond Journey's End",
+                     text = wallpaper.category.name,
                      color = Color.Gray,
                      fontFamily = Fonts.fontFamily,
                      fontWeight = FontWeight.SemiBold,

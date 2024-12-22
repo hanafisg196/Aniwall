@@ -13,5 +13,6 @@ data class Wallpaper(
     val type: String,
     val user_id: Int,
     val view: Int,
-    val users: User
+    val users: User,
+    val category: Category
 )

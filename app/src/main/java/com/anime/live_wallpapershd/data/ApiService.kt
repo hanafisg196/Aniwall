@@ -54,6 +54,16 @@ interface ApiService {
         "ApiKey:${API_KEY}",
         "AppId:${APP_ID}"
     )
+    @GET("wallpaper/slide/wallpapers/{slideId}")
+    suspend fun getSlideWallpapers(
+        @Path("slideId") slideId: Int,
+        @Query("page") page: Int ,
+        @Query("perPage") perPage: Int
+    ): WallpapersResponse
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
     @GET("wallpaper/detail/{id}")
     suspend fun getWallpaper(@Path("id") id: Int): WallpaperResponse
     @Headers(
