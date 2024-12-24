@@ -17,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,17 +33,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.common.Constants.ITEM_URL
-import com.anime.live_wallpapershd.model.Wallpaper
-import com.anime.live_wallpapershd.navgraph.Screen
-import com.anime.live_wallpapershd.presentation.dialogs.DialogSet
-import com.anime.live_wallpapershd.presentation.home.RoundImage
 import com.anime.live_wallpapershd.helper.VideoWallpaperService
 import com.anime.live_wallpapershd.helper.downloadDataLiveWallpaper
 import com.anime.live_wallpapershd.helper.downloadWallpaper
+import com.anime.live_wallpapershd.model.Wallpaper
+import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
+import com.anime.live_wallpapershd.presentation.dialogs.DialogSet
+import com.anime.live_wallpapershd.presentation.home.RoundImage
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 import com.pixplicity.easyprefs.library.Prefs
 
@@ -50,11 +53,11 @@ import com.pixplicity.easyprefs.library.Prefs
 @Composable
 fun BottomSheet(
     wallpaper: Wallpaper,
-    token:String,
     ownerId:Int,
     navController: NavController
 )
 {
+    val interstitialAd: InterstitialAd = viewModel()
     val context = LocalContext.current
     val dataUrl = ITEM_URL + wallpaper.type
     Prefs.getString("profile_image")
@@ -67,6 +70,9 @@ fun BottomSheet(
         DialogSet (onDismiss = {
             showDialog = false
         }, wallpaper = wallpaper)
+    }
+    LaunchedEffect(Unit) {
+        interstitialAd.loadAd(context)
     }
 
 
@@ -124,18 +130,20 @@ fun BottomSheet(
                                 .clip(RoundedCornerShape(30.dp))
                                 .background(colorResource(id = R.color.blueBird))
                                 .clickable {
+                                    interstitialAd.showAd(context)
                                     if (dataUrl.contains(".mp4")) {
                                         val fileName = "set_live_wallpaper.mp4"
-                                        downloadDataLiveWallpaper(
-                                            context,
-                                            dataUrl,
-                                            fileName
-                                        ) { filePath ->
+                                        downloadDataLiveWallpaper(context, dataUrl, fileName)
+                                        { filePath ->
                                             Prefs.putString("video_file", filePath)
                                             VideoWallpaperService.start(context, filePath)
                                         }
+
+
                                     } else {
+                                        interstitialAd.showAd(context)
                                         showDialog = true
+
                                     }
                                 }
                             ,
@@ -161,8 +169,12 @@ fun BottomSheet(
                 Box(
                     modifier = Modifier
                         .width(100.dp)
-                        .padding(start = 16.dp),
-                    contentAlignment = Alignment.Center
+                        .padding(start = 16.dp)
+                        .clickable {
+                            interstitialAd.showAd(context)
+                        },
+                         contentAlignment = Alignment.Center,
+
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Box(
@@ -227,15 +239,6 @@ fun BottomSheet(
                     }
                 }
             }
-//            Spacer(modifier = Modifier.height(100.dp))
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(top = 20.dp, start = 20.dp)
-//            ) {
-//
-//
-//            }
              Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -263,6 +266,7 @@ fun BottomSheet(
         }
 
     }
+
 
 }
 

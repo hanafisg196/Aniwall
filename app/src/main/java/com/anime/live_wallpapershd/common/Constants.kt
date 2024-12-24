@@ -3,7 +3,6 @@ package com.anime.live_wallpapershd.common
 import com.anime.live_wallpapershd.BuildConfig
 
 object Constants {
-
     const val API_KEY = BuildConfig.API_KEY
     const val APP_ID = BuildConfig.APP_ID
     private const val BASE = BuildConfig.BASE_URL
@@ -14,7 +13,5 @@ object Constants {
     const val CATEGORY_ID = 0
     const val OWNER_ID = 0
     const val SLIDE_ID = 0
-
-
 
 }

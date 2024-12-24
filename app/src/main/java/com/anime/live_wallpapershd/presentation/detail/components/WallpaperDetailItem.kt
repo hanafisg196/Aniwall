@@ -86,7 +86,6 @@ fun WallpaperDetailItem(
                 .size(Size.ORIGINAL)
                 .scale(Scale.FILL)
                 .build(),
-
             )
 
         if (painter.state is AsyncImagePainter.State.Loading) {
@@ -187,7 +186,7 @@ fun WallpaperDetailItem(
 
         }
 
-        BottomSheet(wallpaper,token, wallpaper.user_id, navController)
+        BottomSheet(wallpaper, wallpaper.user_id, navController)
     }
 
 

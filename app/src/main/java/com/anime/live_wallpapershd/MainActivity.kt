@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
         intent?.data?.let { uri ->
             Log.d(TAG, "Received deep link in onCreate: $uri")
 
-//            // Navigasi berdasarkan parameter deep link
 //            val screen = uri.getQueryParameter("screen")
 //            val id = uri.getQueryParameter("id")
 //
@@ -77,8 +76,4 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-
-
-
 }

@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -24,7 +23,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.presentation.ads.BannerAd
-import com.anime.live_wallpapershd.presentation.ads.MediumNativeAd
 import com.anime.live_wallpapershd.presentation.categories.components.CategoriesList
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 

@@ -161,7 +161,7 @@ fun VideoDetailItem(
             }
 
         }
-        BottomSheet(wallpaper,token, wallpaper.user_id, navController)
+        BottomSheet(wallpaper, wallpaper.user_id, navController)
     }
 
 }
