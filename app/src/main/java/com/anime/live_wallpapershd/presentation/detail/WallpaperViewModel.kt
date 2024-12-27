@@ -18,6 +18,7 @@ class WallpaperViewModel @Inject constructor(
     private val _wallpaper = MutableStateFlow<Wallpaper?>(null)
     val state: StateFlow<Wallpaper?>  get()= _wallpaper
 
+
     fun getWallpaper(id: Int) {
         viewModelScope.launch {
             _wallpaper.value = wallpaperRepo.getWallpaperById(id)

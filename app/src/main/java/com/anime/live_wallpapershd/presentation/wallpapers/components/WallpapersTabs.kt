@@ -8,10 +8,6 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,13 +24,11 @@ import com.anime.live_wallpapershd.ui.fonts.Fonts
 @Composable
 fun WallpapersTabs(
     tabsModel: List<Tabs>,
+    selectedTabIndex: Int,
     onTabSelected : (selectedTabIndex: Int) -> Unit,
     navController: NavController
 
 ) {
-    var selectedTabIndex by remember {
-        mutableIntStateOf(0)
-    }
     val inactiveColor = Color(0xFF777777)
     Row(
         verticalAlignment = Alignment.CenterVertically
@@ -64,12 +58,10 @@ fun WallpapersTabs(
                     selectedContentColor = Color.Black,
                     unselectedContentColor = inactiveColor,
                     onClick = {
-                        selectedTabIndex = index
                         onTabSelected(index)
                     }
 
                 )
-
 
                 {
 
@@ -86,7 +78,6 @@ fun WallpapersTabs(
                 }
 
             }
-
 
         }
 

@@ -1,5 +1,7 @@
 package com.anime.live_wallpapershd.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Wallpaper(
     val cat_id: Int,
     val download: Int,

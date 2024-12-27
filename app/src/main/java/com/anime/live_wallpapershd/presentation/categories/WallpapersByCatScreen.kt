@@ -12,6 +12,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,6 +26,7 @@ import androidx.navigation.NavController
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.presentation.ads.BannerAd
 import com.anime.live_wallpapershd.presentation.categories.components.WallpapersByCatList
+import com.anime.live_wallpapershd.presentation.loader.CircleLoading
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 
 
@@ -34,16 +37,28 @@ fun WallpapersByCatScreen(
 )
 
 {
+    val categoryName = viewmodel.categoryNameState.collectAsState()
+    LaunchedEffect(Unit) {
+        viewmodel.getWallpaperCatName()
+    }
     Box (modifier = Modifier.fillMaxSize()){
         Column (
             modifier = Modifier
                 .fillMaxSize()
         ) {
             Spacer(modifier = Modifier.height(35.dp))
-            WallpapersByCatTopBar(
-                name = "List Wallpapers",
-                navController = navController
-            )
+
+            if (categoryName.value == null) {
+                CircleLoading()
+            } else {
+                categoryName.value?.let {
+                    WallpapersByCatTopBar(
+                        name = it,
+                        navController = navController
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.height(15.dp))
             WallpapersByCatList(
                 viewModel = viewmodel, navController = navController

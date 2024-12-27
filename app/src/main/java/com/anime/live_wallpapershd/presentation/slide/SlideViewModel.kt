@@ -24,4 +24,5 @@ class SlideViewModel @Inject constructor(
             _state.value = slides
         }
     }
+
 }

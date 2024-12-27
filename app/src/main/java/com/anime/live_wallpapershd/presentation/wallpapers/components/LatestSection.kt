@@ -16,8 +16,10 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.ads.AdaptiveBannerAd
 import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
 import com.anime.live_wallpapershd.presentation.ads.MediumNativeAd
+import com.anime.live_wallpapershd.presentation.loader.CircleLoading
 import com.anime.live_wallpapershd.presentation.wallpapers.WallpapersViewModel
 
 
@@ -49,11 +51,7 @@ fun LatestSection(
             val isAdPosition = (index + 1) % 5 == 0
 
             if (isAdPosition) {
-                MediumNativeAd(
-                    context = context,
-                    nativeId = "ca-app-pub-3940256099942544/2247696110",
-
-                )
+                AdaptiveBannerAd(modifier = Modifier)
             } else {
                 val adjustedIndex = index - (index / 5)
                 val item = wallpapersList[adjustedIndex]
@@ -85,7 +83,7 @@ fun LatestSection(
             is LoadState.NotLoading -> Unit
             LoadState.Loading -> {
                 item {
-                  LoadRefreshItem()
+//                  LoadRefreshItem()
 
                 }
             }
@@ -97,6 +95,9 @@ fun LatestSection(
         }
 
     }
+      if (wallpapersList.loadState.refresh is LoadState.Loading){
+          CircleLoading()
+      }
 
     MediumNativeAd(context = context, nativeId = "ca-app-pub-3940256099942544/2247696110" )
 

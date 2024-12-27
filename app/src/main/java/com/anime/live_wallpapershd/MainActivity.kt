@@ -12,34 +12,36 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.anime.live_wallpapershd.navgraph.SetNav
+import com.anime.live_wallpapershd.presentation.ads.AdsViewModel
 import com.anime.live_wallpapershd.presentation.home.NotificationViewModel
 import com.anime.live_wallpapershd.ui.theme.AniwallTheme
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.messaging
+import com.pixplicity.easyprefs.library.Prefs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var navController : NavHostController
     private val notificationViewModel: NotificationViewModel by viewModels()
+    private val adsViewModel: AdsViewModel by viewModels()
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
+
         intent?.data?.let { uri ->
             Log.d(TAG, "Received deep link in onCreate: $uri")
-
-//            val screen = uri.getQueryParameter("screen")
-//            val id = uri.getQueryParameter("id")
-//
-//            if (screen == "details" && id != null) {
-//                navController.navigate("details/$id")
-//            }
         }
+        initAds()
         FirebaseMessaging.getInstance().token.addOnCompleteListener(
         OnCompleteListener{ task ->
            if (!task.isSuccessful){
@@ -59,7 +61,7 @@ class MainActivity : ComponentActivity() {
                     msg = "Subscribe failed"
                 }
                 Log.d(TAG, msg)
-//                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
             }
         installSplashScreen()
         enableEdgeToEdge(
@@ -73,6 +75,29 @@ class MainActivity : ComponentActivity() {
             AniwallTheme {
                 navController = rememberNavController()
                 SetNav(navController)
+            }
+        }
+    }
+
+    private fun initAds() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adsViewModel.adsState.collect { ads ->
+                    ads?.let {
+                        if (Prefs.getString("admob_banner", "") != ads.admobBanner) {
+                            Prefs.putString("admob_banner", ads.admobBanner)
+                        }
+                        if (Prefs.getString("admob_interstitial", "") != ads.admobInterstitial) {
+                            Prefs.putString("admob_interstitial", ads.admobInterstitial)
+                        }
+                        if (Prefs.getInt("interstitial_click", 0) != ads.interstitialClick) {
+                            Prefs.putInt("interstitial_click", ads.interstitialClick)
+                        }
+                        if (Prefs.getInt("native_item", 0) != ads.nativeItem) {
+                            Prefs.putInt("native_item", ads.nativeItem)
+                        }
+                    }
+                }
             }
         }
     }

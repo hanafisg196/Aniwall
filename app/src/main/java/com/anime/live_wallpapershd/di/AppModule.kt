@@ -2,6 +2,7 @@ package com.anime.live_wallpapershd.di
 
 import com.anime.live_wallpapershd.common.Constants.BASE_URL
 import com.anime.live_wallpapershd.data.ApiService
+import com.anime.live_wallpapershd.repository.AdsRepo
 import com.anime.live_wallpapershd.repository.CategoriesRepo
 import com.anime.live_wallpapershd.repository.FavoriteRepo
 import com.anime.live_wallpapershd.repository.NotificationRepo
@@ -11,6 +12,7 @@ import com.anime.live_wallpapershd.repository.SlideRepo
 import com.anime.live_wallpapershd.repository.UploadWallpaperRepo
 import com.anime.live_wallpapershd.repository.WallpapersByCatRepo
 import com.anime.live_wallpapershd.repository.WallpapersRepo
+import com.anime.live_wallpapershd.repository.impl.AdsRepoImpl
 import com.anime.live_wallpapershd.repository.impl.CategoriesRepoImpl
 import com.anime.live_wallpapershd.repository.impl.FavoriteRepoImpl
 import com.anime.live_wallpapershd.repository.impl.NotificationRepoImpl
@@ -66,4 +68,6 @@ object AppModule {
     fun provideReport(api: ApiService): ReportRepo = ReportRepoImpl(api)
     @Provides
     fun provideSlide(api: ApiService): SlideRepo = SlideRepoImpl(api)
+    @Provides
+    fun provideAds(api: ApiService):AdsRepo = AdsRepoImpl(api)
 }

@@ -1,5 +1,9 @@
 package com.anime.live_wallpapershd.presentation.wallpapers
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -15,6 +19,7 @@ import javax.inject.Inject
 class WallpapersViewModel @Inject constructor(
     private  val  repository: WallpapersRepo
 ):ViewModel() {
+    var selectedTabIndex by mutableIntStateOf(0)
         val wallpaperPager = Pager(
             PagingConfig(pageSize = ITEM_PAGE)
         ){

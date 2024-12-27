@@ -1,20 +1,21 @@
 package com.anime.live_wallpapershd.presentation.categories.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.anime.live_wallpapershd.navgraph.Screen
-import com.anime.live_wallpapershd.presentation.ads.MediumNativeAd
+import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
 import com.anime.live_wallpapershd.presentation.categories.CategoriesVieModel
-import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
+import com.anime.live_wallpapershd.presentation.loader.CircleLoading
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
 
 
@@ -25,11 +26,16 @@ fun CategoriesList(
 )
 {
     val categoriesList = viewmodel.categoriesPager.collectAsLazyPagingItems()
-//    val context = LocalContext.current
+    val interstitialAd: InterstitialAd = viewModel()
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        interstitialAd.loadAd(context)
+    }
     LazyColumn(
         modifier = Modifier.fillMaxSize()
             .padding(bottom = 70.dp)
     ) {
+
         items(
             count = categoriesList.itemCount,
             key = { index -> categoriesList[index]?.id!! }
@@ -41,7 +47,8 @@ fun CategoriesList(
                     categories = item,
                     onItemClick = {
                         navController.navigate(Screen.WallpapersByCatScreen.route + "/${item.id}")
-                        Log.d("Categories to wallpapers", "Item id: ${item.id}")
+                        interstitialAd.onClickShowAd(context)
+//                        Log.d("Categories to wallpapers", "Item id: ${item.id}")
                     }
                 )
 //                if (index > 0 && index % 2 == 0) {
@@ -72,7 +79,7 @@ fun CategoriesList(
             is LoadState.NotLoading -> Unit
             LoadState.Loading -> {
                 item {
-                    LoadRefreshItem()
+                    // TODO
                 }
             }
 
@@ -82,6 +89,8 @@ fun CategoriesList(
             }
         }
     }
-
+    if (categoriesList.loadState.refresh is LoadState.Loading){
+        CircleLoading()
+    }
 
 }

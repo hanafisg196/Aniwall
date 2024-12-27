@@ -14,4 +14,5 @@ interface WallpapersRepo {
     suspend fun  getWallpaperOwner(userId: Int)
     : WallpapersOwnerResponse
 
+
 }

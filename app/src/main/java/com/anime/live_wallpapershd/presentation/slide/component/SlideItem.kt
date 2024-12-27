@@ -24,10 +24,7 @@ import com.anime.live_wallpapershd.model.Slide
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 
 @Composable
-    fun  SlideItem(slide: Slide )
-    {
-
-
+    fun  SlideItem(slide: Slide ) {
     Box(modifier = Modifier)
     {
         val context = LocalContext.current

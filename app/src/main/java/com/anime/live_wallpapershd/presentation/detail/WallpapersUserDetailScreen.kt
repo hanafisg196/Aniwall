@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,16 +19,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.ads.AdaptiveBannerAd
+import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
+import com.anime.live_wallpapershd.presentation.loader.CircleLoading
 import com.anime.live_wallpapershd.presentation.profile.component.ProfileSection
-import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.WallpaperListItem
 
@@ -37,13 +42,18 @@ fun WallpaperUserDetailScreen(
     viewModelWallpapers : WallpapersUserDetailViewModel = hiltViewModel()
 )
 {
+    val interstitialAd: InterstitialAd = viewModel()
     val wallpapersByUser = viewModelWallpapers.wallpaperPager.collectAsLazyPagingItems()
     val ownerState by viewModelWallpapers.ownerState.collectAsState()
+    val context = LocalContext.current
     LaunchedEffect(Unit) {
-        viewModelWallpapers.getWallpaperOwner()
+        interstitialAd.loadAd(context)
     }
     Column(modifier = Modifier.fillMaxWidth())
     {
+        LaunchedEffect(Unit) {
+            viewModelWallpapers.getWallpaperOwner()
+        }
         Spacer(modifier = Modifier.height(35.dp))
         TopBar(navController)
         Spacer(modifier = Modifier.height(10.dp))
@@ -58,11 +68,22 @@ fun WallpaperUserDetailScreen(
                 .scale(1.0f)
                 .padding(horizontal = 16.dp)
         ) {
-            items(wallpapersByUser.itemCount) { index ->
-                val item = wallpapersByUser[index]
-                item?.let {
-                    WallpaperListItem(wallpapers = it) {
-                        navController.navigate(Screen.WallpaperScreen.route + "/${item.id}")
+            val totalItems = wallpapersByUser.itemCount
+            items(totalItems + totalItems / 4, span = { index ->
+                if ((index + 1) % 5 == 0) GridItemSpan(2) else GridItemSpan(1)
+            }) { index ->
+                val isAdPosition = (index + 1) % 5 == 0
+
+                if (isAdPosition){
+                    AdaptiveBannerAd(modifier = Modifier)
+                }else{
+                    val adjustedIndex = index - (index / 5)
+                    val item = wallpapersByUser[adjustedIndex]
+                    item?.let {
+                        WallpaperListItem(wallpapers = it) {
+                            interstitialAd.onClickShowAd(context)
+                            navController.navigate(Screen.WallpaperScreen.route + "/${item.id}")
+                        }
                     }
                 }
             }
@@ -86,7 +107,7 @@ fun WallpaperUserDetailScreen(
                 is LoadState.NotLoading -> Unit
                 LoadState.Loading -> {
                     item {
-                        LoadRefreshItem()
+                        // TODO
 
                     }
                 }
@@ -97,6 +118,9 @@ fun WallpaperUserDetailScreen(
                     }
             }
         }
+    }
+    if (wallpapersByUser.loadState.refresh is LoadState.Loading){
+        CircleLoading()
     }
 }
 
@@ -126,6 +150,7 @@ fun TopBar(
         }
 
     }
+
 
 }
 

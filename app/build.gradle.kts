@@ -5,6 +5,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    alias(libs.plugins.compose.compiler)
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
 
@@ -12,7 +13,7 @@ plugins {
 
 android {
     namespace = "com.anime.live_wallpapershd"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.anime.live_wallpapershd"
@@ -51,11 +52,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -73,17 +74,17 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
     implementation(platform("androidx.compose:compose-bom:2024.11.00"))
-    implementation("com.google.firebase:firebase-analytics:22.1.2")
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation(libs.firebase.analytics)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
     implementation("androidx.compose.material3:material3")
-    implementation("com.google.firebase:firebase-messaging-ktx:24.1.0")
-    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation(libs.firebase.messaging.ktx)
+    implementation(libs.androidx.appcompat)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
@@ -92,46 +93,48 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
     implementation ("androidx.compose.ui:ui-util-android:1.7.5")
-//    implementation ("com.google.firebase:firebase-messaging-directboot:20.2.0")
+
 
     //Navigation Compose
-    implementation ("androidx.navigation:navigation-compose:2.8.4")
+    implementation (libs.androidx.navigation.compose)
     //Splash Api
-    implementation ("androidx.core:core-splashscreen:1.0.1")
+    implementation (libs.androidx.core.splashscreen)
     //Coil
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(libs.coil.compose)
     //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.moshi:moshi:1.15.1")
-    // Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation(libs.moshi)
+    //Dagger - Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
     //Datastore
-    implementation ("androidx.datastore:datastore-preferences:1.1.1")
+    implementation (libs.androidx.datastore.preferences)
     //exoplayer
     implementation ("androidx.media3:media3-exoplayer:1.4.1")
     implementation ("androidx.media3:media3-ui:1.4.1")
     // Paging 3.0
-    implementation ("androidx.paging:paging-compose:3.3.4")
+    implementation (libs.androidx.paging.compose)
     //Shape
-    implementation ("androidx.graphics:graphics-shapes:1.0.1")
+    implementation (libs.androidx.graphics.shapes)
     //Permissions
-    implementation ("com.google.accompanist:accompanist-permissions:0.24.9-beta")
+    implementation (libs.accompanist.permissions)
     //Pref Manager
-    implementation ("com.pixplicity.easyprefs:EasyPrefs:1.10.0")
-
+    implementation (libs.easyprefs)
     //One Tap SignIn
-    implementation("androidx.credentials:credentials:1.3.0")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-    implementation ("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation(libs.androidx.credentials)
+    implementation(libs.googleid)
+    implementation (libs.androidx.credentials.play.services.auth)
     //admob
-    implementation("com.google.android.gms:play-services-ads:23.6.0")
+    implementation(libs.play.services.ads)
 
-
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 kapt {
     correctErrorTypes = true

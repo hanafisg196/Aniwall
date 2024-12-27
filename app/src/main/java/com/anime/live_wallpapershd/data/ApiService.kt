@@ -2,7 +2,9 @@ package com.anime.live_wallpapershd.data
 
 import com.anime.live_wallpapershd.common.Constants.API_KEY
 import com.anime.live_wallpapershd.common.Constants.APP_ID
+import com.anime.live_wallpapershd.data.dto.AdsResponse
 import com.anime.live_wallpapershd.data.dto.CategoriesResponse
+import com.anime.live_wallpapershd.data.dto.CategoryResponse
 import com.anime.live_wallpapershd.data.dto.CheckFavoriteResponse
 import com.anime.live_wallpapershd.data.dto.FavoriteResponse
 import com.anime.live_wallpapershd.data.dto.FavoriteWallpapersResponse
@@ -11,7 +13,7 @@ import com.anime.live_wallpapershd.data.dto.MessageResponse
 import com.anime.live_wallpapershd.data.dto.NotificationTokenResponse
 import com.anime.live_wallpapershd.data.dto.PopularResponse
 import com.anime.live_wallpapershd.data.dto.RandomResponse
-import com.anime.live_wallpapershd.data.dto.request.SingInRequest
+import com.anime.live_wallpapershd.data.dto.SlideDetailResponse
 import com.anime.live_wallpapershd.data.dto.SlideResponse
 import com.anime.live_wallpapershd.data.dto.UploadWallpaperResponse
 import com.anime.live_wallpapershd.data.dto.UserProfileResponse
@@ -21,7 +23,7 @@ import com.anime.live_wallpapershd.data.dto.WallpapersOwnerResponse
 import com.anime.live_wallpapershd.data.dto.WallpapersResponse
 import com.anime.live_wallpapershd.data.dto.request.FavoriteRequest
 import com.anime.live_wallpapershd.data.dto.request.NotificationTokenRequest
-import com.anime.live_wallpapershd.model.User
+import com.anime.live_wallpapershd.data.dto.request.SingInRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -54,12 +56,22 @@ interface ApiService {
         "ApiKey:${API_KEY}",
         "AppId:${APP_ID}"
     )
+    @GET("wallpaper/slide/detail/{slideId}")
+    suspend fun getSlideDetail(
+        @Path("slideId") slideId: Int
+    ): SlideDetailResponse
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
     @GET("wallpaper/slide/wallpapers/{slideId}")
     suspend fun getSlideWallpapers(
         @Path("slideId") slideId: Int,
         @Query("page") page: Int ,
         @Query("perPage") perPage: Int
     ): WallpapersResponse
+
     @Headers(
         "ApiKey:${API_KEY}",
         "AppId:${APP_ID}"
@@ -122,6 +134,14 @@ interface ApiService {
         @Query("page") page: Int ,
         @Query("perPage") perPage: Int
     ):WallpapersByCatResponse
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @GET("wallpaper/category/{id}")
+    suspend fun getWallpapersCatName(
+        @Path("id") id: Int
+    ):CategoryResponse
 
     @Headers(
         "ApiKey:${API_KEY}",
@@ -249,13 +269,7 @@ interface ApiService {
         "ApiKey:${API_KEY}",
         "AppId:${APP_ID}"
     )
-
     @GET("ads")
-    suspend fun getAds(
-        @Header("Authorization") authHeader: String,
-        @Path("userId") userId: Int,
-        @Query("page") page: Int ,
-        @Query("perPage") perPage: Int
-    ):FavoriteWallpapersResponse
+    suspend fun getAds( ):AdsResponse
 
 }

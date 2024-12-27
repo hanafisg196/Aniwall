@@ -11,15 +11,16 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.pixplicity.easyprefs.library.Prefs
 
 class InterstitialAd: ViewModel() {
     private var mInterstitialAd: InterstitialAd? = null
     private var clickCount = mutableIntStateOf(0)
-
-    private var adUnitId = "ca-app-pub-3940256099942544/1033173712"
+    private var interstitialId = Prefs.getString("admob_interstitial")
+    private var interstitialClick = Prefs.getInt("interstitial_click")
     fun loadAd(context: Context) {
         val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(context, adUnitId, adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(context, interstitialId, adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d("Ad", "Ad failed to load: ${adError.message}")
                mInterstitialAd = null
@@ -52,15 +53,15 @@ class InterstitialAd: ViewModel() {
 
     }
     fun onClickShowAd(context: Context) {
-        clickCount.intValue++  // Update the state when the ad is clicked
-        if (clickCount.intValue >= 5) {
+        clickCount.intValue++
+        if (clickCount.intValue >= interstitialClick) {
             mInterstitialAd?.let {
                 (context as? Activity)?.let { activity ->
                     it.show(activity)
-                    clickCount.intValue = 0  // Reset count after showing the ad
+                    clickCount.intValue = 0
                 }
             }
         }
-        Log.d("TAG", "TotalClick : ${clickCount.value}")
+        Log.d("TAG", "TotalClick : ${clickCount.intValue}")
     }
 }

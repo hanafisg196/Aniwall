@@ -1,6 +1,5 @@
 package com.anime.live_wallpapershd.data.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.anime.live_wallpapershd.common.Constants
@@ -10,8 +9,7 @@ import com.anime.live_wallpapershd.repository.WallpapersByCatRepo
 class WallpapersByCatDataSource (
 
     private val repository : WallpapersByCatRepo,
-    private val id : Int
-
+    private val id : Int,
 ):PagingSource<Int, Wallpapers>() {
 
     override fun getRefreshKey(state: PagingState<Int, Wallpapers>): Int? {
@@ -23,12 +21,9 @@ class WallpapersByCatDataSource (
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Wallpapers> {
 
         return try {
-
             val page = params.key ?:1
-
             val response = repository.getWallpapersByCat(id,page, Constants.ITEM_PAGE)
 
-            Log.d("WallpapersByCatDataSource", "Data: ${response.data}")
             LoadResult.Page(
                 data = response.data,
                 prevKey = if (page == 1) null else page - 1,
@@ -39,8 +34,4 @@ class WallpapersByCatDataSource (
             LoadResult.Error(e)
         }
     }
-
-
-
-
 }

@@ -41,10 +41,10 @@ import com.anime.live_wallpapershd.model.User
 import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.dialogs.DialogUpload
 import com.anime.live_wallpapershd.presentation.home.RoundImage
+import com.anime.live_wallpapershd.presentation.loader.CircleLoading
 import com.anime.live_wallpapershd.presentation.login.SignInViewModel
 import com.anime.live_wallpapershd.presentation.profile.component.ProfileDisplay
 import com.anime.live_wallpapershd.presentation.profile.component.ProfileStat
-import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.WallpaperListItem
 import com.anime.live_wallpapershd.ui.fonts.Fonts
@@ -109,8 +109,7 @@ fun ProfileScreen(
                 is LoadState.NotLoading -> Unit
                 LoadState.Loading -> {
                     item {
-                        LoadRefreshItem()
-
+                        // TODO
                     }
                 }
 
@@ -121,6 +120,9 @@ fun ProfileScreen(
             }
         }
 
+    }
+    if (wallpapersByUser.loadState.refresh is LoadState.Loading){
+        CircleLoading()
     }
 }
 

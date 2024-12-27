@@ -13,16 +13,20 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
 import com.anime.live_wallpapershd.presentation.slide.component.SlideItem
 
 
@@ -33,16 +37,20 @@ fun SlideScreen(
     slideViewModel: SlideViewModel = hiltViewModel()
 ) {
     val state by slideViewModel.state.collectAsState()
-
+    val interstitialAd: InterstitialAd = viewModel()
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        interstitialAd.loadAd(context)
+    }
     LazyRow {
         items(state.size) { index ->
             val slideItem = state[index]
-
             Box(
                 modifier = Modifier
                     .padding(start = 15.dp, top = 2.dp, bottom = 15.dp)
                     .clickable {
                       navController.navigate(route = Screen.SlideWallpapersScreen.route + "/${slideItem.id}")
+                        interstitialAd.onClickShowAd(context)
                     }
                     .background(
                         color = Color.Transparent,
@@ -56,7 +64,7 @@ fun SlideScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-
+                    SlideItem(slide = slideItem)
 //                    var isLoading by remember {
 //                        mutableStateOf(true)
 //
@@ -68,7 +76,7 @@ fun SlideScreen(
 //                    SlideShimmer(isLoading = isLoading) {
 //
 //                    }
-                    SlideItem(slide = slideItem)
+
                 }
             }
         }

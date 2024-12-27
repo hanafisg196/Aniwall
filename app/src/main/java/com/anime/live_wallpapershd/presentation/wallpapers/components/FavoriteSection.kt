@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.anime.live_wallpapershd.navgraph.Screen
+import com.anime.live_wallpapershd.presentation.loader.CircleLoading
 import com.anime.live_wallpapershd.presentation.wallpapers.FavoritesViewModel
 
 
@@ -56,7 +57,7 @@ fun FavoriteSection(
             is LoadState.NotLoading -> Unit
             LoadState.Loading -> {
                 item {
-                    LoadRefreshItem()
+                  //TODO
 
                 }
             }
@@ -69,6 +70,8 @@ fun FavoriteSection(
 
     }
 
-
+    if (favoriteList.loadState.refresh is LoadState.Loading){
+        CircleLoading()
+    }
 
 }

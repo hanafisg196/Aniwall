@@ -6,17 +6,19 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.anime.live_wallpapershd.navgraph.Screen
-import com.anime.live_wallpapershd.presentation.ads.MediumNativeAd
+import com.anime.live_wallpapershd.presentation.ads.AdaptiveBannerAd
+import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
 import com.anime.live_wallpapershd.presentation.categories.WallpapersByCatViewModel
-import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadRefreshItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.WallpaperListItem
 
@@ -27,7 +29,11 @@ fun WallpapersByCatList(
     navController: NavController
 ) {
     val wallpapersByCat = viewModel.wallpapersByCatPager.collectAsLazyPagingItems()
+    val interstitialAd: InterstitialAd = viewModel()
     val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        interstitialAd.loadAd(context)
+    }
     LazyVerticalGrid(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         columns = GridCells.Fixed(2),
@@ -44,16 +50,13 @@ fun WallpapersByCatList(
             val isAdPosition = (index + 1) % 5 == 0
 
             if (isAdPosition) {
-                MediumNativeAd(
-                    context = context,
-                    nativeId = "ca-app-pub-3940256099942544/2247696110",
-
-                    )
+                AdaptiveBannerAd(modifier = Modifier)
             } else {
-                val adjustedIndex = index - (index / 5) // Hitung indeks yang disesuaikan untuk item wallpaper
+                val adjustedIndex = index - (index / 5)
                 val item = wallpapersByCat[adjustedIndex]
                 item?.let {
                     WallpaperListItem(wallpapers = it) {
+                        interstitialAd.onClickShowAd(context)
                         navController.navigate(Screen.WallpaperScreen.route + "/${item.id}")
                     }
                 }
@@ -79,7 +82,6 @@ fun WallpapersByCatList(
             is LoadState.NotLoading -> Unit
             LoadState.Loading -> {
                 item {
-                    LoadRefreshItem()
 
                 }
             }
@@ -92,3 +94,4 @@ fun WallpapersByCatList(
 
     }
 }
+

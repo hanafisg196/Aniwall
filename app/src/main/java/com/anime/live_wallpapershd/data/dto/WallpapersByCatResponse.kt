@@ -9,5 +9,7 @@ data class WallpapersByCatResponse (
     @SerializedName("page")
     val page : Int,
     @SerializedName("per_page")
-    val perPage : Int
+    val perPage : Int,
+    @SerializedName("category_name")
+    val categoryName : String,
 )

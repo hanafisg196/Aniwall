@@ -13,5 +13,6 @@ object Constants {
     const val CATEGORY_ID = 0
     const val OWNER_ID = 0
     const val SLIDE_ID = 0
+    const val CATEGORY_NAME = ""
 
 }
