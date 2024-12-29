@@ -38,7 +38,8 @@ fun DialogLogin(
                     fontFamily = Fonts.fontFamily,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp,
-                    textAlign = TextAlign.Justify
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
 
                 )
                 Text(
@@ -47,7 +48,8 @@ fun DialogLogin(
                     fontFamily = Fonts.fontFamily,
                     fontWeight = FontWeight.Thin,
                     fontSize = 15.sp,
-                    textAlign = TextAlign.Justify,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
 

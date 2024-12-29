@@ -13,6 +13,7 @@ import com.anime.live_wallpapershd.data.dto.MessageResponse
 import com.anime.live_wallpapershd.data.dto.NotificationTokenResponse
 import com.anime.live_wallpapershd.data.dto.PopularResponse
 import com.anime.live_wallpapershd.data.dto.RandomResponse
+import com.anime.live_wallpapershd.data.dto.SettingResponse
 import com.anime.live_wallpapershd.data.dto.SlideDetailResponse
 import com.anime.live_wallpapershd.data.dto.SlideResponse
 import com.anime.live_wallpapershd.data.dto.UploadWallpaperResponse
@@ -271,5 +272,23 @@ interface ApiService {
     )
     @GET("ads")
     suspend fun getAds( ):AdsResponse
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @GET("wallpaper/search/{keyword}")
+    suspend fun searchWallpapers(
+        @Path("keyword") keyword: String,
+        @Query("page") page: Int ,
+        @Query("perPage") perPage: Int
+    ):WallpapersResponse
+
+    @Headers(
+        "ApiKey:${API_KEY}",
+        "AppId:${APP_ID}"
+    )
+    @GET("setting")
+    suspend fun setting():SettingResponse
 
 }

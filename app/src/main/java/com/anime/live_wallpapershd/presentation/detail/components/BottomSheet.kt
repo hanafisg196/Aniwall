@@ -183,6 +183,7 @@ fun BottomSheet(
                                 .clip(RoundedCornerShape(30.dp))
                                 .background(colorResource(id = R.color.pinkCustom))
                                 .clickable {
+                                    interstitialAd.showAd(context)
                                     val filName = wallpaper.type
                                     downloadWallpaper(context, dataUrl, filName)
                                 },

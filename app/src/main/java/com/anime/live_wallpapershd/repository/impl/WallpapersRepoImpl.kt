@@ -34,4 +34,12 @@ class WallpapersRepoImpl @Inject constructor(
         return api.getWallpapersOwner(userId)
     }
 
+    override suspend fun searchWallpapers(
+        search: String,
+        page: Int,
+        perPage: Int
+    ): WallpapersResponse {
+       return api.searchWallpapers(search,page,perPage)
+    }
+
 }

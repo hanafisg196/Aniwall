@@ -49,7 +49,7 @@ fun ReportUserScreen(
     Column(modifier = Modifier.fillMaxWidth())
     {
         Spacer(modifier = Modifier.height(35.dp))
-        TopBar(title = "Report User")
+        TopBar(navController = navController, title = "Report User")
         Spacer(modifier = Modifier.height(35.dp))
         userState?.let { user ->
             Text(text = "Name : ${user.name}",

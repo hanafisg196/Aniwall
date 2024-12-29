@@ -8,6 +8,7 @@ import com.anime.live_wallpapershd.repository.FavoriteRepo
 import com.anime.live_wallpapershd.repository.NotificationRepo
 import com.anime.live_wallpapershd.repository.PopularRepo
 import com.anime.live_wallpapershd.repository.ReportRepo
+import com.anime.live_wallpapershd.repository.SettingRepo
 import com.anime.live_wallpapershd.repository.SlideRepo
 import com.anime.live_wallpapershd.repository.UploadWallpaperRepo
 import com.anime.live_wallpapershd.repository.WallpapersByCatRepo
@@ -18,6 +19,7 @@ import com.anime.live_wallpapershd.repository.impl.FavoriteRepoImpl
 import com.anime.live_wallpapershd.repository.impl.NotificationRepoImpl
 import com.anime.live_wallpapershd.repository.impl.PopularRepoImpl
 import com.anime.live_wallpapershd.repository.impl.ReportRepoImpl
+import com.anime.live_wallpapershd.repository.impl.SettingRepoImpl
 import com.anime.live_wallpapershd.repository.impl.SlideRepoImpl
 import com.anime.live_wallpapershd.repository.impl.UploadWallpaperRepoImpl
 import com.anime.live_wallpapershd.repository.impl.WallpapersByCatRepoImpl
@@ -70,4 +72,6 @@ object AppModule {
     fun provideSlide(api: ApiService): SlideRepo = SlideRepoImpl(api)
     @Provides
     fun provideAds(api: ApiService):AdsRepo = AdsRepoImpl(api)
+    @Provides
+    fun provideSetting(api: ApiService):SettingRepo = SettingRepoImpl(api)
 }

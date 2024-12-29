@@ -17,4 +17,8 @@ sealed class Screen (val route: String)  {
       object ReportWallpaperScreen :  Screen(route = "report_wallpaper/{id}")
       object ReportUserScreen :  Screen(route = "report_user/{id}")
       object SlideWallpapersScreen :  Screen(route = "slide_wallpapers/{id}")
+      object SearchScreen :  Screen(route = "search_wallpapers")
+      object SettingScreen :  Screen(route = "setting")
+      object PrivacyPoliceScreen :  Screen(route = "privacy_police")
+      object TermServiceScreen :  Screen(route = "term_service")
 }

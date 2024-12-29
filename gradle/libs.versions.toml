@@ -21,6 +21,7 @@ navigationCompose = "2.8.5"
 pagingCompose = "3.3.5"
 playServicesAds = "23.6.0"
 retrofit = "2.11.0"
+toolsCore = "1.0.0-alpha10"
 
 
 [libraries]
@@ -51,6 +52,7 @@ hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", ve
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+androidx-tools-core = { group = "androidx.privacysandbox.tools", name = "tools-core", version.ref = "toolsCore" }
 
 [plugins]
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

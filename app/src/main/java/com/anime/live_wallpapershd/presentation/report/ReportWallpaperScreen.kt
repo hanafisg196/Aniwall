@@ -58,7 +58,7 @@ fun ReportWallpaperScreen(
     Column(modifier = Modifier.fillMaxWidth())
     {
         Spacer(modifier = Modifier.height(35.dp))
-        TopBar(title = "Report Wallpaper")
+        TopBar(navController = navController, title = "Report Wallpaper")
         Spacer(modifier = Modifier.height(35.dp))
         wallpaperState?.let { wallpaper ->
             Text(text = "Title : ${wallpaper.title}",
@@ -120,6 +120,7 @@ fun ReportWallpaperScreen(
 
 @Composable
 fun TopBar(
+    navController: NavController,
     title: String
 ){
     Row (
@@ -131,7 +132,7 @@ fun TopBar(
     ){
         IconButton(
             onClick = {
-                //Todo
+                navController.navigateUp()
             },
             modifier = Modifier.padding(start = 8.dp)
         ) {

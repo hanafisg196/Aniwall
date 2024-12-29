@@ -14,6 +14,9 @@ import com.anime.live_wallpapershd.presentation.detail.WallpaperScreen
 import com.anime.live_wallpapershd.presentation.detail.WallpaperUserDetailScreen
 import com.anime.live_wallpapershd.presentation.detail.WallpapersUserDetailViewModel
 import com.anime.live_wallpapershd.presentation.home.HomeScreen
+import com.anime.live_wallpapershd.presentation.home.PrivacyPoliceScreen
+import com.anime.live_wallpapershd.presentation.home.SettingScreen
+import com.anime.live_wallpapershd.presentation.home.TermServiceScreen
 import com.anime.live_wallpapershd.presentation.home.components.RandomScreen
 import com.anime.live_wallpapershd.presentation.login.LoginScreen
 import com.anime.live_wallpapershd.presentation.profile.ProfileScreen
@@ -24,6 +27,7 @@ import com.anime.live_wallpapershd.presentation.report.ReportWallpaperScreen
 import com.anime.live_wallpapershd.presentation.slide.SlideWallpapersScreen
 import com.anime.live_wallpapershd.presentation.slide.SlideWallpapersViewModel
 import com.anime.live_wallpapershd.presentation.wallpapers.FavoriteScreen
+import com.anime.live_wallpapershd.presentation.wallpapers.SearchScreen
 import com.anime.live_wallpapershd.presentation.wallpapers.WallpapersScreen
 import com.anime.live_wallpapershd.ui.PermissionScreen
 
@@ -142,6 +146,32 @@ fun SetNav(navController: NavHostController) {
             val viewModel : SlideWallpapersViewModel = hiltViewModel()
             viewModel.slideId = slideId
             SlideWallpapersScreen(navController = navController)
+        }
+
+        composable(
+            route = Screen.SearchScreen.route
+        ) {
+           SearchScreen(
+               navController = navController
+           )
+        }
+
+        composable(
+            route = Screen.SettingScreen.route
+        ) {
+            SettingScreen(navController = navController)
+        }
+
+        composable(
+            route = Screen.PrivacyPoliceScreen.route
+        ) {
+            PrivacyPoliceScreen(navController = navController)
+        }
+
+        composable(
+            route = Screen.TermServiceScreen.route
+        ) {
+            TermServiceScreen(navController = navController)
         }
     }
 }

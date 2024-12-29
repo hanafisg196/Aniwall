@@ -145,15 +145,16 @@ fun TextSection()
 
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "Explore cool anime wallpapers and videos for your phone Home screen and Lock screen.",
             color = Color.Gray,
             fontFamily = Fonts.fontFamily,
             fontWeight = FontWeight.Thin,
             fontSize = 16.sp,
-            textAlign = TextAlign.Justify,
-            modifier = Modifier.padding(horizontal= 20.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+//            modifier = Modifier.padding(horizontal= 20.dp)
 
         )
 

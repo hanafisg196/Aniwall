@@ -11,8 +11,8 @@ interface WallpapersRepo {
     :WallpapersResponse
     suspend fun getWallpapersUserDetail(userId: Int,page: Int, perPage: Int)
     :WallpapersResponse
-    suspend fun  getWallpaperOwner(userId: Int)
+    suspend fun getWallpaperOwner(userId: Int)
     : WallpapersOwnerResponse
-
-
+    suspend fun searchWallpapers(search: String,page: Int, perPage: Int)
+    :WallpapersResponse
 }

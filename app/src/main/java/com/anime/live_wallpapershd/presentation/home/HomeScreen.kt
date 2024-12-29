@@ -40,10 +40,12 @@ import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.model.BottomMenus
 import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.dialogs.DialogLogin
+import com.anime.live_wallpapershd.presentation.dialogs.DialogMenu
 import com.anime.live_wallpapershd.presentation.home.components.ButtonMenu
 import com.anime.live_wallpapershd.presentation.home.components.RandomScreen
 import com.anime.live_wallpapershd.presentation.slide.SlideScreen
 import com.anime.live_wallpapershd.ui.fonts.Fonts
+import com.anime.live_wallpapershd.ui.theme.MyBlue
 import com.pixplicity.easyprefs.library.Prefs
 
 
@@ -53,9 +55,8 @@ fun HomeScreen(
     navController:NavHostController
 ) {
     val token = Prefs.getString("token_auth")
-    var showDialog by remember {
-        mutableStateOf(false)
-    }
+    var showDialog by remember { mutableStateOf(false)}
+
     if (showDialog) {
         DialogLogin(
             onClick = {
@@ -64,6 +65,8 @@ fun HomeScreen(
             onDismiss = { showDialog = false }
         )
     }
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -72,16 +75,17 @@ fun HomeScreen(
     {
 
         Spacer(modifier = Modifier.height(35.dp))
-        TopBar(navController,name = "Aniwall", token )
+        TopBar(navController,name = "Aniwall", token)
         Spacer(modifier = Modifier.height(6.dp))
         SlideScreen(navController = navController)
         RandomScreen(navController = navController)
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         val items = listOf(
             BottomMenus(R.drawable.category),
             BottomMenus(R.drawable.compass),
-            BottomMenus(R.drawable.search),
-            BottomMenus(R.drawable.heart)
+            BottomMenus(R.drawable.heart),
+            BottomMenus(R.drawable.gear),
+
         )
         ButtonMenu(items = items) { clickedItem ->
 
@@ -92,9 +96,6 @@ fun HomeScreen(
                     R.drawable.compass -> {
                         navController.navigate(Screen.WallpapersScreen.route)
                     }
-                    R.drawable.search -> {
-
-                    }
                     R.drawable.heart -> {
 
                         if (token.isNullOrEmpty())
@@ -104,6 +105,9 @@ fun HomeScreen(
                             navController.navigate(Screen.FavoriteScreen.route)
                         }
 
+                    }
+                    R.drawable.gear -> {
+                        navController.navigate(Screen.SettingScreen.route)
                     }
                 }
            }
@@ -120,15 +124,19 @@ fun TopBar(
 )
 {
     val profilePicture = Prefs.getString("profile_image")
-    var showDialog by remember {
-        mutableStateOf(false)
-    }
+    var showDialogMenu by remember { mutableStateOf(false)}
+    var showDialog by remember {mutableStateOf(false)}
     if (showDialog){
         DialogLogin(
             onClick = {
                 navController.navigate(Screen.LoginScreen.route)
             },
             onDismiss = {showDialog = false}
+        )
+    }
+    if (showDialogMenu){
+        DialogMenu(
+            onDismiss = { showDialogMenu = false }
         )
     }
     Row(
@@ -171,15 +179,15 @@ fun TopBar(
         Spacer(modifier = Modifier
             .width(15.dp))
 
-//        Icon(
-//            painter = painterResource(id = R.drawable.search),
-//            contentDescription = "Back",
-//            tint = Color.Black,
-//            modifier = Modifier.size(22.dp)
-//                .clickable {
-//                    //Todo
-//                }
-//        )
+        Icon(
+            painter = painterResource(id = R.drawable.find),
+            contentDescription = "Search",
+            tint = MyBlue,
+            modifier = Modifier.size(36.dp)
+                .clickable {
+                    navController.navigate(Screen.SearchScreen.route)
+                }
+        )
     }
 }
 

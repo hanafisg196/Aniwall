@@ -18,7 +18,7 @@ class CategoriesDataResource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Category> {
         return try {
-            val page = params.key ?:1
+            val page = params.key ?: 1
             val response = repository.getCategories(page, Constants.ITEM_PAGE)
             LoadResult.Page(
                 data = response.data,
@@ -26,7 +26,7 @@ class CategoriesDataResource(
                 nextKey = if (response.data.isNotEmpty()) page + 1 else null
             )
 
-        }catch (e: Exception){
+        } catch (e: Exception) {
             LoadResult.Error(e)
         }
     }

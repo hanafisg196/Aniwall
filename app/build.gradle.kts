@@ -85,6 +85,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation(libs.firebase.messaging.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.tools.core)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

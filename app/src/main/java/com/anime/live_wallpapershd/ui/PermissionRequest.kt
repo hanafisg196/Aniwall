@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import com.google.accompanist.permissions.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.anime.live_wallpapershd.navgraph.Screen
 
@@ -17,7 +18,8 @@ fun RequestPermissions(
     permissions: List<String>,
     deniedMessage: String = "Give this app a permission to proceed. If it doesn't work, then you'll have to do it manually from the settings.",
     rationaleMessage: String = "To use this app's functionalities, you need to give us the permission.",
-    navController: NavHostController
+    navController: NavHostController,
+    modifier: Modifier
 
 ) {
     val multiplePermissionsState = rememberMultiplePermissionsState(permissions)
@@ -32,7 +34,8 @@ fun RequestPermissions(
                 onRequestPermission = { multiplePermissionsState.launchMultiplePermissionRequest() }
             )
         },
-        navController = navController
+        navController = navController,
+
 
     )
 }

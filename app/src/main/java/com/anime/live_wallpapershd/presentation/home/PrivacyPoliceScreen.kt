@@ -1,6 +1,5 @@
-package com.anime.live_wallpapershd.presentation.categories
+package com.anime.live_wallpapershd.presentation.home
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,59 +18,44 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anime.live_wallpapershd.R
-import com.anime.live_wallpapershd.presentation.ads.BannerAd
-import com.anime.live_wallpapershd.presentation.categories.components.CategoriesList
+import com.anime.live_wallpapershd.presentation.home.components.WebViewScreen
 import com.anime.live_wallpapershd.ui.fonts.Fonts
 
 
 @Composable
-fun CategoriesScreen(
-    viewmodel: CategoriesVieModel = hiltViewModel(),
+fun PrivacyPoliceScreen(
     navController: NavController
-
+){
+    Column(
+        modifier = Modifier.fillMaxSize()
     ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column (
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Spacer(modifier = Modifier.height(35.dp))
-            CategoriesTopBar(
-                name = "Categories",
-                navController = navController
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            CategoriesList(viewmodel = viewmodel,navController = navController)
-            Spacer(modifier = Modifier.weight(1f))
-        }
+        Spacer(modifier = Modifier.height(35.dp))
+        TopBar(
+            navController = navController,
+            title = "Privacy Police"
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        WebViewScreen("https://www.freepik.com/free-photos-vectors/notification")
 
-        BannerAd(modifier = Modifier.align(Alignment.BottomCenter)
-            .padding(bottom = 10.dp))
     }
-
-
 }
 
-
 @Composable
-fun  CategoriesTopBar(
-    name: String,
-    modifier: Modifier = Modifier,
-    navController: NavController
+fun TopBar(
+    navController: NavController,
+    title:String
 )
 {
     Row (
         verticalAlignment = Alignment.CenterVertically,
-
-        modifier = modifier
-                .fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
 
     ) { IconButton(
         onClick = {
-            navController.navigateUp()
+            //Todo
         },
         modifier = Modifier.padding(start = 8.dp)
     ) {
@@ -80,16 +64,14 @@ fun  CategoriesTopBar(
             contentDescription = "Back"
         )
     }
-
         Text(
-            text = name,
+            text = title,
             overflow = TextOverflow.Ellipsis,
             fontFamily = Fonts.fontFamily,
             fontWeight = FontWeight.Light,
             fontSize = 25.sp,
             modifier = Modifier.padding(start = 30.dp)
-            )
-
+        )
     }
 
 }
