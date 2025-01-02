@@ -14,5 +14,5 @@ object Constants {
     const val OWNER_ID = 0
     const val SLIDE_ID = 0
     const val QUERY = ""
-
+    const val SHARE = "https://play.google.com/store/apps/details?id=com.anime.live_wallpapershd"
 }

@@ -32,7 +32,7 @@ class VideoWallpaperService : WallpaperService() {
                 setDataSource(videoFilePath)
                 isLooping = true
                 setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
-                prepareAsync() // Use prepareAsync to prevent blocking
+                prepareAsync()
                 setOnPreparedListener { start() }
                 setVolume(0f, 0f)
             }

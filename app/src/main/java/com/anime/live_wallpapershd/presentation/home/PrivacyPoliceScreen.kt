@@ -11,6 +11,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -18,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.presentation.home.components.WebViewScreen
@@ -26,18 +29,23 @@ import com.anime.live_wallpapershd.ui.fonts.Fonts
 
 @Composable
 fun PrivacyPoliceScreen(
-    navController: NavController
+    navController: NavController,
+    settingViewModel: SettingViewModel = hiltViewModel()
 ){
+    val settingState by settingViewModel.settingState.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         Spacer(modifier = Modifier.height(35.dp))
+        settingState?.let {
         TopBar(
             navController = navController,
             title = "Privacy Police"
         )
         Spacer(modifier = Modifier.height(12.dp))
-        WebViewScreen("https://www.freepik.com/free-photos-vectors/notification")
+
+            WebViewScreen(it.privacy_police)
+        }
 
     }
 }
@@ -55,7 +63,7 @@ fun TopBar(
 
     ) { IconButton(
         onClick = {
-            //Todo
+            navController.navigateUp()
         },
         modifier = Modifier.padding(start = 8.dp)
     ) {

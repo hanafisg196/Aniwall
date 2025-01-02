@@ -12,10 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -48,7 +45,7 @@ fun SettingScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Spacer(modifier = Modifier.height(35.dp))
-        SettingTopBar()
+        SettingTopBar(navController = navController)
         Spacer(modifier = Modifier.height(30.dp))
         settingState?.let { item ->
 //            Row (
@@ -138,13 +135,13 @@ fun SettingScreen(
                         fontWeight = FontWeight.SemiBold,
                     )
                 }
-                Text(
-                    text = item.privacy_police ,
-                    color = Color.Gray,
-                    fontFamily = Fonts.fontFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Thin,
-                )
+//                Text(
+//                    text = item.privacy_police ,
+//                    color = Color.Gray,
+//                    fontFamily = Fonts.fontFamily,
+//                    fontSize = 12.sp,
+//                    fontWeight = FontWeight.Thin,
+//                )
             }
             Spacer(modifier = Modifier.height(30.dp))
             Row (
@@ -162,7 +159,7 @@ fun SettingScreen(
 
                     ) {
                     Icon(
-                        imageVector = Icons.Default.Settings,
+                        painter = painterResource(R.drawable.term),
                         contentDescription = "Icon",
                         modifier = Modifier.size(24.dp)
                     )
@@ -175,13 +172,13 @@ fun SettingScreen(
                         fontWeight = FontWeight.SemiBold,
                     )
                 }
-                Text(
-                    text = item.term_service ,
-                    color = Color.Gray,
-                    fontFamily = Fonts.fontFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Thin,
-                )
+//                Text(
+//                    text = item.term_service ,
+//                    color = Color.Gray,
+//                    fontFamily = Fonts.fontFamily,
+//                    fontSize = 12.sp,
+//                    fontWeight = FontWeight.Thin,
+//                )
             }
             Spacer(modifier = Modifier.height(30.dp))
             Row (
@@ -330,6 +327,7 @@ fun SettingScreen(
 
 @Composable
 fun SettingTopBar(
+    navController: NavController
 )
 {
     Row (
@@ -339,7 +337,7 @@ fun SettingTopBar(
 
     ) { IconButton(
         onClick = {
-           //Todo
+            navController.navigateUp()
         },
         modifier = Modifier.padding(start = 8.dp)
     ) {

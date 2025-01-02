@@ -39,15 +39,16 @@ import com.anime.live_wallpapershd.R
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
+import com.pixplicity.easyprefs.library.Prefs
 
 
 @Composable
 fun MediumNativeAd(
     context: Context,
-    nativeId: String,
+
 ){
     var nativeAd by remember { mutableStateOf<NativeAd?>(null) }
-
+   val nativeId = Prefs.getString("admob_native")
     DisposableEffect(Unit) {
         val adLoader = AdLoader.Builder(context,nativeId)
             .forNativeAd { ad : NativeAd ->

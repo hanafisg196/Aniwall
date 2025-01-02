@@ -50,10 +50,10 @@ fun RandomScreen(
                 }
                 HorizontalPager(
                     state = pagerState,
-                    contentPadding = PaddingValues(horizontal = 20.dp),
+                    contentPadding = PaddingValues(horizontal = 30.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(465.dp)
+                        .height(470.dp)
 
                 ) { index ->
                     val wallpaper = wallpapers[index]

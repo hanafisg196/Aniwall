@@ -95,7 +95,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation ("androidx.compose.ui:ui-util-android:1.7.5")
-
+    implementation("com.github.amitshekhariitbhu:PRDownloader:1.0.1")
 
     //Navigation Compose
     implementation (libs.androidx.navigation.compose)

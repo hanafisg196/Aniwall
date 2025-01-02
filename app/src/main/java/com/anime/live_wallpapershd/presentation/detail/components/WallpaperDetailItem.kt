@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -79,24 +80,27 @@ fun WallpaperDetailItem(
         modifier = Modifier
     ) {
         val dataUrl = ITEM_URL+ wallpaper.type
-        val painter = rememberAsyncImagePainter(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(dataUrl)
-                .crossfade(true)
-                .size(Size.ORIGINAL)
-                .scale(Scale.FILL)
-                .build(),
-            )
-
-        if (painter.state is AsyncImagePainter.State.Loading) {
-            CircularProgressIndicator(
-                modifier = Modifier
+        val painter = rememberAsyncImagePainter(dataUrl)
+        when (painter.state) {
+            is AsyncImagePainter.State.Empty,
+            is AsyncImagePainter.State.Loading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier
                     .size(35.dp)
                     .align(Alignment.Center),
                 strokeWidth = 5.dp
-            )
+                )
+            }
+            is AsyncImagePainter.State.Success -> {
+                Image(
+                    painter = painter,
+                    contentDescription = "image"
+                )
+            }
+            is AsyncImagePainter.State.Error -> {
+                // Show some error UI.
+            }
         }
-
 
         Image(
             painter = painter,

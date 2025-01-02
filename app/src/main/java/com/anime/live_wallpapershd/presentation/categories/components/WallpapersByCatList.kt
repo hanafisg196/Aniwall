@@ -19,6 +19,7 @@ import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.ads.AdaptiveBannerAd
 import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
 import com.anime.live_wallpapershd.presentation.categories.WallpapersByCatViewModel
+import com.anime.live_wallpapershd.presentation.loader.CircleLoading
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.WallpaperListItem
 
@@ -92,6 +93,9 @@ fun WallpapersByCatList(
                 }
         }
 
+    }
+    if (wallpapersByCat.loadState.refresh is LoadState.Loading){
+        CircleLoading()
     }
 }
 

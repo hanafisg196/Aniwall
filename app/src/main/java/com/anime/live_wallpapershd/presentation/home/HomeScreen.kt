@@ -79,7 +79,6 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(6.dp))
         SlideScreen(navController = navController)
         RandomScreen(navController = navController)
-        Spacer(modifier = Modifier.height(8.dp))
         val items = listOf(
             BottomMenus(R.drawable.category),
             BottomMenus(R.drawable.compass),
@@ -166,7 +165,7 @@ fun TopBar(
                 painterResource(id = R.drawable.profile)
             },
             modifier = Modifier
-                .size(45.dp)
+                .size(40.dp)
                 .clickable {
                     if (token.isNotEmpty()) {
                         navController.navigate(Screen.ProfileScreen.route)
@@ -183,7 +182,7 @@ fun TopBar(
             painter = painterResource(id = R.drawable.find),
             contentDescription = "Search",
             tint = MyBlue,
-            modifier = Modifier.size(36.dp)
+            modifier = Modifier.size(31.dp)
                 .clickable {
                     navController.navigate(Screen.SearchScreen.route)
                 }

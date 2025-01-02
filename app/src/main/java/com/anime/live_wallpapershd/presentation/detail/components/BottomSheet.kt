@@ -1,5 +1,7 @@
 package com.anime.live_wallpapershd.presentation.detail.components
 
+import android.content.Intent
+import android.os.Environment
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -38,9 +40,10 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.anime.live_wallpapershd.R
 import com.anime.live_wallpapershd.common.Constants.ITEM_URL
+import com.anime.live_wallpapershd.common.Constants.SHARE
 import com.anime.live_wallpapershd.helper.VideoWallpaperService
-import com.anime.live_wallpapershd.helper.downloadDataLiveWallpaper
-import com.anime.live_wallpapershd.helper.downloadWallpaper
+import com.anime.live_wallpapershd.helper.download
+import com.anime.live_wallpapershd.helper.downloadVideoSet
 import com.anime.live_wallpapershd.model.Wallpaper
 import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
@@ -57,6 +60,7 @@ fun BottomSheet(
     navController: NavController
 )
 {
+    var isLoading by remember { mutableStateOf(false) }
     val interstitialAd: InterstitialAd = viewModel()
     val context = LocalContext.current
     val dataUrl = ITEM_URL + wallpaper.type
@@ -132,13 +136,13 @@ fun BottomSheet(
                                 .clickable {
                                     interstitialAd.showAd(context)
                                     if (dataUrl.contains(".mp4")) {
+                                        val filePath = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.absolutePath.toString()
                                         val fileName = "set_live_wallpaper.mp4"
-                                        downloadDataLiveWallpaper(context, dataUrl, fileName)
-                                        { filePath ->
-                                            Prefs.putString("video_file", filePath)
-                                            VideoWallpaperService.start(context, filePath)
+                                        downloadVideoSet(context, dataUrl, filePath, fileName) {downloadFilePath ->
+                                            isLoading = true
+                                            Prefs.putString("video_file", downloadFilePath)
+                                            VideoWallpaperService.start(context, downloadFilePath)
                                         }
-
 
                                     } else {
                                         interstitialAd.showAd(context)
@@ -183,9 +187,10 @@ fun BottomSheet(
                                 .clip(RoundedCornerShape(30.dp))
                                 .background(colorResource(id = R.color.pinkCustom))
                                 .clickable {
+                                    val fileName = wallpaper.type
                                     interstitialAd.showAd(context)
-                                    val filName = wallpaper.type
-                                    downloadWallpaper(context, dataUrl, filName)
+                                    download(context,dataUrl, fileName)
+
                                 },
                             contentAlignment = Alignment.Center
                         ) {
@@ -213,16 +218,23 @@ fun BottomSheet(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Box(
+
                             modifier = Modifier
                                 .size(50.dp)
                                 .clip(RoundedCornerShape(30.dp))
                                 .background(colorResource(id = R.color.blueBird))
                                 .clickable {
-                                    val filName = wallpaper.type
-                                    downloadWallpaper(context, dataUrl, filName)
+                                    val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                                        putExtra(Intent.EXTRA_TEXT, SHARE)
+                                        type = "text/plain"
+                                    }
+                                    val shareIntent = Intent.createChooser(sendIntent, null)
+                                    context.startActivity(shareIntent)
+
                                 },
                             contentAlignment = Alignment.Center
                         ) {
+
                             Icon(
                                 painter = painterResource(R.drawable.share),
                                 contentDescription = null,

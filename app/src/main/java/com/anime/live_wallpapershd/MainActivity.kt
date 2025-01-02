@@ -90,6 +90,9 @@ class MainActivity : ComponentActivity() {
                         if (Prefs.getString("admob_interstitial", "") != ads.admobInterstitial) {
                             Prefs.putString("admob_interstitial", ads.admobInterstitial)
                         }
+                        if (Prefs.getString("admob_native", "") != ads.admobNative) {
+                            Prefs.getString("admob_native", ads.admobNative)
+                        }
                         if (Prefs.getInt("interstitial_click", 0) != ads.interstitialClick) {
                             Prefs.putInt("interstitial_click", ads.interstitialClick)
                         }

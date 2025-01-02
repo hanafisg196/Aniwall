@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -15,7 +14,7 @@ import com.pixplicity.easyprefs.library.Prefs
 
 class InterstitialAd: ViewModel() {
     private var mInterstitialAd: InterstitialAd? = null
-    private var clickCount = mutableIntStateOf(0)
+    private var clickCount = Prefs.getInt("interstitial_counter", 0)
     private var interstitialId = Prefs.getString("admob_interstitial")
     private var interstitialClick = Prefs.getInt("interstitial_click")
     fun loadAd(context: Context) {
@@ -53,15 +52,18 @@ class InterstitialAd: ViewModel() {
 
     }
     fun onClickShowAd(context: Context) {
-        clickCount.intValue++
-        if (clickCount.intValue >= interstitialClick) {
+
+        clickCount++
+        if (clickCount >= interstitialClick) {
             mInterstitialAd?.let {
                 (context as? Activity)?.let { activity ->
                     it.show(activity)
-                    clickCount.intValue = 0
+                    clickCount =0
+                    Prefs.remove("interstitial_counter")
                 }
             }
         }
-        Log.d("TAG", "TotalClick : ${clickCount.intValue}")
+        Prefs.putInt("interstitial_counter", clickCount)
+        Log.d("TAG", "TotalClick : $clickCount")
     }
 }

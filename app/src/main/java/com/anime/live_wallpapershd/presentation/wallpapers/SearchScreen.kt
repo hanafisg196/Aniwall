@@ -71,6 +71,7 @@ fun SearchScreen(
                 onQueryChange = { newQuery ->
                     viewModel.updateSearchQuery(newQuery)
                 })
+            Spacer(modifier = Modifier.height(10.dp))
             if (searchResult.itemCount == 0)
             {
                 EmptyState()

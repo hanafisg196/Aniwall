@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -51,13 +52,14 @@ fun WallpaperListItem(
         ) {
             val context = LocalContext.current
             val imageUrl = wallpapers.thumbnail
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(modifier = Modifier.size(280.dp)) {
                 AsyncImage(
                     model = ImageRequest.Builder(context)
                         .data(Constants.ITEM_URL + imageUrl)
                         .crossfade(true)
                         .scale(Scale.FILL)
                         .build(),
+
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.FillBounds,
@@ -76,8 +78,6 @@ fun WallpaperListItem(
                         VideoStatus(videoUrl = wallpapers.type)
                         ReviewStatus(review = wallpapers.review)
                     }
-
-
 
                 }
             }
