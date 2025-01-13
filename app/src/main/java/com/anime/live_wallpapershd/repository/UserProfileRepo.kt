@@ -7,9 +7,9 @@ import javax.inject.Inject
 class UserProfileRepo @Inject constructor(
     private val api:ApiService
 ) {
-    suspend fun getUserProfile(token:String):User
+    suspend fun getUserProfile(userId: Int, token:String):User
     {
-       val userResponse = api.getUserProfile(token)
-        return userResponse.user
+       val userResponse = api.getUserProfile(userId,token)
+        return userResponse.data
     }
 }

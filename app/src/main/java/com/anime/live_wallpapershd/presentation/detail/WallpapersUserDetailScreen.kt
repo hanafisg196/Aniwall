@@ -58,7 +58,7 @@ fun WallpaperUserDetailScreen(
         TopBar(navController)
         Spacer(modifier = Modifier.height(10.dp))
         ownerState?.let { owner ->
-            ProfileSection(navController = navController,user = owner, total = wallpapersByUser.itemCount.toString())
+            ProfileSection(navController = navController,user = owner)
         }
         Spacer(modifier = Modifier.height(10.dp))
         LazyVerticalGrid(

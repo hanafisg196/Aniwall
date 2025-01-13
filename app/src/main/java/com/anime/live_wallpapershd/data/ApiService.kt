@@ -158,8 +158,9 @@ interface ApiService {
         "ApiKey:${API_KEY}",
         "AppId:${APP_ID}"
     )
-    @GET("wallpaper/user/profile")
+    @GET("wallpaper/user/profile/{userId}")
     suspend fun getUserProfile(
+        @Path("userId") userId: Int,
         @Header("Authorization") authHeader: String
     ):UserProfileResponse
 

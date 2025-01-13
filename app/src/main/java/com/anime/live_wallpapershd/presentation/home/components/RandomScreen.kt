@@ -14,6 +14,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,26 +25,29 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.paging.LoadState
 import com.anime.live_wallpapershd.navgraph.Screen
 import com.anime.live_wallpapershd.presentation.ads.InterstitialAd
 import com.anime.live_wallpapershd.presentation.home.RandomViewModel
+import com.anime.live_wallpapershd.presentation.loader.CircleLoading
+import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
 
 
 @Composable
 fun RandomScreen(
     navController: NavController,
-    randomViewModel : RandomViewModel = hiltViewModel())
-
-{
+    randomViewModel : RandomViewModel = hiltViewModel()) {
     val state by randomViewModel.state.collectAsState()
     val interstitialAd: InterstitialAd = viewModel()
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         interstitialAd.loadAd(context)
     }
-    LazyColumn {
-        item {
-
+    if (state.isEmpty()){
+        CircleLoading()
+    }else {
+        LazyColumn {
+            item {
                 val wallpapers = state
                 val pagerState = rememberPagerState(initialPage = 0) {
                     wallpapers.size
@@ -64,7 +68,7 @@ fun RandomScreen(
                             .padding(horizontal = 8.dp)
                     ) {
 
-                        RandomItem(random = wallpaper){
+                        RandomItem(random = wallpaper) {
                             navController.navigate(Screen.WallpaperScreen.route + "/${wallpaper.id}")
                             interstitialAd.onClickShowAd(context)
                         }
@@ -88,6 +92,9 @@ fun RandomScreen(
             }
         }
     }
+
+
+}
 
 
 

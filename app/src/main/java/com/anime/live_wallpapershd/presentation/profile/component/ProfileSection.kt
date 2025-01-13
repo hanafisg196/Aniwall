@@ -29,7 +29,6 @@ fun ProfileSection(
     navController: NavController,
     modifier: Modifier = Modifier,
     user : User,
-    total : String,
 )
 {
     Column(
@@ -52,7 +51,7 @@ fun ProfileSection(
                 horizontalArrangement = Arrangement.SpaceAround,
                 modifier = Modifier
             ){
-                ProfileStat(name ="Posts", total = total)
+                ProfileStat(name ="Posts", total = user.post.toString())
             }
         }
         Spacer(modifier = Modifier.size(10.dp))

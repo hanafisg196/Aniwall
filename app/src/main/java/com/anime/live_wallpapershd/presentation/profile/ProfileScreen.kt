@@ -44,6 +44,7 @@ import com.anime.live_wallpapershd.presentation.home.RoundImage
 import com.anime.live_wallpapershd.presentation.loader.CircleLoading
 import com.anime.live_wallpapershd.presentation.login.SignInViewModel
 import com.anime.live_wallpapershd.presentation.profile.component.ProfileDisplay
+import com.anime.live_wallpapershd.presentation.profile.component.ProfileSection
 import com.anime.live_wallpapershd.presentation.profile.component.ProfileStat
 import com.anime.live_wallpapershd.presentation.wallpapers.components.LoadingItem
 import com.anime.live_wallpapershd.presentation.wallpapers.components.WallpaperListItem
@@ -72,7 +73,8 @@ fun ProfileScreen(
         TopBarProfile(navController)
         Spacer(modifier = Modifier.height(10.dp))
         userState?.let {user ->
-            ProfileSection(user = user)
+            ProfileSection(navController,user = user)
+
         }
         LazyVerticalGrid(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -215,42 +217,6 @@ fun TopBarProfile(
     }
 }
 
-@Composable
-fun ProfileSection(
-    modifier: Modifier = Modifier,
-    user : User
-)
-{
-    Column(
-        modifier = modifier
-           .fillMaxWidth()
-    ) {
-        Row (
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-        ){
-            RoundImage(
-                image = rememberAsyncImagePainter(user.avatar),
-                modifier = Modifier.size(100.dp)
-            )
-            Spacer(modifier = Modifier.size(30.dp))
-            Row (
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier
-            ){
-                ProfileStat(name ="Posts", total = user.posts.toString())
-            }
-        }
-        Spacer(modifier = Modifier.size(10.dp))
-        ProfileDisplay(name = user.name)
-
-
-    }
-
-}
 
 
 

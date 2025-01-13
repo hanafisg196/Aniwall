@@ -6,6 +6,6 @@ data class User(
     val name: String,
     val avatar: String,
     val token: String,
-    val posts:Int
+    val post:Int
 )
 
